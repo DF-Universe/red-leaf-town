@@ -15,6 +15,8 @@ def record_production_collection(
 ) -> None:
     stats = player.achievement_stats
     stats.production_collections[industry] = stats.production_collections.get(industry, 0) + 1
+    if industry == "mining" and content_id not in stats.mined_task_ids:
+        stats.mined_task_ids.append(content_id)
     if industry == "gathering":
         stats.gathering_items[content_id] = sorted(
             set(stats.gathering_items.get(content_id, [])) | {r.item_id for r in results if r.quantity > 0}
@@ -115,6 +117,18 @@ def achievement_progress(
     params = definition.condition.params
     stats = player.achievement_stats
 
+    if hook == "facility_stage":
+        stages = {"farm": player.farm_upgrade_stage, "feed": player.feed_upgrade_stage,
+                  "refining": int(player.refining.built)}
+        return stages[str(params["kind"])], int(params["stage"])
+    if hook == "pond_built":
+        return int(any(p.pond_id == params["pond_id"] for p in player.ponds)), 1
+    if hook == "mining_tasks":
+        required = set(params["task_ids"])
+        return len(required & set(stats.mined_task_ids)), len(required)
+    if hook == "refining_batches":
+        minimum = int(params.get("min_quality", 1))
+        return sum(count for quality, count in stats.refining_batches.items() if quality >= minimum), int(params["count"])
     if hook == "gathering_tasks":
         required = set(params["task_ids"])
         return len(required & set(stats.gathering_items)), len(required)

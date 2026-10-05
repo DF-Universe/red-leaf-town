@@ -69,6 +69,7 @@ export interface TaskQualitySnapshot extends QualityCurveDefinition {
 }
 
 export interface PlotState {
+  size: number
   slot: number
   crop_id: string
   planted_at: number
@@ -717,7 +718,7 @@ export interface PondState {
   quality_ability: number
   assigned_partner_ids: string[]
   assigned_partners: OwnedPartner[]
-  definition: { id: string; name: string; description: string; accent: string; min_level: number } | null
+  definition: { id: string; name: string; description: string; accent: string; min_level: number; species_id: string } | null
   species: PondSpeciesState | null
   produce_item: AquaticItemRef | null
 }
@@ -756,6 +757,7 @@ export interface FishCodexState {
 }
 
 export interface BuildablePond {
+  build_materials: FacilityMaterial[]
   id: string
   name: string
   description: string
@@ -1324,6 +1326,7 @@ export interface ExplorationState {
 }
 
 export interface GameState {
+  facilities: FacilitiesState
   sailing: SailingState | null
   server_time: number
   world: {
@@ -1543,6 +1546,7 @@ export interface OwnedPartner {
   star_up_cost?: number | null
   assigned_plot_slot: number | null
   assigned_gathering_site_id: string | null
+  assigned_refining?: boolean
   assigned_crafting_station_id: string | null
   assigned_mining_site_id: string | null
   locked: boolean
@@ -1871,3 +1875,9 @@ export interface SummerEventState {
   milestones: Array<{ points: number; reward: Reward; claimed: boolean; claimable: boolean }>
   chapters: SummerChapter[]
 }
+
+export interface FacilityMaterial { item_id: string; quantity: number; owned: number; item: AquaticItemRef }
+export interface FacilityUpgrade { id: string; name: string; kind: 'farm' | 'feed' | 'refining'; stage: number; min_level: number; coins: number; inputs: FacilityMaterial[]; unlocked: boolean; affordable: boolean }
+export interface RefiningRecipe { id: string; name: string; min_level: number; unlocked: boolean; input_quantity: number; input_item: AquaticItemRef; item: AquaticItemRef; output_prices: number[]; options: { quality: number; owned: number; input_value: number; quality_times: number[] }[] }
+export interface RefiningTask { task_id: string; input_quality: number; started_at: number; quality_times: number[]; item: AquaticItemRef; max_quality: number }
+export interface FacilitiesState { farm_stage: number; feed_stage: number; upgrades: FacilityUpgrade[]; refining: { built: boolean; unlocked: boolean; locked: boolean; assigned_partner: OwnedPartner | null; ability: number; quality_ability: number; max_quality: number; slots: (RefiningTask | null)[]; recipes: RefiningRecipe[] } }

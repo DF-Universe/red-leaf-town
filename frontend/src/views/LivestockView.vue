@@ -5,6 +5,7 @@ import { Coins, Hammer, Lock, UsersRound } from 'lucide-vue-next'
 import ActionButton from '@/components/ActionButton.vue'
 import FacilityCard from '@/components/livestock/FacilityCard.vue'
 import GameIcon from '@/components/GameIcon.vue'
+import FacilityUpgradePanel from '@/components/FacilityUpgradePanel.vue'
 import SlotPanel from '@/components/SlotPanel.vue'
 import StateBlock from '@/components/StateBlock.vue'
 import ViewHeader from '@/components/ViewHeader.vue'
@@ -97,6 +98,7 @@ function shortfall(coins: number) {
         </article>
       </div>
 
+      <FacilityUpgradePanel kind="feed" />
       <SlotPanel
         :slot="feedSlot"
         description="畜牧每个周期按栏中牲畜各自的份数扣一次，攒满溢出上限的牲畜不再消耗；槽内耗尽则整栏停摆。饲料的品质分越高，畜产品的品质越好。"

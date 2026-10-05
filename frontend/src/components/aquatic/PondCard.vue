@@ -19,7 +19,7 @@ const stockCount = ref(1)
 const harvestCount = ref(1)
 
 const accent = computed(() => props.pond.definition?.accent || '#4f8f9c')
-const species = computed(() => props.aquatic.species.find((entry) => entry.unlocked) || null)
+const species = computed(() => props.aquatic.species.find((entry) => entry.unlocked && entry.id === props.pond.definition?.species_id) || null)
 const stockable = computed(() => {
   const target = props.pond.species ? props.aquatic.species.find((entry) => entry.id === props.pond.species_id) : species.value
   if (!target) return null

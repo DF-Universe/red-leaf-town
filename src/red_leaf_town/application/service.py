@@ -10,6 +10,7 @@ from math import ceil, floor
 from typing import NamedTuple
 from uuid import uuid4
 
+from .facilities import FacilitiesServiceMixin
 from .sailing import SailingServiceMixin
 from .summer import SummerServiceMixin
 from red_leaf_town.summer_content import POINT_UNITS
@@ -219,7 +220,7 @@ class GameError(Exception):
         self.status = status
 
 
-class GameService(SummerServiceMixin, SailingServiceMixin):
+class GameService(FacilitiesServiceMixin, SummerServiceMixin, SailingServiceMixin):
     def __init__(
         self,
         content: GameContent,
@@ -362,6 +363,11 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
             voyage = player.sailing.active_run
             if voyage and voyage.ready_at > now and set(party) & set(voyage.partner_ids):
                 raise GameError("partner_locked", "伙伴正在出海，暂时不能参与探索", 409)
+            if set(party) & set(player.refining.assigned_partner_ids):
+                if player.refining.occupied:
+                    raise GameError("partner_locked", "精制房清空后伙伴才能参与探索", 409)
+                self._settle_refining(player, now)
+                player.refining.assigned_partner_ids = []
             ability = self._exploration_party_ability(player, party, leader_partner_id)
             if expedition.kind == "delve":
                 party_loadout = self._build_delve_loadout(player, party, loadout)
@@ -862,17 +868,24 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
             plot = self._plot(player, slot)
             if not plot.empty:
                 raise GameError("plot_occupied", "这块土地已经种有作物")
-            task_snapshot = self._build_farming_task_snapshot(player, plot, crop, now, task_item_id)
+            units = self._farm_units(player, slot)
+            if any(not unit.empty for unit in units):
+                raise GameError("plot_occupied", "这块田已经种有作物")
+            if task_item_id and player.task_items.get(task_item_id, 0) < len(units):
+                raise GameError("task_item_insufficient", f"本田需要 {len(units)} 份生产道具")
             try:
-                remove_item(player, crop.seed_item_id, 1)
-                consume_stamina(player, crop.stamina_cost, self.content, now)
+                remove_item(player, crop.seed_item_id, len(units))
+                consume_stamina(player, crop.stamina_cost * len(units), self.content, now)
             except (EconomyError, ValueError) as exc:
                 raise GameError("resource_insufficient", str(exc)) from exc
-            plot.crop_id = crop.id
-            plot.planted_at = now
-            plot.ready_at = task_snapshot.ready_at
-            plot.task_snapshot = task_snapshot
-            plot.task_results = []
+            for unit in units:
+                source = unit.model_copy(update={"assigned_partner_ids": plot.assigned_partner_ids})
+                task_snapshot = self._build_farming_task_snapshot(player, source, crop, now, task_item_id)
+                unit.crop_id = crop.id
+                unit.planted_at = now
+                unit.ready_at = task_snapshot.ready_at
+                unit.task_snapshot = task_snapshot
+                unit.task_results = []
             return {
                 "slot": slot,
                 "crop_id": crop.id,
@@ -900,22 +913,26 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
                 raise GameError("plot_empty", "这块土地还没有作物")
             if plot.ready_at > now:
                 raise GameError("crop_not_ready", "作物还没有成熟")
-            results = plot.task_results
-            if not results:
-                raise GameError("task_content_missing", "进行中的作物配置缺失，请联系管理员", 409)
-            task = plot.task_snapshot
-            crop = self.content.crop_map.get(plot.crop_id)
-            harvest_xp = task.harvest_xp if task else crop.harvest_xp if crop else 0
+            units = self._farm_units(player, slot)
+            if any(unit.ready_at > now or not unit.task_results for unit in units):
+                raise GameError("crop_not_ready", "作物尚未全部成熟")
+            results = [result for unit in units for result in unit.task_results]
+            harvest_xp = 0
+            partner_experience = []
+            for unit in units:
+                task = unit.task_snapshot
+                crop = self.content.crop_map.get(unit.crop_id)
+                harvest_xp += task.harvest_xp if task else crop.harvest_xp if crop else 0
+                partner_experience.extend(self._grant_task_partner_experience(player, task))
+                record_production_collection(player, "farming", unit.crop_id, unit.task_results)
+                unit.crop_id = ""
+                unit.planted_at = 0
+                unit.ready_at = 0
+                unit.task_snapshot = None
+                unit.task_results = []
             for result in results:
                 add_item(player, result.item_id, result.quantity, result.quality)
             levels = grant_experience(player, harvest_xp, self.content, max_level=self._player_level_cap(player))
-            partner_experience = self._grant_task_partner_experience(player, task)
-            record_production_collection(player, "farming", plot.crop_id, results)
-            plot.crop_id = ""
-            plot.planted_at = 0
-            plot.ready_at = 0
-            plot.task_snapshot = None
-            plot.task_results = []
             return {
                 "slot": slot,
                 "item_id": results[0].item_id,
@@ -1747,6 +1764,8 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
             if player.coins < definition.build_cost:
                 raise GameError("resource_insufficient", f"挖塘需要 {definition.build_cost} 红叶币")
             player.coins -= definition.build_cost
+            for material in definition.build_materials:
+                self._consume_minimum_quality_items(player, material.item_id, material.quantity, 0)
             player.ponds.append(PondState(pond_id=pond_id, last_settled_at=now))
             normalize_ponds(player, self.content)
             return {
@@ -1774,6 +1793,9 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
             pond = self._pond(player, pond_id)
             if player.level < species.min_level:
                 raise GameError("content_locked", f"达到 {species.min_level} 级后可以养这个品种")
+            allowed = self.content.pond_map[pond_id].species_id
+            if allowed and allowed != species.id:
+                raise GameError("pond_species_mismatch", "这口塘不适合这个鱼种", 409)
             if pond.species_id and pond.species_id != species.id:
                 raise GameError("pond_species_mismatch", "塘里已经养着别的鱼，先捞光再换品种", 409)
             capacity = self._pond_capacity(pond)
@@ -2575,7 +2597,7 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
             affection_quality_base=rules.affection_quality_base,
             affection_quality_per_point=rules.affection_quality_per_point,
             quality_bonus=facility.quality_bonus,
-            feed_multiplier=facility.feed_multiplier,
+            feed_multiplier=facility.feed_multiplier * self._feed_cost_multiplier(player),
             special_chance_bonus=facility.special_chance_bonus,
             affection_quality_bonus=facility.affection_quality_bonus,
             species={
@@ -2738,7 +2760,7 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
         species_map = self.content.livestock_species_map
         # 每栏的饲料乘算不同，所以按动物所在的栏各乘各的。
         multipliers = {
-            facility.facility_id: facility.feed_multiplier
+            facility.facility_id: facility.feed_multiplier * self._feed_cost_multiplier(player)
             for facility in player.livestock_facilities
         }
         per_cycle = sum(
@@ -2759,7 +2781,8 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
             if definition is None:
                 continue
             bonus += definition.tier(facility.tier).feed_slot_capacity_bonus
-        return rules.capacity + bonus
+        upgrade = self._feed_upgrade(player)
+        return rules.capacity + bonus + (upgrade.capacity_bonus if upgrade else 0)
 
     def _livestock_snapshot(self, player: PlayerState, now: int, partner_map: dict[str, dict]) -> dict:
         rules = self.content.livestock
@@ -2971,7 +2994,7 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
             ),
             generation_decay=species.generation_decay if species else 0,
             generation_cap=generation_cap,
-            feed_per_cycle=tier.feed_per_cycle * pond.feed_multiplier,
+            feed_per_cycle=tier.feed_per_cycle * pond.feed_multiplier * self._feed_cost_multiplier(player),
         )
 
     def _settle_aquatic(self, player: PlayerState, now: int) -> None:
@@ -3416,7 +3439,8 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
                 {
                     **definition.model_dump(),
                     "unlocked": player.level >= definition.min_level,
-                    "affordable": player.coins >= definition.build_cost,
+                    "affordable": player.coins >= definition.build_cost and all(sum(player.inventory.get(i.item_id, {}).values()) >= i.quantity for i in definition.build_materials),
+                    "build_materials": [{**i.model_dump(), "item": items[i.item_id].model_dump(), "owned": sum(player.inventory.get(i.item_id, {}).values())} for i in definition.build_materials],
                     "capacity": (self.content.pond_tier_map.get(definition.tier).capacity
                                  if self.content.pond_tier_map.get(definition.tier) else 0),
                 }
@@ -3975,29 +3999,31 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
         def mutation(player: PlayerState):
             self._settle(player, now)
             production_slot = self._production_slot(player, industry, slot_id)
-            task = production_slot.task_snapshot
-            if task is None or task.ready_at <= now:
-                raise GameError("task_not_active", "这里没有可以加速的任务")
-            if task.ready_at - now > int(definition.value):
-                raise GameError("task_item_limit", "任务剩余时间过长，暂时不能使用夜灯茶")
-            if player.task_items.get(task_item_id, 0) < 1:
-                raise GameError("task_item_insufficient", "这个特殊道具数量不足")
-            player.task_items[task_item_id] -= 1
-            if player.task_items[task_item_id] <= 0:
-                player.task_items.pop(task_item_id, None)
-            completed_at = max(now, task.started_at + 1)
-            task.final_duration = completed_at - task.started_at
-            task.minimum_duration = min(task.minimum_duration, task.final_duration)
-            task.ready_at = completed_at
-            if hasattr(production_slot, "ready_at"):
-                production_slot.ready_at = completed_at
-            task.applied_effects.append({
-                "source_type": "task_item",
-                "task_item_id": definition.id,
-                "name": definition.name,
-                "effect": definition.effect,
-                "value": definition.value,
-            })
+            units = self._farm_units(player, int(slot_id)) if industry == "farming" else [production_slot]
+            if player.task_items.get(task_item_id, 0) < len(units):
+                raise GameError("task_item_insufficient", f"需要 {len(units)} 份道具")
+            for production_slot in units:
+                task = production_slot.task_snapshot
+                if task is None or task.ready_at <= now:
+                    raise GameError("task_not_active", "这里没有可以加速的任务")
+                if task.ready_at - now > int(definition.value):
+                    raise GameError("task_item_limit", "任务剩余时间过长，暂时不能使用夜灯茶")
+                player.task_items[task_item_id] -= 1
+                if player.task_items[task_item_id] <= 0:
+                    player.task_items.pop(task_item_id, None)
+                completed_at = max(now, task.started_at + 1)
+                task.final_duration = completed_at - task.started_at
+                task.minimum_duration = min(task.minimum_duration, task.final_duration)
+                task.ready_at = completed_at
+                if hasattr(production_slot, "ready_at"):
+                    production_slot.ready_at = completed_at
+                task.applied_effects.append({
+                    "source_type": "task_item",
+                    "task_item_id": definition.id,
+                    "name": definition.name,
+                    "effect": definition.effect,
+                    "value": definition.value,
+                })
             self._settle(player, completed_at)
             return {"industry": industry, "slot_id": slot_id, "ready_at": completed_at}
 
@@ -4044,31 +4070,33 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
                     "refunded_stamina": stamina_cost,
                     "refunded_task_items": refunded_task_items,
                 }
-            # 各生产格目前彼此独立，取消只回滚这一格自身消耗的资源。
-            # 如果未来出现"某格效果会影响其他格子"的机制（例如跨格加成、连锁触发），
-            # 取消逻辑需要额外处理那些外溢效果，而不能只是清空这一格。
-            stamina_cost = task.stamina_cost
-            if stamina_cost:
-                refund_stamina(player, stamina_cost, self.content, now)
-            for entry in task.consumed_inputs:
-                add_item(player, entry.item_id, entry.quantity, entry.quality)
-            refunded_task_items: dict[str, int] = {}
-            for effect in task.applied_effects:
-                task_item_id = effect.get("task_item_id")
-                if not task_item_id:
-                    continue
-                player.task_items[task_item_id] = player.task_items.get(task_item_id, 0) + 1
-                refunded_task_items[task_item_id] = refunded_task_items.get(task_item_id, 0) + 1
-            production_slot.task_snapshot = None
-            production_slot.task_results = []
-            if industry == "farming":
-                production_slot.crop_id = ""
-                production_slot.planted_at = 0
-                production_slot.ready_at = 0
+            units = self._farm_units(player, int(slot_id)) if industry == "farming" else [production_slot]
+            tasks = [unit.task_snapshot for unit in units]
+            if any(entry is None or entry.ready_at <= now for entry in tasks):
+                raise GameError("task_already_ready", "任务已完成，请领取产出")
+            stamina_cost = sum(entry.stamina_cost for entry in tasks)
+            refund_stamina(player, stamina_cost, self.content, now)
+            refunded_inputs = []
+            refunded_task_items = {}
+            for unit, entry in zip(units, tasks):
+                for ingredient in entry.consumed_inputs:
+                    add_item(player, ingredient.item_id, ingredient.quantity, ingredient.quality)
+                    refunded_inputs.append(ingredient.model_dump())
+                for effect in entry.applied_effects:
+                    item_id = effect.get("task_item_id")
+                    if item_id:
+                        player.task_items[item_id] = player.task_items.get(item_id, 0) + 1
+                        refunded_task_items[item_id] = refunded_task_items.get(item_id, 0) + 1
+                unit.task_snapshot = None
+                unit.task_results = []
+                if industry == "farming":
+                    unit.crop_id = ""
+                    unit.planted_at = 0
+                    unit.ready_at = 0
             return {
                 "industry": industry,
                 "slot_id": slot_id,
-                "refunded_inputs": [entry.model_dump() for entry in task.consumed_inputs],
+                "refunded_inputs": refunded_inputs,
                 "refunded_stamina": stamina_cost,
                 "refunded_task_items": refunded_task_items,
             }
@@ -5556,6 +5584,7 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
         normalize_livestock(player, self.content, now)
         settle_stamina(player, self.content, now)
         self._settle_aquatic(player, now)
+        self._settle_refining(player, now)
         for plot in player.plots:
             if not plot.empty and plot.ready_at <= now and not plot.task_results:
                 self._resolve_output(plot, now, self.content.crop_map.get(plot.crop_id))
@@ -5586,6 +5615,8 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
     def _plot(self, player: PlayerState, slot: int):
         if slot < 0 or slot >= len(player.plots):
             raise GameError("plot_locked", "这块土地尚未解锁")
+        if slot % 2 == 1 and slot < player.farm_upgrade_stage * 2:
+            raise GameError("plot_merged", "这块田已经合并，请操作对应的双倍田")
         return player.plots[slot]
 
     def _gathering_site(self, player: PlayerState, site_id: str, *, allow_closed: bool = False) -> GatheringSiteState:
@@ -5863,6 +5894,8 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
     @staticmethod
     def _partner_lock_deadlines(player: PlayerState, now: int) -> dict[str, int]:
         deadlines: dict[str, int] = {}
+        if player.refining.occupied:
+            deadlines.update({p: 2**53 - 1 for p in player.refining.assigned_partner_ids})
         voyage = player.sailing.active_run
         if voyage and voyage.ready_at > now:
             deadlines.update({partner_id: voyage.ready_at for partner_id in voyage.partner_ids})
@@ -6677,6 +6710,9 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
         lock_deadlines = self._partner_lock_deadlines(player, now)
         plots = []
         for plot in player.plots:
+            if plot.slot % 2 == 1 and plot.slot < player.farm_upgrade_stage * 2:
+                continue
+            units = self._farm_units(player, plot.slot)
             crop = crops.get(plot.crop_id)
             assigned_partners = [
                 partner_map[partner_id]
@@ -6689,7 +6725,8 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
             )
             plots.append({
                 **plot.model_dump(),
-                "task_results": [self._result_snapshot(result) for result in plot.task_results],
+                "task_results": [self._result_snapshot(result) for unit in units for result in unit.task_results],
+                "size": len(units),
                 "empty": plot.empty,
                 "ready": bool(not plot.empty and plot.ready_at <= now),
                 "remaining_seconds": max(0, plot.ready_at - now) if not plot.empty else 0,
@@ -6875,6 +6912,7 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
                 "unlocks": sorted({unlock for entry in self.content.levels if entry.level <= player.level for unlock in entry.unlocks}),
             },
             "plots": plots,
+            "facilities": self._facility_snapshot(player, partner_map, now),
             "next_plot_level": next_plot_level,
             "gathering_sites": gathering_sites,
             "next_gathering_site_level": next_gathering_site_level,
@@ -6990,6 +7028,7 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
                     "assigned_plot_slot": assigned_slots.get(owned.partner_id),
                     "assigned_gathering_site_id": assigned_gathering_sites.get(owned.partner_id),
                     "assigned_crafting_station_id": assigned_crafting_stations.get(owned.partner_id),
+                    "assigned_refining": owned.partner_id in player.refining.assigned_partner_ids,
                     "assigned_mining_site_id": assigned_mining_sites.get(owned.partner_id),
                     "locked": lock_deadlines.get(owned.partner_id, 0) > now,
                     "locked_until": lock_deadlines.get(owned.partner_id) or None,
@@ -7049,6 +7088,7 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
                 "assigned_plot_slot": assigned_slots.get(owned.partner_id),
                 "assigned_gathering_site_id": assigned_gathering_sites.get(owned.partner_id),
                 "assigned_crafting_station_id": assigned_crafting_stations.get(owned.partner_id),
+                    "assigned_refining": owned.partner_id in player.refining.assigned_partner_ids,
                 "assigned_mining_site_id": assigned_mining_sites.get(owned.partner_id),
                 "locked": lock_deadlines.get(owned.partner_id, 0) > now,
                 "locked_until": lock_deadlines.get(owned.partner_id) or None,
@@ -7205,6 +7245,11 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
         """
 
         now = self._now() if now is None else now
+        if partner_id in player.refining.assigned_partner_ids:
+            if player.refining.occupied:
+                raise GameError("refining_not_empty", "精制房全部清空后才能换人", 409)
+            self._settle_refining(player, now)
+            player.refining.assigned_partner_ids = []
         for production_slot in [
             *player.plots,
             *player.gathering_sites,
@@ -7311,7 +7356,7 @@ class GameService(SummerServiceMixin, SailingServiceMixin):
         if industry == "gathering":
             return sum(len(site.assigned_partner_ids) for site in player.gathering_sites)
         if industry == "crafting":
-            return sum(len(station.assigned_partner_ids) for station in player.crafting_stations)
+            return sum(len(station.assigned_partner_ids) for station in player.crafting_stations) + len(player.refining.assigned_partner_ids)
         if industry == "mining":
             return sum(len(site.assigned_partner_ids) for site in player.mining_sites)
         if industry == "aquatic":

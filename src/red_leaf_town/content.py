@@ -735,6 +735,8 @@ class PondSlotDefinition(BaseModel):
     min_level: int = Field(ge=1)
     tier: int = Field(default=1, ge=1)
     build_cost: int = Field(default=0, ge=0)
+    species_id: str = ""
+    build_materials: list[RecipeInputDefinition] = Field(default_factory=list)
 
 
 class PondSpeciesDefinition(BaseModel):
@@ -1167,6 +1169,7 @@ class ShopEntry(BaseModel):
 
 AchievementTier = Literal["blue", "purple", "gold"]
 AchievementHook = Literal[
+    "facility_stage", "pond_built", "mining_tasks", "refining_batches",
     "gathering_tasks", "gathering_items", "livestock_items", "animals_bred_species",
     "facilities_tier", "sailing_ship", "sailing_voyages", "sailing_routes",
     "sailing_upgrades", "sailing_items", "exploration_completed", "delve_completed", "delve_wins",
@@ -1212,6 +1215,28 @@ class AchievementDefinition(BaseModel):
         return self
 
 
+class FacilityUpgradeDefinition(BaseModel):
+    id: str
+    name: str
+    kind: Literal["farm", "feed", "refining"]
+    stage: int = Field(ge=1)
+    min_level: int = Field(ge=1)
+    coins: int = Field(ge=0)
+    inputs: list[RecipeInputDefinition] = Field(default_factory=list)
+    capacity_bonus: int = Field(default=0, ge=0)
+    feed_multiplier: float = Field(default=1, gt=0, le=1)
+
+
+class RefiningRecipeDefinition(BaseModel):
+    id: str
+    name: str
+    min_level: int = Field(ge=1)
+    input_item_id: str
+    input_quantity: int = Field(gt=0)
+    produce_item_id: str
+    top_hours: float = Field(gt=0)
+
+
 class GameContent(BaseModel):
     schema_version: int = Field(ge=1)
     game: GameMeta
@@ -1252,6 +1277,8 @@ class GameContent(BaseModel):
     monthly_card: MonthlyCardDefinition = Field(default_factory=MonthlyCardDefinition)
     achievements: list[AchievementDefinition] = Field(default_factory=list)
     shop: list[ShopEntry]
+    facility_upgrades: list[FacilityUpgradeDefinition] = Field(default_factory=list)
+    refining_recipes: list[RefiningRecipeDefinition] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def validate_references(self):
@@ -1260,6 +1287,23 @@ class GameContent(BaseModel):
                 raise ValueError(f"duplicate {label} id")
 
         unique([item.id for item in self.items], "item")
+        unique([entry.id for entry in self.facility_upgrades], "facility upgrade")
+        unique([entry.id for entry in self.refining_recipes], "refining recipe")
+        for upgrade in self.facility_upgrades:
+            for ingredient in upgrade.inputs:
+                if ingredient.item_id not in self.item_map:
+                    raise ValueError("unknown facility material")
+        for recipe in self.refining_recipes:
+            if recipe.input_item_id not in self.item_map or recipe.produce_item_id not in self.item_map:
+                raise ValueError("unknown refining item")
+            raw, product = self.item_map[recipe.input_item_id], self.item_map[recipe.produce_item_id]
+            if not raw.has_quality or not product.has_quality or product.sell_price <= raw.sell_price * recipe.input_quantity:
+                raise ValueError("refining requires quality items and positive ordinary added value")
+        for pond in self.ponds:
+            if pond.species_id and pond.species_id not in {s.id for s in self.pond_species}:
+                raise ValueError("unknown pond species")
+            if any(i.item_id not in self.item_map for i in pond.build_materials):
+                raise ValueError("unknown pond build material")
         unique([crop.id for crop in self.crops], "crop")
         unique([entry.id for entry in self.shop], "shop")
         unique([entry.id for entry in self.gathering_sites], "gathering site")
@@ -1552,6 +1596,7 @@ class GameContent(BaseModel):
             hook = achievement.condition.hook
             params = achievement.condition.params
             list_references = {
+                "mining_tasks": ("task_ids", set(self.mining_task_map)),
                 "gathering_tasks": ("task_ids", set(self.gathering_task_map)),
                 "gathering_items": ("item_ids", set(self.item_map)),
                 "livestock_items": ("item_ids", set(self.item_map)),
@@ -1569,6 +1614,16 @@ class GameContent(BaseModel):
                         or any(not isinstance(value, str) for value in values)
                         or len(set(values)) != len(values) or not set(values) <= allowed):
                     raise ValueError(f"achievement {achievement.id} has invalid {key}")
+            if hook == "facility_stage":
+                kind, stage = params.get("kind"), params.get("stage")
+                if type(stage) is not int or not any(u.kind == kind and u.stage == stage for u in self.facility_upgrades):
+                    raise ValueError(f"achievement {achievement.id} has invalid facility stage")
+            if hook == "pond_built" and params.get("pond_id") not in self.pond_map:
+                raise ValueError(f"achievement {achievement.id} has invalid pond")
+            if hook == "refining_batches":
+                minimum = params.get("min_quality", 1)
+                if type(minimum) is not int or minimum not in range(1, 6):
+                    raise ValueError(f"achievement {achievement.id} has invalid refining quality")
             if hook == "gathering_items":
                 task = self.gathering_task_map.get(str(params.get("task_id")))
                 if task is None or not set(params["item_ids"]) <= {o.item_id for o in task.outputs}:
@@ -1578,6 +1633,7 @@ class GameContent(BaseModel):
                 if expedition is None or (hook.startswith("delve_") and expedition.kind != "delve"):
                     raise ValueError(f"achievement {achievement.id} has invalid expedition")
             numeric_keys = {
+                "refining_batches": "count",
                 "facilities_tier": "tier", "sailing_voyages": "count", "sailing_upgrades": "level",
                 "sailing_items": "count", "delve_wins": "count",
             }

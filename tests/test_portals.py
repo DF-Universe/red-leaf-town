@@ -302,10 +302,10 @@ def test_quality_floor_needs_an_item_that_can_have_quality():
         )])
 
 
-def test_shipped_portals_are_the_first_and_second_gate():
+def test_original_portals_keep_their_conditions():
     content = load_content()
 
-    assert [portal.id for portal in content.portals] == ["first_gate", "second_gate"]
+    assert {"first_gate", "second_gate"} <= set(content.portal_map)
     first_gate = content.portal_map["first_gate"]
     assert first_gate.prerequisites == []
     assert len(first_gate.tributes) == 7

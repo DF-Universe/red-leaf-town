@@ -25,7 +25,8 @@ const taskItemId = ref('')
 
 const assignedPartner = computed(() => props.plot.assigned_partners[0] || null)
 const selected = computed(() => props.crops.find((crop) => crop.id === selectedId.value) || null)
-const affordable = computed(() => Boolean(selected.value) && game.liveStamina >= (selected.value?.stamina_cost || 0))
+const size = computed(() => props.plot.size || 1)
+const affordable = computed(() => Boolean(selected.value) && seedCount(selected.value!) >= size.value && game.liveStamina >= (selected.value?.stamina_cost || 0) * size.value && (!taskItemId.value || (game.state?.task_items.find(i => i.id === taskItemId.value)?.quantity || 0) >= size.value))
 
 watch(
   () => props.open,
@@ -67,7 +68,7 @@ async function confirmPlant() {
   <ModalSheet
     :open="open"
     title="选择种子"
-    :subtitle="`土地 ${plot.slot + 1}`"
+    :subtitle="size > 1 ? `双倍田 ${plot.slot + 1}＋${plot.slot + 2} · 同时种植，独立结算两份收获` : `土地 ${plot.slot + 1}`"
     @close="emit('close')"
   >
     <template #toolbar>
@@ -91,6 +92,7 @@ async function confirmPlant() {
         :key="crop.id"
         class="seed-option"
         :class="{ current: crop.id === selectedId }"
+        :disabled="seedCount(crop) < size"
         :style="{ '--crop-accent': crop.accent }"
         @click="selectedId = crop.id"
       >
@@ -100,7 +102,7 @@ async function confirmPlant() {
         <span class="seed-copy">
           <strong>{{ crop.name }}<i>×{{ seedCount(crop) }}</i></strong>
           <small>
-            <CostChip v-if="crop.stamina_cost" kind="stamina" :amount="crop.stamina_cost" :affordable="game.liveStamina >= crop.stamina_cost" signed />
+            <CostChip v-if="crop.stamina_cost" kind="stamina" :amount="crop.stamina_cost * size" :affordable="game.liveStamina >= crop.stamina_cost * size" signed />
             <span v-else class="free-cost">无需体力</span>
             · <Clock3 :size="12" /> {{ formatDuration(estimatedDuration(crop)) }}
           </small>
@@ -111,13 +113,13 @@ async function confirmPlant() {
       <p v-if="!crops.length" class="seed-empty">仓库里没有可用种子</p>
     </div>
 
-    <TaskItemSelect v-model="taskItemId" industry="farming" elevated />
+    <TaskItemSelect v-model="taskItemId" industry="farming" :quantity="size" elevated />
 
     <template #footer>
       <p class="footer-summary">
         <template v-if="selected">
           将在土地 {{ plot.slot + 1 }} 种下<strong>{{ selected.name }}</strong> ·
-          {{ selected.stamina_cost ? `消耗 ${selected.stamina_cost} 体力` : '无需体力' }} ·
+          {{ size }} 份种子 · {{ selected.stamina_cost ? `消耗 ${selected.stamina_cost * size} 体力` : '无需体力' }} ·
           约 {{ formatDuration(estimatedDuration(selected)) }}
         </template>
         <template v-else>先选择一种种子</template>
@@ -128,7 +130,7 @@ async function confirmPlant() {
           :action-key="`plot:${plot.slot}:plant:${selectedId || 'none'}`"
           :group="`plot:${plot.slot}:plant`"
           :disabled="!selected || !affordable"
-          :reason="selected && !affordable ? '体力不足' : undefined"
+          :reason="selected && !affordable ? '种子、体力或道具不足' : undefined"
           @click="confirmPlant"
         >确认种植</ActionButton>
       </div>

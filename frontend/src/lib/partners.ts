@@ -5,12 +5,14 @@ export function isPartnerAssigned(partner: OwnedPartner): boolean {
   return (
     partner.assigned_plot_slot !== null ||
     Boolean(partner.assigned_gathering_site_id) ||
+    Boolean(partner.assigned_refining) ||
     Boolean(partner.assigned_crafting_station_id) ||
     Boolean(partner.assigned_mining_site_id)
   )
 }
 
 export function partnerAssignmentLabel(partner: OwnedPartner, state: GameState | null): string | null {
+  if (partner.assigned_refining) return partner.locked ? '精制房 · 清空后可换人' : '精制房'
   const suffix = partner.locked ? ' · 任务中' : ''
   if (partner.assigned_plot_slot !== null) {
     return `${industryName('farming')} · 土地 ${partner.assigned_plot_slot + 1}${suffix}`

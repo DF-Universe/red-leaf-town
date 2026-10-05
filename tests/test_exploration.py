@@ -174,7 +174,7 @@ def test_player_schema_29_adds_an_empty_exploration_run():
         "updated_at": 1,
     })
 
-    assert migrated.schema_version == 33
+    assert migrated.schema_version == PlayerState.model_fields["schema_version"].default
     assert migrated.exploration_run is None
 
 

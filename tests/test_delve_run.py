@@ -272,7 +272,7 @@ def test_schema_thirty_gives_older_runs_empty_delve_state():
         },
     })
 
-    assert migrated.schema_version == 33
+    assert migrated.schema_version == PlayerState.model_fields["schema_version"].default
     assert migrated.exploration_run.battle is None
     assert migrated.exploration_run.loadout == {}
     assert migrated.exploration_run.combat_party == {}

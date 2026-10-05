@@ -9,10 +9,11 @@ import { useGameStore } from '@/stores/game'
 const props = withDefaults(defineProps<{
   modelValue: string
   industry: string
+  quantity?: number
   timing?: 'start' | 'active'
   /* 在别的弹窗里打开时抬高层级，避免被父弹窗盖住 */
   elevated?: boolean
-}>(), { timing: 'start', elevated: false })
+}>(), { timing: 'start', elevated: false, quantity: 1 })
 const emit = defineEmits<{ (event: 'update:modelValue', value: string): void }>()
 const game = useGameStore()
 
@@ -52,7 +53,7 @@ function choose(id: string) {
     <ModalSheet
       :open="open"
       title="特殊道具"
-      subtitle="每次开工可带上一件，使用后消耗"
+      :subtitle="`本次开工消耗 ${quantity} 份道具，每份产出各使用一份`"
       :elevated="elevated"
       @close="open = false"
     >
@@ -72,6 +73,7 @@ function choose(id: string) {
           type="button"
           class="task-item-option"
           :class="{ current: item.id === modelValue }"
+          :disabled="item.quantity < quantity"
           @click="choose(item.id)"
         >
           <ItemTile :icon="item.icon" :size="42" :icon-size="21" tone="gold" />

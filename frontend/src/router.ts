@@ -69,6 +69,7 @@ export default createRouter({
       component: () => import('@/views/ExplorationView.vue'),
       meta: { title: '探索' },
     },
+    { path: '/refining', name: 'refining', component: () => import('@/views/RefiningView.vue'), meta: { title: '精制房' } },
     { path: '/crafting', name: 'crafting', component: CraftingView, meta: { title: '加工' } },
     { path: '/mining', name: 'mining', component: MiningView, meta: { title: '矿产' } },
     {

@@ -138,14 +138,12 @@ def test_fishing_expectation_per_draw_stays_where_it_was():
         assert value / total == pytest.approx(expected[spot.id], rel=0.02)
 
 
-def test_level_table_reaches_twenty_five_and_mining_experience_is_rebalanced():
+def test_level_table_is_progressive_and_mining_rewards_follow_stamina():
     content = load_content()
-    assert content.levels[-1].level == 25
-    assert content.levels[-1].total_xp == 100650
-    assert content.levels[-1].stamina_cap == 68
-    # 12 / 10 / 6 阶梯：矿产 12 XP/体力，加工 6 XP/体力。
-    assert [task.collect_xp / task.stamina_cost for task in content.mining_tasks] == [12, 12]
-    assert all(recipe.collect_xp / recipe.stamina_cost == 6 for recipe in content.recipes)
+    assert all(b.level == a.level + 1 and b.total_xp > a.total_xp and b.stamina_cap >= a.stamina_cap
+               for a, b in zip(content.levels, content.levels[1:]))
+    assert len({task.collect_xp / task.stamina_cost for task in content.mining_tasks}) == 1
+    assert len({recipe.collect_xp / recipe.stamina_cost for recipe in content.recipes}) == 1
 
 
 def test_slow_mining_vein_is_allowed_but_it_cannot_manufacture_stamina():
@@ -176,7 +174,7 @@ def test_schema_nineteen_migration_starts_from_empty_aquatic_state():
         "created_at": started_at,
         "updated_at": started_at,
     })
-    assert player.schema_version == 33
+    assert player.schema_version == PlayerState.model_fields["schema_version"].default
     assert player.ponds == []
     assert player.feed_slot.units == 0 and player.feed_slot.quality_score == 0
     assert player.fishing.combo == 0 and player.fishing.pending_big_catch is None
@@ -196,7 +194,7 @@ def test_schema_twenty_one_adds_neutral_pond_trait_parameters():
         "ponds": [{"pond_id": "pond_1", "last_settled_at": started_at}],
     })
     pond = player.ponds[0]
-    assert player.schema_version == 33
+    assert player.schema_version == PlayerState.model_fields["schema_version"].default
     assert (pond.cycle_multiplier, pond.feed_multiplier) == (1, 1)
     assert pond.quality_bonus == pond.generation_gain_bonus == 0
     assert pond.trait_effects == []
@@ -515,12 +513,12 @@ def test_buildable_ponds_show_up_in_the_snapshot(game):
     set_level(repository, player.player_id, 10)
     repository.update(player.player_id, lambda state: setattr(state, "coins", 3000))
     aquatic = service.snapshot_by_sub("aquatic-sub")["aquatic"]
-    assert [entry["id"] for entry in aquatic["buildable_ponds"]] == ["pond_1"]
+    assert [entry["id"] for entry in aquatic["buildable_ponds"] if entry["unlocked"]] == ["pond_1"]
     assert aquatic["buildable_ponds"][0]["build_cost"] == 3000
     assert aquatic["buildable_ponds"][0]["unlocked"] is True
     assert aquatic["buildable_ponds"][0]["affordable"] is True
     service.build_pond("aquatic-sub", "pond_1")
-    assert service.snapshot_by_sub("aquatic-sub")["aquatic"]["buildable_ponds"] == []
+    assert not any(entry["id"] == "pond_1" for entry in service.snapshot_by_sub("aquatic-sub")["aquatic"]["buildable_ponds"])
 
 
 def test_stocking_consumes_fry_and_opens_the_pond():

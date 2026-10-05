@@ -183,7 +183,7 @@ def test_old_task_migration_does_not_gain_event_bonus(event_game):
         if site['task_snapshot']:
             site['task_snapshot'].pop('season_bonus')
     migrated = PlayerState.model_validate(player)
-    assert migrated.schema_version == 33
+    assert migrated.schema_version == PlayerState.model_fields["schema_version"].default
     assert next(x for x in migrated.gathering_sites if x.site_id == SITE).task_snapshot.season_bonus is None
 
 

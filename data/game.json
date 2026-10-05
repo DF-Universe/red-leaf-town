@@ -285,43 +285,78 @@
     {
       "level": 20,
       "total_xp": 41650,
-      "plot_slots": 8,
+      "plot_slots": 9,
       "stamina_cap": 58,
       "unlocks": []
     },
     {
       "level": 21,
       "total_xp": 50650,
-      "plot_slots": 8,
+      "plot_slots": 9,
       "stamina_cap": 60,
       "unlocks": []
     },
     {
       "level": 22,
       "total_xp": 60950,
-      "plot_slots": 8,
+      "plot_slots": 9,
       "stamina_cap": 62,
       "unlocks": []
     },
     {
       "level": 23,
       "total_xp": 72650,
-      "plot_slots": 8,
+      "plot_slots": 9,
       "stamina_cap": 64,
       "unlocks": []
     },
     {
       "level": 24,
       "total_xp": 85850,
-      "plot_slots": 8,
+      "plot_slots": 10,
       "stamina_cap": 66,
       "unlocks": []
     },
     {
       "level": 25,
       "total_xp": 100650,
-      "plot_slots": 8,
+      "plot_slots": 10,
       "stamina_cap": 68,
+      "unlocks": []
+    },
+    {
+      "level": 26,
+      "total_xp": 117150,
+      "plot_slots": 10,
+      "stamina_cap": 70,
+      "unlocks": []
+    },
+    {
+      "level": 27,
+      "total_xp": 135450,
+      "plot_slots": 10,
+      "stamina_cap": 72,
+      "unlocks": []
+    },
+    {
+      "level": 28,
+      "total_xp": 155650,
+      "plot_slots": 11,
+      "stamina_cap": 74,
+      "unlocks": []
+    },
+    {
+      "level": 29,
+      "total_xp": 177850,
+      "plot_slots": 11,
+      "stamina_cap": 76,
+      "unlocks": []
+    },
+    {
+      "level": 30,
+      "total_xp": 202150,
+      "plot_slots": 11,
+      "stamina_cap": 78,
       "unlocks": []
     }
   ],
@@ -938,7 +973,7 @@
       ],
       "feed": {
         "units": 10,
-        "score": 50
+        "score": 35
       }
     },
     {
@@ -967,7 +1002,7 @@
         "fodder"
       ],
       "feed": {
-        "units": 10,
+        "units": 15,
         "score": 45
       }
     },
@@ -982,7 +1017,7 @@
         "fodder"
       ],
       "feed": {
-        "units": 10,
+        "units": 20,
         "score": 80
       }
     },
@@ -1899,8 +1934,8 @@
       ],
       "has_quality": true,
       "feed": {
-        "units": 9,
-        "score": 45
+        "units": 24,
+        "score": 55
       }
     },
     {
@@ -1914,7 +1949,7 @@
       ],
       "has_quality": true,
       "feed": {
-        "units": 14,
+        "units": 40,
         "score": 96
       }
     },
@@ -2153,6 +2188,141 @@
       "tags": [
         "crop_seed"
       ]
+    },
+    {
+      "id": "sunflower_seed_produce",
+      "name": "向日葵籽",
+      "icon": "sun",
+      "kind": "produce",
+      "sell_price": 65,
+      "has_quality": true,
+      "tags": [
+        "crop"
+      ]
+    },
+    {
+      "id": "grape",
+      "name": "葡萄",
+      "icon": "grape",
+      "kind": "produce",
+      "sell_price": 100,
+      "has_quality": true,
+      "tags": [
+        "crop"
+      ]
+    },
+    {
+      "id": "blue_iron_ore",
+      "name": "青铁矿",
+      "icon": "gem",
+      "kind": "material",
+      "sell_price": 40,
+      "has_quality": true,
+      "tags": [
+        "mineral"
+      ]
+    },
+    {
+      "id": "iron_ingot",
+      "name": "精铁锭",
+      "icon": "anvil",
+      "kind": "product",
+      "sell_price": 180,
+      "has_quality": true,
+      "tags": []
+    },
+    {
+      "id": "wood_oil",
+      "name": "护木油",
+      "icon": "droplets",
+      "kind": "product",
+      "sell_price": 85,
+      "has_quality": true,
+      "tags": []
+    },
+    {
+      "id": "precision_parts",
+      "name": "精密构件",
+      "icon": "settings",
+      "kind": "product",
+      "sell_price": 460,
+      "has_quality": true,
+      "tags": []
+    },
+    {
+      "id": "pond_blue_carp",
+      "name": "塘养青鲤",
+      "icon": "fish",
+      "kind": "produce",
+      "sell_price": 40,
+      "has_quality": true,
+      "tags": [
+        "fish"
+      ]
+    },
+    {
+      "id": "pumpkin_preserve",
+      "name": "南瓜果脯",
+      "icon": "vegan",
+      "kind": "product",
+      "sell_price": 240,
+      "has_quality": true,
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "blue_carp_dried",
+      "name": "青鲤鱼干",
+      "icon": "fish",
+      "kind": "product",
+      "sell_price": 260,
+      "has_quality": true,
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "grape_wine",
+      "name": "葡萄酒",
+      "icon": "wine",
+      "kind": "product",
+      "sell_price": 480,
+      "has_quality": true,
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "sunflower_seed",
+      "name": "向日葵种子",
+      "icon": "sun",
+      "kind": "seed",
+      "sell_price": 0,
+      "has_quality": false,
+      "tags": [
+        "crop_seed"
+      ]
+    },
+    {
+      "id": "grape_seed",
+      "name": "葡萄种子",
+      "icon": "grape",
+      "kind": "seed",
+      "sell_price": 0,
+      "has_quality": false,
+      "tags": [
+        "crop_seed"
+      ]
+    },
+    {
+      "id": "blue_carp_fry",
+      "name": "青鲤鱼苗",
+      "icon": "fish",
+      "kind": "material",
+      "sell_price": 0,
+      "has_quality": false,
+      "tags": []
     }
   ],
   "crops": [
@@ -2508,6 +2678,60 @@
           320.0
         ],
         "width": 50.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      }
+    },
+    {
+      "id": "sunflower",
+      "name": "向日葵",
+      "icon": "sun",
+      "seed_item_id": "sunflower_seed",
+      "produce_item_id": "sunflower_seed_produce",
+      "growth_seconds": 57600,
+      "time_difficulty": 120,
+      "yield_min": 4,
+      "yield_max": 6,
+      "stamina_cost": 0,
+      "plant_xp": 0,
+      "harvest_xp": 18,
+      "min_level": 18,
+      "accent": "#d7ad58",
+      "quality": {
+        "thresholds": [
+          85,
+          145,
+          255,
+          390
+        ],
+        "width": 30,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      }
+    },
+    {
+      "id": "grape",
+      "name": "葡萄",
+      "icon": "grape",
+      "seed_item_id": "grape_seed",
+      "produce_item_id": "grape",
+      "growth_seconds": 72000,
+      "time_difficulty": 120,
+      "yield_min": 4,
+      "yield_max": 6,
+      "stamina_cost": 0,
+      "plant_xp": 0,
+      "harvest_xp": 22,
+      "min_level": 20,
+      "accent": "#b58add",
+      "quality": {
+        "thresholds": [
+          95,
+          155,
+          270,
+          410
+        ],
+        "width": 32,
         "miracle_probability_cap": 0.003,
         "miracle_eligible": true
       }
@@ -5815,6 +6039,18 @@
       "modifiers": {
         "delve_first_miss_reroll": 1
       }
+    },
+    {
+      "id": "crafting_roster_1",
+      "industry": "crafting",
+      "name": "工坊统筹",
+      "description": "加工与精制共用的伙伴编制增加1。",
+      "cost": 1,
+      "min_level": 20,
+      "prerequisites": [
+        "crafting_quality_1"
+      ],
+      "partner_capacity_bonus": 1
     }
   ],
   "crafting_stations": [
@@ -6502,8 +6738,8 @@
       "produce_quantity": 2,
       "duration_seconds": 180,
       "time_difficulty": 140,
-      "stamina_cost": 2,
-      "collect_xp": 12,
+      "stamina_cost": 1,
+      "collect_xp": 6,
       "tags": [
         "fodder"
       ],
@@ -6651,6 +6887,123 @@
       "tags": [
         "food"
       ]
+    },
+    {
+      "id": "make_iron_ingot",
+      "station_id": "town_workbench",
+      "name": "冶炼精铁锭",
+      "inputs": [
+        {
+          "item_id": "blue_iron_ore",
+          "quantity": 3
+        }
+      ],
+      "produce_item_id": "iron_ingot",
+      "produce_quantity": 1,
+      "duration_seconds": 240,
+      "time_difficulty": 150,
+      "stamina_cost": 3,
+      "collect_xp": 18,
+      "tags": [],
+      "quality": {
+        "thresholds": [
+          75,
+          135,
+          210,
+          310
+        ],
+        "width": 22,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": false
+      },
+      "unlock_condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 18
+        }
+      }
+    },
+    {
+      "id": "make_wood_oil",
+      "station_id": "town_workbench",
+      "name": "调制护木油",
+      "inputs": [
+        {
+          "item_id": "sunflower_seed_produce",
+          "quantity": 2
+        },
+        {
+          "item_id": "maple_resin",
+          "quantity": 1
+        }
+      ],
+      "produce_item_id": "wood_oil",
+      "produce_quantity": 2,
+      "duration_seconds": 180,
+      "time_difficulty": 140,
+      "stamina_cost": 2,
+      "collect_xp": 12,
+      "tags": [],
+      "quality": {
+        "thresholds": [
+          65,
+          120,
+          190,
+          290
+        ],
+        "width": 20,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": false
+      },
+      "unlock_condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 18
+        }
+      }
+    },
+    {
+      "id": "make_precision_parts",
+      "station_id": "town_workbench",
+      "name": "制作精密构件",
+      "inputs": [
+        {
+          "item_id": "iron_ingot",
+          "quantity": 2
+        },
+        {
+          "item_id": "red_copper_ore",
+          "quantity": 2
+        },
+        {
+          "item_id": "moon_silver_ore",
+          "quantity": 1
+        }
+      ],
+      "produce_item_id": "precision_parts",
+      "produce_quantity": 1,
+      "duration_seconds": 360,
+      "time_difficulty": 170,
+      "stamina_cost": 4,
+      "collect_xp": 24,
+      "tags": [],
+      "quality": {
+        "thresholds": [
+          95,
+          165,
+          250,
+          365
+        ],
+        "width": 24,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": false
+      },
+      "unlock_condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 20
+        }
+      }
     }
   ],
   "mining_sites": [
@@ -6667,6 +7020,13 @@
       "description": "旧矿道深处偶尔闪过银白矿光，作业时间更长。",
       "accent": "#788ba8",
       "min_level": 4
+    },
+    {
+      "id": "blue_iron_cavern",
+      "name": "青岩矿窟",
+      "description": "青色矿脉深入岩层，适合安排一次更长的开采。",
+      "accent": "#658b98",
+      "min_level": 18
     }
   ],
   "mining_tasks": [
@@ -6716,6 +7076,31 @@
           310.0
         ],
         "width": 21.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": false
+      }
+    },
+    {
+      "id": "mine_blue_iron",
+      "site_id": "blue_iron_cavern",
+      "name": "开采青铁矿脉",
+      "produce_item_id": "blue_iron_ore",
+      "duration_seconds": 2880,
+      "yield_bonus": 1,
+      "yield_difficulty": 250,
+      "yield_min": 5,
+      "yield_max": 7,
+      "stamina_cost": 4,
+      "collect_xp": 48,
+      "min_level": 18,
+      "quality": {
+        "thresholds": [
+          90,
+          155,
+          235,
+          340
+        ],
+        "width": 23,
         "miracle_probability_cap": 0.003,
         "miracle_eligible": false
       }
@@ -7140,6 +7525,129 @@
         "items": [],
         "partner_ids": []
       }
+    },
+    {
+      "id": "third_gate",
+      "name": "第三传送门",
+      "description": "门上的铜锈擦掉了，里面却传来一句：“这次，带点镇上最拿得出手的东西来。”",
+      "accent": "#c5a46c",
+      "min_level": 22,
+      "prerequisites": [
+        "second_gate"
+      ],
+      "tributes": [
+        {
+          "id": "third_gate_sunflower_seed_produce",
+          "item_id": "sunflower_seed_produce",
+          "quantity": 12,
+          "min_quality": 2,
+          "reward": {
+            "maple_flame": 150
+          }
+        },
+        {
+          "id": "third_gate_grape",
+          "item_id": "grape",
+          "quantity": 12,
+          "min_quality": 2,
+          "reward": {
+            "maple_flame": 150
+          }
+        },
+        {
+          "id": "third_gate_blue_iron_ore",
+          "item_id": "blue_iron_ore",
+          "quantity": 20,
+          "min_quality": 0,
+          "reward": {
+            "maple_flame": 150
+          }
+        },
+        {
+          "id": "third_gate_iron_ingot",
+          "item_id": "iron_ingot",
+          "quantity": 6,
+          "min_quality": 0,
+          "reward": {
+            "maple_flame": 150
+          }
+        },
+        {
+          "id": "third_gate_wood_oil",
+          "item_id": "wood_oil",
+          "quantity": 6,
+          "min_quality": 0,
+          "reward": {
+            "maple_flame": 150
+          }
+        },
+        {
+          "id": "third_gate_precision_parts",
+          "item_id": "precision_parts",
+          "quantity": 2,
+          "min_quality": 0,
+          "reward": {
+            "maple_flame": 150
+          }
+        },
+        {
+          "id": "third_gate_composite_plank",
+          "item_id": "composite_plank",
+          "quantity": 6,
+          "min_quality": 0,
+          "reward": {
+            "maple_flame": 150
+          }
+        },
+        {
+          "id": "third_gate_pond_blue_carp",
+          "item_id": "pond_blue_carp",
+          "quantity": 10,
+          "min_quality": 2,
+          "reward": {
+            "maple_flame": 150
+          }
+        },
+        {
+          "id": "third_gate_nutrition_fodder",
+          "item_id": "nutrition_fodder",
+          "quantity": 4,
+          "min_quality": 0,
+          "reward": {
+            "maple_flame": 150
+          }
+        },
+        {
+          "id": "third_gate_pumpkin_preserve",
+          "item_id": "pumpkin_preserve",
+          "quantity": 3,
+          "min_quality": 3,
+          "reward": {
+            "maple_flame": 150
+          }
+        },
+        {
+          "id": "third_gate_blue_carp_dried",
+          "item_id": "blue_carp_dried",
+          "quantity": 3,
+          "min_quality": 3,
+          "reward": {
+            "maple_flame": 150
+          }
+        },
+        {
+          "id": "third_gate_grape_wine",
+          "item_id": "grape_wine",
+          "quantity": 3,
+          "min_quality": 3,
+          "reward": {
+            "maple_flame": 150
+          }
+        }
+      ],
+      "completion_reward": {
+        "guide_leaves": 10
+      }
     }
   ],
   "commissions": {
@@ -7252,7 +7760,30 @@
       "falling_star_ear",
       "night_bell_brew",
       "ribbed_berry",
-      "ribbed_berry_seed"
+      "ribbed_berry_seed",
+      "partner_notes_small",
+      "partner_notes_medium",
+      "partner_notes_large",
+      "partner_invitation",
+      "feien_tonic",
+      "red_copper_greatsword",
+      "moon_silver_dagger",
+      "maple_flame_tome",
+      "hunters_charm",
+      "ironwood_bracer",
+      "moonlit_pendant",
+      "swiftfoot_anklet",
+      "sunflower_seed_produce",
+      "grape",
+      "blue_iron_ore",
+      "iron_ingot",
+      "wood_oil",
+      "precision_parts",
+      "pond_blue_carp",
+      "pumpkin_preserve",
+      "blue_carp_dried",
+      "grape_wine",
+      "blue_carp_fry"
     ],
     "tiers": [
       {
@@ -8320,6 +8851,254 @@
           "portal_id": "second_gate"
         }
       }
+    },
+    {
+      "id": "resident_level_25",
+      "name": "日子渐丰",
+      "description": "居民等级达到25级",
+      "tier": "purple",
+      "reward_maple_flame": 100,
+      "condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 25
+        }
+      }
+    },
+    {
+      "id": "resident_level_30",
+      "name": "秋日长居",
+      "description": "居民等级达到30级",
+      "tier": "gold",
+      "reward_maple_flame": 200,
+      "condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 30
+        }
+      }
+    },
+    {
+      "id": "first_double_field",
+      "name": "一人两垄",
+      "description": "完成第一组农田改良",
+      "tier": "blue",
+      "reward_maple_flame": 50,
+      "condition": {
+        "hook": "facility_stage",
+        "params": {
+          "kind": "farm",
+          "stage": 1
+        }
+      }
+    },
+    {
+      "id": "three_double_fields",
+      "name": "三畦相连",
+      "description": "完成3组农田改良",
+      "tier": "gold",
+      "reward_maple_flame": 200,
+      "condition": {
+        "hook": "facility_stage",
+        "params": {
+          "kind": "farm",
+          "stage": 3
+        }
+      }
+    },
+    {
+      "id": "feed_upgrade_1",
+      "name": "粮槽添新",
+      "description": "饲料槽改良达到一级",
+      "tier": "blue",
+      "reward_maple_flame": 50,
+      "condition": {
+        "hook": "facility_stage",
+        "params": {
+          "kind": "feed",
+          "stage": 1
+        }
+      }
+    },
+    {
+      "id": "feed_upgrade_2",
+      "name": "常备余粮",
+      "description": "饲料槽改良达到二级",
+      "tier": "purple",
+      "reward_maple_flame": 100,
+      "condition": {
+        "hook": "facility_stage",
+        "params": {
+          "kind": "feed",
+          "stage": 2
+        }
+      }
+    },
+    {
+      "id": "refining_room_built",
+      "name": "留一间给时间",
+      "description": "建成精制房",
+      "tier": "blue",
+      "reward_maple_flame": 50,
+      "condition": {
+        "hook": "facility_stage",
+        "params": {
+          "kind": "refining",
+          "stage": 1
+        }
+      }
+    },
+    {
+      "id": "blue_pond_built",
+      "name": "一池青影",
+      "description": "建成青鲤塘",
+      "tier": "blue",
+      "reward_maple_flame": 50,
+      "condition": {
+        "hook": "pond_built",
+        "params": {
+          "pond_id": "pond_blue"
+        }
+      }
+    },
+    {
+      "id": "first_grape_harvest",
+      "name": "藤间初熟",
+      "description": "首次收获葡萄",
+      "tier": "blue",
+      "reward_maple_flame": 50,
+      "condition": {
+        "hook": "crops_harvested",
+        "params": {
+          "crop_ids": [
+            "grape"
+          ]
+        }
+      }
+    },
+    {
+      "id": "first_blue_iron",
+      "name": "青铁初鸣",
+      "description": "首次领取青铁矿洞的采矿收获",
+      "tier": "blue",
+      "reward_maple_flame": 50,
+      "condition": {
+        "hook": "mining_tasks",
+        "params": {
+          "task_ids": [
+            "mine_blue_iron"
+          ]
+        }
+      }
+    },
+    {
+      "id": "first_precision_parts",
+      "name": "精工初成",
+      "description": "首次完成精密构件加工并领取",
+      "tier": "purple",
+      "reward_maple_flame": 100,
+      "condition": {
+        "hook": "recipes_crafted",
+        "params": {
+          "recipe_ids": [
+            "make_precision_parts"
+          ]
+        }
+      }
+    },
+    {
+      "id": "blue_carp_harvest_50",
+      "name": "青鳞满篓",
+      "description": "累计捞取50条塘养青鲤",
+      "tier": "purple",
+      "reward_maple_flame": 100,
+      "condition": {
+        "hook": "pond_harvested",
+        "params": {
+          "species_id": "blue_carp",
+          "count": 50
+        }
+      }
+    },
+    {
+      "id": "first_refining",
+      "name": "时间的第一份回礼",
+      "description": "累计领取1批精制成品",
+      "tier": "blue",
+      "reward_maple_flame": 50,
+      "condition": {
+        "hook": "refining_batches",
+        "params": {
+          "count": 1
+        }
+      }
+    },
+    {
+      "id": "refining_batches_30",
+      "name": "慢工常作",
+      "description": "累计领取30批精制成品",
+      "tier": "purple",
+      "reward_maple_flame": 100,
+      "condition": {
+        "hook": "refining_batches",
+        "params": {
+          "count": 30
+        }
+      }
+    },
+    {
+      "id": "refining_batches_100",
+      "name": "百回熟成",
+      "description": "累计领取100批精制成品",
+      "tier": "gold",
+      "reward_maple_flame": 200,
+      "condition": {
+        "hook": "refining_batches",
+        "params": {
+          "count": 100
+        }
+      }
+    },
+    {
+      "id": "first_exquisite_refining",
+      "name": "恰到好处",
+      "description": "首次领取臻品或以上品质精制成品",
+      "tier": "purple",
+      "reward_maple_flame": 100,
+      "condition": {
+        "hook": "refining_batches",
+        "params": {
+          "count": 1,
+          "min_quality": 4
+        }
+      }
+    },
+    {
+      "id": "exquisite_refining_20",
+      "name": "好物常成",
+      "description": "累计领取20批臻品或以上品质精制成品",
+      "tier": "gold",
+      "reward_maple_flame": 200,
+      "condition": {
+        "hook": "refining_batches",
+        "params": {
+          "count": 20,
+          "min_quality": 4
+        }
+      }
+    },
+    {
+      "id": "third_portal_completed",
+      "name": "门前又是丰收",
+      "description": "完成第三传送门全部贡品",
+      "tier": "gold",
+      "reward_maple_flame": 200,
+      "condition": {
+        "hook": "portal_completed",
+        "params": {
+          "portal_id": "third_gate"
+        }
+      }
     }
   ],
   "shop": [
@@ -8413,6 +9192,27 @@
       "price": 106,
       "currency": "coins",
       "min_level": 13
+    },
+    {
+      "id": "sunflower_seed",
+      "item_id": "sunflower_seed",
+      "price": 180,
+      "currency": "coins",
+      "min_level": 18
+    },
+    {
+      "id": "grape_seed",
+      "item_id": "grape_seed",
+      "price": 300,
+      "currency": "coins",
+      "min_level": 20
+    },
+    {
+      "id": "blue_carp_fry",
+      "item_id": "blue_carp_fry",
+      "price": 80,
+      "currency": "coins",
+      "min_level": 22
     }
   ],
   "fishing_combo": {
@@ -8730,6 +9530,12 @@
       "capacity": 40,
       "quality_bonus": 0.0,
       "feed_per_cycle": 2.0
+    },
+    {
+      "level": 2,
+      "capacity": 60,
+      "quality_bonus": 0,
+      "feed_per_cycle": 3
     }
   ],
   "ponds": [
@@ -8740,7 +9546,32 @@
       "accent": "#4f8f9c",
       "min_level": 10,
       "tier": 1,
-      "build_cost": 3000
+      "build_cost": 3000,
+      "species_id": "crucian"
+    },
+    {
+      "id": "pond_blue",
+      "name": "青鲤塘",
+      "description": "一方更深的池塘，适合慢慢养大青鲤。",
+      "accent": "#658b98",
+      "min_level": 22,
+      "tier": 2,
+      "build_cost": 12000,
+      "species_id": "blue_carp",
+      "build_materials": [
+        {
+          "item_id": "iron_ingot",
+          "quantity": 8
+        },
+        {
+          "item_id": "composite_plank",
+          "quantity": 12
+        },
+        {
+          "item_id": "wood_oil",
+          "quantity": 6
+        }
+      ]
     }
   ],
   "pond_species": [
@@ -8767,6 +9598,33 @@
           250.0
         ],
         "width": 20.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      }
+    },
+    {
+      "id": "blue_carp",
+      "name": "青鲤",
+      "icon": "fish",
+      "fry_item_id": "blue_carp_fry",
+      "produce_item_id": "pond_blue_carp",
+      "base_cycle_seconds": 14400,
+      "time_difficulty": 150,
+      "growth_rate": 0.08,
+      "maturation_cycles": 3,
+      "steady_ratio": 0.6,
+      "generation_gain": 0.6,
+      "generation_decay": 0.6,
+      "generation_cap": 60,
+      "min_level": 22,
+      "quality": {
+        "thresholds": [
+          75,
+          125,
+          200,
+          310
+        ],
+        "width": 20,
         "miracle_probability_cap": 0.003,
         "miracle_eligible": true
       }
@@ -9084,6 +9942,185 @@
       },
       "required_facility_id": "barn_1",
       "required_facility_tier": 2
+    }
+  ],
+  "facility_upgrades": [
+    {
+      "id": "farm_1",
+      "name": "第一组改良田",
+      "kind": "farm",
+      "stage": 1,
+      "min_level": 18,
+      "coins": 6000,
+      "inputs": [
+        {
+          "item_id": "iron_ingot",
+          "quantity": 6
+        },
+        {
+          "item_id": "wood_oil",
+          "quantity": 4
+        },
+        {
+          "item_id": "rope",
+          "quantity": 4
+        }
+      ],
+      "capacity_bonus": 0,
+      "feed_multiplier": 1
+    },
+    {
+      "id": "farm_2",
+      "name": "第二组改良田",
+      "kind": "farm",
+      "stage": 2,
+      "min_level": 24,
+      "coins": 10000,
+      "inputs": [
+        {
+          "item_id": "iron_ingot",
+          "quantity": 10
+        },
+        {
+          "item_id": "wood_oil",
+          "quantity": 6
+        },
+        {
+          "item_id": "rope",
+          "quantity": 6
+        }
+      ],
+      "capacity_bonus": 0,
+      "feed_multiplier": 1
+    },
+    {
+      "id": "farm_3",
+      "name": "第三组改良田",
+      "kind": "farm",
+      "stage": 3,
+      "min_level": 28,
+      "coins": 16000,
+      "inputs": [
+        {
+          "item_id": "iron_ingot",
+          "quantity": 14
+        },
+        {
+          "item_id": "wood_oil",
+          "quantity": 8
+        },
+        {
+          "item_id": "rope",
+          "quantity": 8
+        }
+      ],
+      "capacity_bonus": 0,
+      "feed_multiplier": 1
+    },
+    {
+      "id": "feed_1",
+      "name": "饲料槽Ⅰ",
+      "kind": "feed",
+      "stage": 1,
+      "min_level": 18,
+      "coins": 5000,
+      "inputs": [
+        {
+          "item_id": "iron_ingot",
+          "quantity": 6
+        },
+        {
+          "item_id": "maple_plank",
+          "quantity": 12
+        },
+        {
+          "item_id": "wood_oil",
+          "quantity": 4
+        }
+      ],
+      "capacity_bonus": 500,
+      "feed_multiplier": 0.95
+    },
+    {
+      "id": "feed_2",
+      "name": "饲料槽Ⅱ",
+      "kind": "feed",
+      "stage": 2,
+      "min_level": 26,
+      "coins": 12000,
+      "inputs": [
+        {
+          "item_id": "precision_parts",
+          "quantity": 4
+        },
+        {
+          "item_id": "composite_plank",
+          "quantity": 8
+        },
+        {
+          "item_id": "wood_oil",
+          "quantity": 8
+        }
+      ],
+      "capacity_bonus": 1500,
+      "feed_multiplier": 0.9
+    },
+    {
+      "id": "refining_1",
+      "name": "精制房",
+      "kind": "refining",
+      "stage": 1,
+      "min_level": 20,
+      "coins": 20000,
+      "inputs": [
+        {
+          "item_id": "iron_ingot",
+          "quantity": 12
+        },
+        {
+          "item_id": "precision_parts",
+          "quantity": 4
+        },
+        {
+          "item_id": "wood_oil",
+          "quantity": 8
+        },
+        {
+          "item_id": "waterproof_canvas",
+          "quantity": 2
+        }
+      ],
+      "capacity_bonus": 0,
+      "feed_multiplier": 1
+    }
+  ],
+  "refining_recipes": [
+    {
+      "id": "pumpkin_preserve",
+      "name": "精制南瓜果脯",
+      "min_level": 20,
+      "input_item_id": "pumpkin",
+      "input_quantity": 3,
+      "produce_item_id": "pumpkin_preserve",
+      "top_hours": 27
+    },
+    {
+      "id": "blue_carp_dried",
+      "name": "熟成青鲤鱼干",
+      "min_level": 22,
+      "input_item_id": "pond_blue_carp",
+      "input_quantity": 4,
+      "produce_item_id": "blue_carp_dried",
+      "top_hours": 40.5
+    },
+    {
+      "id": "grape_wine",
+      "name": "酿制葡萄酒",
+      "min_level": 20,
+      "input_item_id": "grape",
+      "input_quantity": 3,
+      "produce_item_id": "grape_wine",
+      "top_hours": 54
     }
   ]
 }

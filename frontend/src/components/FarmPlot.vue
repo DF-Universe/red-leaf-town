@@ -60,7 +60,7 @@ function selectPartner(partnerId: string | null) {
 
   <article v-else-if="plot.empty" class="farm-plot farm-plot--empty">
     <div class="soil-lines" aria-hidden="true"><i /><i /><i /></div>
-    <div class="plot-heading"><span>土地 {{ plot.slot + 1 }}</span><small>空闲</small></div>
+    <div class="plot-heading"><span>{{ plot.size > 1 ? `双倍田 ${plot.slot + 1}＋${plot.slot + 2}` : `土地 ${plot.slot + 1}` }}</span><small>空闲</small></div>
 
     <PartnerPicker
       industry="farming"
@@ -91,7 +91,7 @@ function selectPartner(partnerId: string | null) {
       <Sparkles v-if="ready" class="ready-sparkle" :size="18" />
       <GameIcon :name="plot.crop?.icon" :size="42" />
     </div>
-    <div class="plot-heading"><strong>{{ plot.crop?.name }}</strong><small>土地 {{ plot.slot + 1 }}</small></div>
+    <div class="plot-heading"><strong>{{ plot.crop?.name }}</strong><small>{{ plot.size > 1 ? `双倍田 ${plot.slot + 1}＋${plot.slot + 2}` : `土地 ${plot.slot + 1}` }}</small></div>
 
     <PartnerPicker
       industry="farming"
@@ -112,7 +112,7 @@ function selectPartner(partnerId: string | null) {
 
     <template v-if="ready">
       <p v-if="plot.task_results.length" class="ready-label harvest-list">
-        <span v-for="result in plot.task_results" :key="`${result.item_id}:${result.quality}`">
+        <span v-for="(result, index) in plot.task_results" :key="`${index}:${result.item_id}:${result.quality}`">
           <QualityTag :quality="result.quality" /> {{ result.quantity }} 个
         </span>
       </p>
@@ -128,10 +128,10 @@ function selectPartner(partnerId: string | null) {
           :key="item.id"
           variant="secondary"
           :action-key="`farming:${plot.slot}:item:${item.id}`"
-          :disabled="plot.ready_at - game.serverNow > item.value"
+          :disabled="plot.ready_at - game.serverNow > item.value || item.quantity < plot.size"
           reason="剩余时间还太长"
           @click="game.useActiveTaskItem('farming', plot.slot, item.id)"
-        >{{ item.name }} ×{{ item.quantity }}</ActionButton>
+        >{{ item.name }} · 消耗 {{ plot.size }} 份</ActionButton>
         <ActionButton
           variant="secondary"
           :action-key="`plot:${plot.slot}:cancel`"

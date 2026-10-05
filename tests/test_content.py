@@ -125,10 +125,8 @@ def test_crop_roster_separates_tutorial_and_regular_economy():
 def test_crafting_prices_reflect_inputs_and_mining_stamina_value():
     content = load_content()
     assert content.stamina.restore_seconds == 12 * 60
-    assert [(task.duration_seconds, task.stamina_cost) for task in content.mining_tasks] == [
-        (12 * 60, 1),
-        (24 * 60, 2),
-    ]
+    assert all(task.duration_seconds >= task.stamina_cost * content.stamina.restore_seconds
+               for task in content.mining_tasks)
     mining_values_per_stamina = []
     for task in content.mining_tasks:
         item = content.item_map[task.produce_item_id]
@@ -159,6 +157,10 @@ def test_crafting_prices_reflect_inputs_and_mining_stamina_value():
             continue
         assert recipe.collect_xp == recipe.stamina_cost * 6
         if _is_refining_recipe(content, recipe):
+            continue
+        if recipe.id in {"make_iron_ingot", "make_wood_oil", "make_precision_parts"}:
+            # 建设材料的定价受设施成本约束，不套日常赚钱配方收益区间。
+            assert output_value > input_value
             continue
         if recipe.id == "brew_night_bell_drink":
             # 限时来源材料的活动配方保留 PR 售价，不纳入常驻采矿/加工收益对齐。

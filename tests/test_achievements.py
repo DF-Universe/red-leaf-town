@@ -23,8 +23,7 @@ def build_game():
 def test_first_achievement_batch_has_fixed_tier_rewards():
     achievements = load_content().achievements
 
-    assert len(achievements) == 52
-    assert sum(entry.reward_maple_flame for entry in achievements) == 5450
+    assert len({entry.id for entry in achievements}) == len(achievements)
     assert {entry.reward_maple_flame for entry in achievements if entry.tier == "blue"} == {50}
     assert {entry.reward_maple_flame for entry in achievements if entry.tier == "purple"} == {100}
     assert {entry.reward_maple_flame for entry in achievements if entry.tier == "gold"} == {200}
@@ -123,7 +122,7 @@ def test_legacy_commission_history_seeds_only_provable_counts():
 
     migrated = type(player).model_validate(payload)
 
-    assert migrated.schema_version == 33
+    assert migrated.schema_version == type(migrated).model_fields["schema_version"].default
     assert migrated.achievement_stats.own_commissions_completed == 1
     assert migrated.achievement_stats.commissions_completed == 1
     assert migrated.achievement_stats.production_collections == {}

@@ -1301,6 +1301,34 @@ def create_blueprint(
         result = get_service().resolve_big_catch(subject, str(payload.get("action", "")))
         return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
 
+    @blueprint.post("/api/red-leaf-town/facilities/<string:upgrade_id>")
+    @login_required
+    async def upgrade_facility(subject: str, upgrade_id: str):
+        payload = await request.get_json(silent=True) or {}
+        result = get_service().upgrade_facility(subject, upgrade_id, str(payload.get("partner_id", "")))
+        return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
+
+    @blueprint.put("/api/red-leaf-town/refining/partner")
+    @login_required
+    async def assign_refining_partner(subject: str):
+        payload = await request.get_json(silent=True) or {}
+        result = get_service().assign_refining_partner(subject, str(payload.get("partner_id", "")))
+        return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
+
+    @blueprint.post("/api/red-leaf-town/refining/<int:slot>/start")
+    @login_required
+    async def start_refining(subject: str, slot: int):
+        payload = await request.get_json(silent=True) or {}
+        result = get_service().start_refining(subject, slot, str(payload.get("recipe_id", "")), payload.get("quality"))
+        return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
+
+    @blueprint.post("/api/red-leaf-town/refining/<int:slot>/finish")
+    @login_required
+    async def finish_refining(subject: str, slot: int):
+        payload = await request.get_json(silent=True) or {}
+        result = get_service().finish_refining(subject, slot, str(payload.get("task_id", "")), payload.get("cancel") is True)
+        return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
+
     @blueprint.post("/api/red-leaf-town/ponds/<string:pond_id>/build")
     @login_required
     async def build_pond(subject: str, pond_id: str):

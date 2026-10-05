@@ -195,7 +195,7 @@ def test_migration_preserves_existing_save(event_game):
     old['schema_version'] = 32
     old.pop('season_progress')
     state = PlayerState.model_validate(old)
-    assert state.schema_version == 33 and state.season_progress == {}
+    assert state.schema_version == PlayerState.model_fields["schema_version"].default and state.season_progress == {}
     assert state.coins == old['coins']
     assert [p.model_dump() for p in state.owned_partners] == old['owned_partners']
 

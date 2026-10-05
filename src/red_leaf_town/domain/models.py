@@ -6,6 +6,7 @@ from typing import Literal
 from pydantic import BaseModel, Field, model_validator
 
 from .sailing import SailingState
+from .refining import RefiningRoomState
 
 
 RENAMED_PARTNER_IDS: dict[str, str] = {"sprite_001": "fein"}
@@ -625,6 +626,8 @@ class AchievementCompletionState(BaseModel):
 
 
 class AchievementStats(BaseModel):
+    mined_task_ids: list[str] = Field(default_factory=list)
+    refining_batches: dict[int, int] = Field(default_factory=dict)
     gathering_items: dict[str, list[str]] = Field(default_factory=dict)
     livestock_item_ids: list[str] = Field(default_factory=list)
     bred_species_ids: list[str] = Field(default_factory=list)
@@ -645,6 +648,10 @@ class AchievementStats(BaseModel):
 
     @model_validator(mode="after")
     def validate_sets_and_counts(self):
+        if len(self.mined_task_ids) != len(set(self.mined_task_ids)):
+            raise ValueError("achievement mining tasks must be unique")
+        if any(q not in range(1, 6) or count < 0 for q, count in self.refining_batches.items()):
+            raise ValueError("invalid refining achievement counts")
         if len(self.harvested_crop_ids) != len(set(self.harvested_crop_ids)):
             raise ValueError("achievement stats cannot record the same crop twice")
         if len(self.crafted_recipe_ids) != len(set(self.crafted_recipe_ids)):
@@ -819,7 +826,10 @@ class SeasonProgressState(BaseModel):
 
 
 class PlayerState(BaseModel):
-    schema_version: int = 33
+    schema_version: int = 35
+    farm_upgrade_stage: int = Field(default=0, ge=0, le=3)
+    feed_upgrade_stage: int = Field(default=0, ge=0, le=2)
+    refining: RefiningRoomState = Field(default_factory=RefiningRoomState)
     season_progress: dict[str, SeasonProgressState] = Field(default_factory=dict)
     version: int = 1
     player_id: str
@@ -1053,7 +1063,7 @@ class PlayerState(BaseModel):
                     task.setdefault("season_bonus", None)
         if schema_version < 33:
             migrated.setdefault("season_progress", {})
-        migrated["schema_version"] = 33
+        migrated["schema_version"] = 35
         return migrated
 
     @model_validator(mode="after")
@@ -1107,6 +1117,7 @@ class PlayerState(BaseModel):
                 *self.crafting_stations,
                 *self.mining_sites,
                 *self.ponds,
+                self.refining,
             ]
             for partner_id in production_slot.assigned_partner_ids
         ]

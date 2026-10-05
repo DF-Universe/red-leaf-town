@@ -3,11 +3,13 @@ import { computed, defineAsyncComponent, nextTick, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Coins, Fish, Lock, Sailboat, Shovel, UsersRound, Waves } from 'lucide-vue-next'
 
+import ConstructionCost from '@/components/ConstructionCost.vue'
 import ActionButton from '@/components/ActionButton.vue'
 import SlotPanel from '@/components/SlotPanel.vue'
 import FishingPanel from '@/components/aquatic/FishingPanel.vue'
 import PondCard from '@/components/aquatic/PondCard.vue'
 import StateBlock from '@/components/StateBlock.vue'
+import FacilityUpgradePanel from '@/components/FacilityUpgradePanel.vue'
 import ViewHeader from '@/components/ViewHeader.vue'
 import { useGameStore } from '@/stores/game'
 
@@ -107,21 +109,22 @@ const aquatic = computed(() => game.state?.aquatic || null)
             <p class="pond-site-note">
               可容纳 {{ site.capacity }} 尾。挖塘是一次性投入，此后只需负担饲料。
             </p>
-            <div class="pond-site-cost">
-              <Coins :size="16" />
-              <strong :class="{ 'is-short': site.unlocked && !site.affordable }">{{ site.build_cost }}</strong>
-              <span>红叶币</span>
-            </div>
+            <ConstructionCost
+              class="pond-site-requirements"
+              :coins="site.build_cost"
+              :materials="site.build_materials"
+              :coins-affordable="!site.unlocked || game.state.player.coins >= site.build_cost"
+            />
             <p v-if="!site.unlocked" class="pond-site-locked">
               <Lock :size="13" />居民等级 {{ site.min_level }} 才能挖这口塘（当前 Lv.{{ game.state.player.level }}）
             </p>
             <p v-else-if="!site.affordable" class="pond-site-locked">
-              <Coins :size="13" />红叶币不足，还差 {{ site.build_cost - game.state.player.coins }} 枚
+              <Coins :size="13" />建造所需红叶币或材料不足
             </p>
             <ActionButton
               :action-key="`aquatic:pond:${site.id}:build`"
               :disabled="!site.unlocked || !site.affordable"
-              :reason="!site.unlocked ? `居民等级 ${site.min_level} 解锁` : (!site.affordable ? '红叶币不足' : undefined)"
+              :reason="!site.unlocked ? `居民等级 ${site.min_level} 解锁` : (!site.affordable ? '红叶币或材料不足' : undefined)"
               @click="game.buildPond(site.id)"
             >
               <Shovel :size="15" /> 挖塘
@@ -130,6 +133,7 @@ const aquatic = computed(() => game.state?.aquatic || null)
         </div>
       </section>
 
+      <FacilityUpgradePanel kind="feed" />
       <SlotPanel
         :slot="aquatic.feed_slot"
         description="鱼塘每走完一个繁殖周期从这里扣一次饲料，与周期长短无关；槽内耗尽则停摆，买不起的周期不会推进。饲料的品质分越高，鱼塘产出的品质越好。"
@@ -152,12 +156,9 @@ const aquatic = computed(() => game.state?.aquatic || null)
 .pond-site { --pond-accent: #4f8f9c; display: flex; flex-direction: column; gap: 12px; padding: 18px; border-style: dashed; border-color: color-mix(in srgb, var(--pond-accent) 26%, transparent); }
 .pond-site h3 { margin: 0; font: 600 17px Georgia, 'Noto Serif SC', serif; }
 .pond-site header small { display: block; margin-top: 5px; color: #849087; line-height: 1.55; }
+.pond-site-requirements { margin-top: auto; }
 .pond-site-note { margin: 0; color: #7d887f; font-size: 12px; line-height: 1.6; }
-.pond-site-cost { display: flex; align-items: center; gap: 7px; margin-top: auto; color: var(--gold); }
-.pond-site-cost strong { font-size: 19px; }
-.pond-site-cost strong.is-short { color: #b4635a; }
 .pond-site-locked { display: flex; align-items: center; gap: 6px; margin: -4px 0 0; color: #a4736a; font-size: 12px; line-height: 1.5; }
-.pond-site-cost span { color: #7d887f; font-size: 12px; }
 .aquatic-tabs { display: flex; gap: 8px; padding: 7px; border: 1px solid #8cb7b826; border-radius: 18px; background: #0e1a17; }
 .aquatic-tabs button { position: relative; display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; padding: 16px 20px; color: #98aca7; text-align: left; border: 1px solid transparent; border-radius: 12px; background: transparent; cursor: pointer; transition: background .18s, border-color .18s; }
 .aquatic-tabs button:hover { color: #e4f0e6; background: #ffffff06; }

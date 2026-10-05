@@ -1123,6 +1123,6 @@ def test_schema_twenty_four_migration_starts_from_an_empty_ranch():
         "created_at": started_at,
         "updated_at": started_at,
     })
-    assert player.schema_version == 33
+    assert player.schema_version == PlayerState.model_fields["schema_version"].default
     assert player.livestock_facilities == []
     assert player.animals == []

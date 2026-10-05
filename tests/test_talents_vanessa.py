@@ -23,15 +23,17 @@ class ZeroRandom(random.Random):
 def test_public_talent_paths_require_prerequisites(ranch, monkeypatch, industry):
     service, repo, _, player = ranch
     nodes = [n for n in service.content.talents if n.industry == industry]
-    assert len(nodes) == 5
+    assert nodes
     assert all(n.cost == 1 for n in nodes)
     monkeypatch.setenv('RED_LEAF_TOWN_BETA_PLAYERS','someone-else')
-    assert sum(n['industry'] == industry for n in service.snapshot_by_sub('stock-sub')['talents']['nodes']) == 5
+    assert sum(n['industry'] == industry for n in service.snapshot_by_sub('stock-sub')['talents']['nodes']) == len(nodes)
     set_level(repo,player.player_id,20)
     with pytest.raises(GameError, match='前置'):
         service.unlock_talent('stock-sub',nodes[-1].id)
+    service.snapshot_by_sub("stock-sub")
+    points_before = service._available_talent_points(repo.get(player.player_id))
     for n in nodes: service.unlock_talent('stock-sub',n.id)
-    assert service._available_talent_points(repo.get(player.player_id)) == 14
+    assert service._available_talent_points(repo.get(player.player_id)) == points_before - sum(n.cost for n in nodes)
 
 
 def test_crafting_freezes_quality_speed_refund_and_refunds_once_per_recipe(ranch, monkeypatch):

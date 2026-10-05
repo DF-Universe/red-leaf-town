@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import { Beef, Compass, DoorOpen, Flame, Hammer, HandHeart, LayoutDashboard, Pickaxe, Sparkles, Sprout, Store, Sun, Trees, Waves } from 'lucide-vue-next'
+import { Beef, Compass, DoorOpen, Flame, FlaskConical, Hammer, HandHeart, LayoutDashboard, Pickaxe, Sparkles, Sprout, Store, Sun, Trees, Waves } from 'lucide-vue-next'
 
 import type { GameState } from '@/types'
 
@@ -42,6 +42,7 @@ export const NAV_ITEMS: NavItem[] = [
     readyGroup: 'crafting',
     unlocked: (state) => state.crafting_stations.length > 0,
   },
+  { to: '/refining', label: '精制房', icon: FlaskConical, primary: false, unlocked: (state) => !!state.facilities?.refining.unlocked },
   {
     to: '/mining',
     label: '矿产',
