@@ -9,7 +9,7 @@ from quart import Quart
 from PIL import Image
 from werkzeug.datastructures import FileStorage
 
-from private.libraries.jwt import AUD_RED_LEAF_TOWN, subject_encode
+from game_host.jwt import AUD_RED_LEAF_TOWN, subject_encode
 from red_leaf_town.application import GameService
 from red_leaf_town.content import load_content
 from red_leaf_town.domain import QQIdentity
@@ -485,7 +485,7 @@ async def test_binding_code_api(client):
 
 @runs
 async def test_oauth_callback_creates_one_player_and_sets_isolated_cookie(client, service, monkeypatch):
-    import private.libraries.df_oauth as oauth
+    import game_host.df_oauth as oauth
 
     async def complete_login(code, state):
         return {
@@ -669,7 +669,7 @@ async def test_admin_searches_player_and_grants_partner_once(admin_client):
 
 @runs
 async def test_partner_artwork_uploads_through_cdn_provider(admin_client, monkeypatch):
-    from src.libraries import cdn_client
+    from game_host import cdn_client
 
     await admin_client.post(
         "/api/red-leaf-town/admin/partners",
@@ -712,7 +712,7 @@ async def test_partner_artwork_uploads_through_cdn_provider(admin_client, monkey
 
 @runs
 async def test_partner_artwork_center_crops_non_nine_sixteen_image(admin_client, monkeypatch):
-    from src.libraries import cdn_client
+    from game_host import cdn_client
 
     await admin_client.post(
         "/api/red-leaf-town/admin/partners",
@@ -740,7 +740,7 @@ async def test_partner_artwork_center_crops_non_nine_sixteen_image(admin_client,
 
 @runs
 async def test_partner_artwork_rejects_invalid_manual_crop_before_upload(admin_client, monkeypatch):
-    from src.libraries import cdn_client
+    from game_host import cdn_client
 
     await admin_client.post(
         "/api/red-leaf-town/admin/partners",
@@ -1312,7 +1312,7 @@ async def test_beta_livestock_upgrade_and_duck_incubation_api(client, service, m
 
 @runs
 async def test_partner_artwork_selection_requires_login_and_returns_cdn_urls(client, service, monkeypatch):
-    from src.libraries import cdn_client
+    from game_host import cdn_client
 
     monkeypatch.setattr(cdn_client, "cdn_url_at", lambda path: f"https://cdn.example/{path}")
     path = "/api/red-leaf-town/partners/bai_li/artwork"

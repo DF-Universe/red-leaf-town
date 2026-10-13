@@ -11,7 +11,7 @@ from quart import Quart
 from PIL import Image
 from werkzeug.datastructures import FileStorage
 
-from private.libraries.jwt import AUD_RED_LEAF_TOWN, subject_encode
+from game_host.jwt import AUD_RED_LEAF_TOWN, subject_encode
 from red_leaf_town.application import GameService
 from red_leaf_town.content import load_content
 from red_leaf_town.infrastructure import InMemoryPlayerRepository
@@ -171,7 +171,7 @@ def png_bytes(size, color="#a04030", mode="RGB"):
 
 @runs
 async def test_story_asset_upload_transcodes_and_registers(client, monkeypatch):
-    from src.libraries import cdn_client
+    from game_host import cdn_client
 
     uploaded = {}
     monkeypatch.setattr(cdn_client, "upload_bytes_at", lambda path, data, content_type: uploaded.update(
@@ -200,7 +200,7 @@ async def test_story_asset_upload_transcodes_and_registers(client, monkeypatch):
 
 @runs
 async def test_portrait_upload_keeps_alpha(client, monkeypatch):
-    from src.libraries import cdn_client
+    from game_host import cdn_client
 
     uploaded = {}
     monkeypatch.setattr(cdn_client, "upload_bytes_at", lambda path, data, content_type: uploaded.update(data=data) or True)
@@ -223,7 +223,7 @@ async def test_portrait_upload_keeps_alpha(client, monkeypatch):
 
 @runs
 async def test_asset_id_must_be_a_slug(client, monkeypatch):
-    from src.libraries import cdn_client
+    from game_host import cdn_client
 
     monkeypatch.setattr(cdn_client, "upload_bytes_at", lambda path, data, content_type: True)
     response = await client.post(
@@ -238,7 +238,7 @@ async def test_asset_id_must_be_a_slug(client, monkeypatch):
 
 @runs
 async def test_portrait_layout_is_saved_on_the_asset(client, monkeypatch):
-    from src.libraries import cdn_client
+    from game_host import cdn_client
 
     monkeypatch.setattr(cdn_client, "upload_bytes_at", lambda path, data, content_type: True)
     monkeypatch.setattr(cdn_client, "cdn_url_at", lambda path: f"https://cdn.example/{path}")
@@ -282,7 +282,7 @@ async def test_portrait_layout_is_saved_on_the_asset(client, monkeypatch):
 
 @runs
 async def test_asset_delete_blocked_while_referenced(client, monkeypatch, story_paths):
-    from src.libraries import cdn_client
+    from game_host import cdn_client
 
     asset_path, script_dir, *_ = story_paths
     monkeypatch.setattr(cdn_client, "upload_bytes_at", lambda path, data, content_type: True)
@@ -330,7 +330,7 @@ async def test_broken_script_reports_invalid_content(client, story_paths):
 
 
 def stub_cdn(monkeypatch):
-    from src.libraries import cdn_client
+    from game_host import cdn_client
 
     monkeypatch.setattr(cdn_client, "upload_bytes_at", lambda path, data, content_type: True)
     monkeypatch.setattr(cdn_client, "cdn_url_at", lambda path: f"https://cdn.example/{path}")

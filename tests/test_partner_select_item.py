@@ -7,7 +7,7 @@ import random
 import pytest
 from quart import Quart
 
-from private.libraries.jwt import AUD_RED_LEAF_TOWN, subject_encode
+from game_host.jwt import AUD_RED_LEAF_TOWN, subject_encode
 from red_leaf_town.application import GameError, GameService
 from red_leaf_town.application.service import PARTNER_SELECT_IDS
 from red_leaf_town.content import load_content

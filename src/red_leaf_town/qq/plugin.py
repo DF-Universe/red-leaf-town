@@ -10,7 +10,7 @@ from nonebot_plugin_alconna import UniMessage
 from red_leaf_town.application import GameError
 from red_leaf_town.domain import QQIdentity
 from red_leaf_town.runtime import get_service
-from src.data_access.plugin_manager import plugin_manager
+from game_host.plugin_manager import plugin_manager
 
 
 PLUGIN_META = {
@@ -33,6 +33,8 @@ plugin_manager.register_plugin(PLUGIN_META)
 
 
 def resolve_identity(bot: Bot, event: Event) -> QQIdentity | None:
+    if str(bot.type) != "QQ" or str(bot.self_id) != str(get_driver().config.aether_bot):
+        return None
     subject = (
         getattr(getattr(event, "author", None), "id", None)
         or getattr(event, "user_id", None)
@@ -166,7 +168,7 @@ async def farm_summary(bot: Bot, event: Event):
         + _pond_line(aquatic, ponds)
         + f"传送门：已开启 {portals_opened} 座，{portals_active} 座待交贡品\n"
         + "\n".join(_commission_lines(state))
-        + "\n前往 Web 页面管理农场：https://chiyuki.diving-fish.com/red-leaf-town/",
+        + "\n前往 Web 页面管理农场：https://game.diving-fish.com/red-leaf-town/",
     ).send()
 
 
@@ -345,7 +347,7 @@ async def achievement_summary(bot: Bot, event: Event):
     )[:3]
     if recent:
         lines.append("最近达成：" + "、".join(entry["name"] for entry in recent))
-    lines.append("请前往 Web 成就册领取奖励：https://chiyuki.diving-fish.com/red-leaf-town/")
+    lines.append("请前往 Web 成就册领取奖励：https://game.diving-fish.com/red-leaf-town/")
     await _reply(event, "\n".join(lines)).send()
 
 
@@ -367,7 +369,7 @@ async def commission_summary(bot: Bot, event: Event):
         f"转发池：{len(board['entries'])} 条待接 · 今天还能接 "
         f"{board['remaining_takes']}/{board['daily_take_limit']} 单"
     )
-    lines.append("接单和转发请到 Web 页面：https://chiyuki.diving-fish.com/red-leaf-town/commissions")
+    lines.append("接单和转发请到 Web 页面：https://game.diving-fish.com/red-leaf-town/commissions")
     await _reply(event, "🍁 今日委托\n" + "\n".join(lines)).send()
 
 
@@ -422,4 +424,4 @@ async def sailing_summary(bot: Bot, event: Event):
         text = f"初帆号 · {run['route_name']}\n{status}"
     else:
         text = f"初帆号已就绪，累计完成 {sailing['completed_voyages']} 次航行。"
-    await _reply(event, text + "\n安排出航与领取收获：\nhttps://chiyuki.diving-fish.com/red-leaf-town/aquatic?tab=sailing").send()
+    await _reply(event, text + "\n安排出航与领取收获：\nhttps://game.diving-fish.com/red-leaf-town/aquatic?tab=sailing").send()

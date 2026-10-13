@@ -21,7 +21,7 @@ from red_leaf_town.infrastructure import (
     RedisRedemptionCodes,
 )
 from red_leaf_town.partner_content import load_partner_catalog
-from src.data_access.redis import redis_global
+from game_host.redis import redis_global
 
 
 @pytest.fixture

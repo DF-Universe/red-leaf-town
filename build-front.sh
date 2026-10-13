@@ -12,5 +12,3 @@ if [ "${1:-}" = "--beta" ]; then
 fi
 
 npm run build
-sudo mkdir -p /var/www/html/red-leaf-town
-sudo cp -r dist/. /var/www/html/red-leaf-town/

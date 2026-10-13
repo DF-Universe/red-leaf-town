@@ -13,7 +13,7 @@ from red_leaf_town.story_assets import load_story_asset_catalog
 from red_leaf_town.partner_content import load_partner_catalog
 from red_leaf_town.runtime import set_service
 from red_leaf_town.web.routes import create_blueprint, COOKIE_NAME
-from private.libraries.jwt import AUD_RED_LEAF_TOWN, subject_encode
+from game_host.jwt import AUD_RED_LEAF_TOWN, subject_encode
 from test_seasons import event_game, begin_gathering, close_window, SPOT, SITE, SEASON
 
 

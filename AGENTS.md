@@ -20,7 +20,8 @@
 ## 本地测试
 
 ```bash
-../../venv/bin/python -m pytest tests
+cd ..
+BAILI_CONFIG=/path/to/test-config.json .venv/bin/python -m pytest red-leaf-town/tests
 ```
 
 ## 后端
@@ -28,7 +29,7 @@
 此网站后端受 Nonebot 的 web 服务控制。修改完后重启系统服务：
 
 ```bash
-sudo systemctl restart chiyuki
+sudo systemctl restart baili
 ```
 
 ## 前端开发
@@ -80,10 +81,10 @@ npm run dev
 授权中心需要登记独立应用 `red_leaf_town`，回调地址必须是：
 
 ```text
-https://chiyuki.diving-fish.com/api/oauth/red-leaf-town/callback
+https://game.diving-fish.com/api/oauth/red-leaf-town/callback
 ```
 
-随后在主服务的 `DF_OAUTH_CONFIG` 中加入同名配置项。作用域只需要
+随后在宿主 `config.local.json` 的 `df_oauth_config` 中加入同名配置项。作用域只需要
 `openid profile`，不申请邮箱或 QQ 号。
 
 新一批农作、苇风湿地、纺织和饲料、鸡舍／畜栏二级及鸭羊内容已于 2026-09-11 外放，配置与验收口径见 [`docs/growth-beta.md`](docs/growth-beta.md)。新增 `beta` 标记同时保护快照和业务操作；内测物产暂不进入公开委托池。扩建使用目标等级防重扣费，鸡鸭及牛羊各共享 8 个位置；孵化接口可传 `species_id`，配种由亲本物种决定。造船改为多材料需求，新增远航风帆一块，已建船不追缴。

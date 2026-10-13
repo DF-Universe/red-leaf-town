@@ -4,7 +4,7 @@ import json
 import pytest
 from quart import Quart
 
-from private.libraries.jwt import AUD_RED_LEAF_TOWN, subject_encode
+from game_host.jwt import AUD_RED_LEAF_TOWN, subject_encode
 from red_leaf_town.config import get_admin_subs
 from red_leaf_town.web.routes import COOKIE_NAME, create_blueprint
 

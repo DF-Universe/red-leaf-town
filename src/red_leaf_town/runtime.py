@@ -9,7 +9,7 @@ _service: GameService | None = None
 def get_service() -> GameService:
     global _service
     if _service is None:
-        from src.data_access.redis import redis_global
+        from game_host.redis import redis_global
 
         from red_leaf_town.infrastructure import (
             RedisCommissionBoard,

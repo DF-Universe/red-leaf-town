@@ -91,8 +91,8 @@ def _error(message: str, status: int = 400, code: str = "request_error"):
 
 
 def _is_admin_request() -> bool:
-    from private.libraries.admin_auth import is_admin_request
-    from private.libraries.jwt import AUD_RED_LEAF_TOWN
+    from game_host.admin_auth import is_admin_request
+    from game_host.jwt import AUD_RED_LEAF_TOWN
 
     return is_admin_request(COOKIE_NAME, AUD_RED_LEAF_TOWN, get_admin_subs())
 
@@ -206,7 +206,7 @@ def _form_flag(form, key: str) -> bool:
 
 
 def _attach_cdn_urls(value):
-    from src.libraries import cdn_client
+    from game_host import cdn_client
 
     if isinstance(value, dict):
         asset_key = value.get("asset_key")
@@ -225,7 +225,7 @@ def _oauth_error(message: str):
 
 
 def _session_subject() -> str:
-    from private.libraries.jwt import AUD_RED_LEAF_TOWN, decode
+    from game_host.jwt import AUD_RED_LEAF_TOWN, decode
 
     token = request.cookies.get(COOKIE_NAME, "")
     if not token:
@@ -265,7 +265,7 @@ def create_blueprint(
         return load_story_catalog(story_script_path, story_asset_catalog_path, catalog_path)
 
     def story_admin_payload() -> dict:
-        from src.libraries import cdn_client
+        from game_host import cdn_client
 
         assets = load_story_asset_catalog(story_asset_catalog_path)
         return {
@@ -284,7 +284,7 @@ def create_blueprint(
         }
 
     def serialize_partner(partner: PartnerDefinition) -> dict:
-        from src.libraries import cdn_client
+        from game_host import cdn_client
 
         data = partner.model_dump()
         for artwork in data["artworks"]:
@@ -300,7 +300,7 @@ def create_blueprint(
         return data
 
     def admin_payload(catalog: PartnerCatalog) -> dict:
-        from src.libraries import cdn_client
+        from game_host import cdn_client
 
         return {
             "partners": [serialize_partner(partner) for partner in catalog.partners],
@@ -543,7 +543,7 @@ def create_blueprint(
             partner = PartnerDefinition.model_validate(payload)
         except ValidationError as exc:
             return _validation_error(exc)
-        from src.libraries import cdn_client
+        from game_host import cdn_client
 
         if not cdn_client.upload_bytes_at(asset_key, webp_data, content_type):
             return _error("CDN 上传失败，请检查底层 provider 配置", 503, "cdn_upload_failed")
@@ -626,7 +626,7 @@ def create_blueprint(
             )
         except ValidationError as exc:
             return _error("; ".join(item["msg"] for item in exc.errors()), 400, "invalid_asset")
-        from src.libraries import cdn_client
+        from game_host import cdn_client
 
         if not cdn_client.upload_bytes_at(asset.asset_key, webp_data, asset.content_type):
             return _error("CDN 上传失败，请检查底层 provider 配置", 503, "cdn_upload_failed")
@@ -785,7 +785,7 @@ def create_blueprint(
 
     @blueprint.get("/api/oauth/red-leaf-town/start")
     async def oauth_start():
-        from private.libraries.df_oauth import OAuthError, build_authorize_url
+        from game_host.df_oauth import OAuthError, build_authorize_url
 
         try:
             url = await build_authorize_url(
@@ -798,8 +798,8 @@ def create_blueprint(
 
     @blueprint.get("/api/oauth/red-leaf-town/callback")
     async def oauth_callback():
-        from private.libraries.df_oauth import OAuthError, complete_login
-        from private.libraries.jwt import AUD_RED_LEAF_TOWN, subject_encode
+        from game_host.df_oauth import OAuthError, complete_login
+        from game_host.jwt import AUD_RED_LEAF_TOWN, subject_encode
 
         if request.args.get("error"):
             description = request.args.get("error_description") or request.args.get("error")
@@ -828,7 +828,7 @@ def create_blueprint(
 
     @blueprint.post("/api/red-leaf-town/logout")
     async def logout():
-        from private.libraries.df_oauth import LOGOUT_URL
+        from game_host.df_oauth import LOGOUT_URL
 
         response = await make_response(jsonify({"code": 0, "message": "logged out", "data": {"logout_url": LOGOUT_URL}}))
         response.delete_cookie(COOKIE_NAME, path="/")
@@ -1020,7 +1020,7 @@ def create_blueprint(
             )
         except ValidationError as exc:
             return _validation_error(exc)
-        from src.libraries import cdn_client
+        from game_host import cdn_client
 
         if not cdn_client.upload_bytes_at(upload.asset_key, webp_data, upload.content_type):
             return _error("CDN 上传失败，请稍后再试", 503, "cdn_upload_failed")
