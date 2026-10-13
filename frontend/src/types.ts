@@ -1423,6 +1423,8 @@ export interface PartnerArtwork {
   height: number
   content_type: string
   url?: string | null
+  name?: string
+  skin_id?: string
 }
 
 export interface CropRect {
@@ -1862,6 +1864,20 @@ export interface SummerChapter {
   seen: boolean
   previous_seen: boolean
 }
+export interface SummerSkinOffer {
+  id: string
+  partner_id: string
+  name: string
+  display_name: string
+  subtitle: string
+  asset_key: string
+  url?: string
+  width: number
+  height: number
+  unlocked: boolean
+  can_claim: boolean
+  cost: Array<{ item_id: string; item_name: string; quantity: number; min_quality: number; owned: number }>
+}
 export interface SummerEventState {
   visible: boolean
   active: boolean
@@ -1874,6 +1890,7 @@ export interface SummerEventState {
   target: number
   milestones: Array<{ points: number; reward: Reward; claimed: boolean; claimable: boolean }>
   chapters: SummerChapter[]
+  skins?: SummerSkinOffer[]
 }
 
 export interface FacilityMaterial { item_id: string; quantity: number; owned: number; item: AquaticItemRef }
