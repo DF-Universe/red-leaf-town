@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { ChevronRight, Copy, Inbox, Leaf, LogOut, Map, Menu, RefreshCw, RotateCw, Ticket, Trophy, UserRound, X } from 'lucide-vue-next'
 
@@ -14,7 +14,6 @@ import StaminaDialog from '@/components/StaminaDialog.vue'
 import ProgressBar from '@/components/ProgressBar.vue'
 import ResourcePill from '@/components/ResourcePill.vue'
 import StoryOverlay from '@/components/story/StoryOverlay.vue'
-import { useReadyWatch } from '@/composables/useReadyWatch'
 import { useGameStore } from '@/stores/game'
 import { useStoryStore } from '@/stores/story'
 import { useUiStore } from '@/stores/ui'
@@ -24,7 +23,6 @@ const story = useStoryStore()
 const ui = useUiStore()
 const route = useRoute()
 const bindingCommand = ref('')
-let pollTimer = 0
 
 // 后台和剧情编辑器都不套玩家端的外壳：不拉存档、不轮询、不发剧情信号。
 const isBareRoute = computed(() => route.meta.admin === true || route.meta.standalone === true)
@@ -51,14 +49,10 @@ const levelHint = computed(() => {
   return player.next_level_xp ? `${player.experience} / ${player.next_level_xp} XP` : '已达当前上限'
 })
 
-useReadyWatch()
-
 onMounted(async () => {
   if (isBareRoute.value) return
   await game.initialize()
-  pollTimer = window.setInterval(() => game.refresh(true), 15_000)
 })
-onBeforeUnmount(() => window.clearInterval(pollTimer))
 
 watch(
   () => [game.status, route.name] as const,

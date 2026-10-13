@@ -59,7 +59,6 @@ function selectPartner(index: number, id: string | null) {
 }
 
 watch([selectedRoute, selectedSupply, slots], () => { requestId.value = crypto.randomUUID() })
-watch(elapsed, ready => { if (ready) void game.refresh(true) })
 
 async function cancelVoyage() {
   const voyage = run.value
