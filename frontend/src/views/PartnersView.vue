@@ -28,7 +28,9 @@ watch(() => selected.value?.partner_id, () => { trainingOpen.value = false })
 const artworkChoices = computed(() => selected.value?.available_artworks || [])
 const artworkSaving = computed(() => game.pending.has(`partner:${selected.value?.partner_id}:artwork`))
 const artworkIndex = computed(() => artworkChoices.value.findIndex((artwork) => artwork.breakthrough === selected.value?.artwork_stage))
-const artworkLabel = computed(() => selected.value?.artwork_stage ? `${selected.value.artwork_stage} 次突破立绘` : '初始立绘')
+// 限定皮肤以伪阶段（100+）并入同一条画廊，条目自带 name（皮肤名，如「盛夏鳞光」）
+const currentArtwork = computed(() => artworkChoices.value[artworkIndex.value] || null)
+const artworkLabel = computed(() => currentArtwork.value?.name || (selected.value?.artwork_stage ? `${selected.value.artwork_stage} 次突破立绘` : '初始立绘'))
 let swipeStart: { x: number; y: number; partnerId: string; pointerId: number } | null = null
 
 function switchArtwork(direction: number) {
@@ -119,6 +121,7 @@ function rosterSubtitle(partner: OwnedPartner) {
             @pointerdown="startSwipe" @pointerup="endSwipe" @pointercancel="swipeStart = null" @lostpointercapture="swipeStart = null">
             <img v-if="selected.artwork?.url" :src="selected.artwork.url" :alt="`${selected.name} · ${artworkLabel}`" :draggable="false" />
             <div v-else class="partner-illustration-empty"><Sparkles :size="46" /><span>暂无当前形态插画</span></div>
+            <div v-if="currentArtwork?.name" class="artwork-skin-title">{{ currentArtwork.name }}</div>
           </RarityFrame>
           <div v-if="artworkChoices.length > 1" class="artwork-controls" :aria-busy="artworkSaving">
             <button class="secondary-button" aria-label="上一张立绘" :disabled="artworkSaving" @click="switchArtwork(-1)"><ChevronLeft :size="20" /></button>
@@ -181,6 +184,26 @@ function rosterSubtitle(partner: OwnedPartner) {
 .partner-detail { min-width: 0; display: grid; grid-template-columns: minmax(230px, 330px) minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); padding: clamp(18px, 3vw, 34px); border: 1px solid var(--line); border-radius: 25px 8px; background: linear-gradient(145deg, #1b271f, #151e19); }.partner-illustration { width: 100%; box-shadow: 0 22px 60px #0005; }.partner-illustration-empty { display: grid; place-items: center; gap: 9px; width: 100%; height: 100%; color: #708078; font-size: 12px; }
 .partner-artwork-picker { min-width: 0; }
 .partner-illustration { touch-action: pan-y; user-select: none; }
+/* 限定皮肤立绘的标题条：只有皮肤条目带 name，突破立绘不会出现 */
+.artwork-skin-title {
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  transform: translateX(-50%);
+  z-index: 2;
+  padding: 5px 15px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  white-space: nowrap;
+  color: #ffeecd;
+  background: rgba(14, 22, 17, .62);
+  border: 1px solid rgba(232, 195, 122, .48);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .35);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+}
 .artwork-controls { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 14px; }
 .artwork-controls button { display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 8px; }
 .artwork-controls span { text-align: center; }
