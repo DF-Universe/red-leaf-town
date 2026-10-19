@@ -705,7 +705,10 @@ function dieLabel(result: ExplorationResolutionResult, index: number) {
                 :blocked="blockedGear(partnerId, 'weapon_item_id')"
                 @select="(item) => setLoadout(partnerId, 'weapon_item_id', item?.item_id || '')"
               >
-                <template #meta="{ item }">{{ gearSummary(item) }} · 仓库 {{ item.quantity }}</template>
+                <template #meta="{ item }">
+                  {{ gearSummary(item) }} · 仓库 {{ item.quantity }}
+                  <span v-if="item.equipment?.description" class="gear-note">{{ item.equipment?.description }}</span>
+                </template>
               </ItemPicker>
 
               <ItemPicker
@@ -723,7 +726,10 @@ function dieLabel(result: ExplorationResolutionResult, index: number) {
                 :blocked="blockedGear(partnerId, 'accessory_item_id')"
                 @select="(item) => setLoadout(partnerId, 'accessory_item_id', item?.item_id || '')"
               >
-                <template #meta="{ item }">{{ gearSummary(item) }} · 仓库 {{ item.quantity }}</template>
+                <template #meta="{ item }">
+                  {{ gearSummary(item) }} · 仓库 {{ item.quantity }}
+                  <span v-if="item.equipment?.description" class="gear-note">{{ item.equipment?.description }}</span>
+                </template>
               </ItemPicker>
             </section>
           </div>
@@ -1097,6 +1103,8 @@ function dieLabel(result: ExplorationResolutionResult, index: number) {
 
 <style scoped>
 .exploration-view { --expedition-accent: #b85f3f; }
+/* 装备描述（equipment.description）：上游原本没有渲染位，这里在选择器列表的数值摘要下补一行 */
+.gear-note { display: block; margin-top: 3px; color: #6f7d73; }
 .expedition-card, .event-card, .haul-card, .event-log { padding: 20px; }
 .expedition-card { border-top: 3px solid var(--expedition-accent); }
 /* 活动路线的领队加成提示：文案由后端 leader_note 提供，只在有内容时显示 */
