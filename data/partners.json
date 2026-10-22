@@ -103,7 +103,7 @@
       "name": "艾欣愉",
       "rarity": 4,
       "standard_recruitable": true,
-      "description": "",
+      "description": "红叶镇鱼塘最忠实的看守者，钓鱼技术稀烂但是运气极佳。千万不要打她鱼塘的主意，不然她会带着一根大葱对你进行一套强劲的滑铲。",
       "growth_curve": "linear",
       "exploration_stats": {
         "strength": 9,
@@ -1310,7 +1310,7 @@
       "name": "绯恩SP",
       "rarity": 5,
       "standard_recruitable": false,
-      "description": "",
+      "description": "被盛夏晒红了脸颊的少女，换上了泳装依然是那副气鼓鼓的模样。她照旧嘴硬，却总把最先摘下的果子留给你。",
       "growth_curve": "linear",
       "exploration_stats": {
         "strength": 12,
@@ -1780,7 +1780,7 @@
       "name": "顾祇",
       "rarity": 5,
       "standard_recruitable": true,
-      "description": "",
+      "description": "自裂隙坠落的堕天使，被放逐的弃子。她成日与地底的矿脉为伴，眼底始终燃着不肯熄灭的金色火焰。",
       "growth_curve": "linear",
       "exploration_stats": {
         "strength": 16,
@@ -1872,7 +1872,7 @@
       "name": "顾祇SP",
       "rarity": 5,
       "standard_recruitable": false,
-      "description": "",
+      "description": "放下矿镐、走上舞台的堕天使，红叶镇的第一位偶像。她亲手搭起港口那座舞台，把不肯认输的执拗，都唱进了夏夜的风里。",
       "growth_curve": "linear",
       "exploration_stats": {
         "strength": 8,
