@@ -8,14 +8,26 @@
       "name": "泳装 · 艾欣愉",
       "display_name": "盛夏鳞光",
       "subtitle": "夏日限定立绘",
-      "asset_key": "red-leaf-town/partners/ai_xinyu/swimsuit-e184b47ed40eb9d3.webp",
-      "width": 936,
-      "height": 1664,
+      "asset_key": "red-leaf-town/partners/ai_xinyu/swimsuit-ce3259123c40003a.webp",
+      "width": 941,
+      "height": 1672,
       "cost": [
-        { "item_id": "night_bell_brew", "quantity": 5 },
-        { "item_id": "heart_scale", "quantity": 15 },
-        { "item_id": "sea_shell", "quantity": 20 },
-        { "item_id": "falling_star_ear", "quantity": 6 }
+        {
+          "item_id": "night_bell_brew",
+          "quantity": 5
+        },
+        {
+          "item_id": "heart_scale",
+          "quantity": 15
+        },
+        {
+          "item_id": "sea_shell",
+          "quantity": 20
+        },
+        {
+          "item_id": "falling_star_ear",
+          "quantity": 6
+        }
       ]
     },
     {
@@ -24,14 +36,26 @@
       "name": "泳装 · 爱神",
       "display_name": "雷鸣假日",
       "subtitle": "夏日限定立绘",
-      "asset_key": "red-leaf-town/partners/aishen/swimsuit-a22e53e4a26ba2d3.webp",
-      "width": 936,
-      "height": 1664,
+      "asset_key": "red-leaf-town/partners/aishen/swimsuit-4dbeadfbce008b97.webp",
+      "width": 941,
+      "height": 1672,
       "cost": [
-        { "item_id": "sea_shell", "quantity": 15 },
-        { "item_id": "mist_grape", "quantity": 12 },
-        { "item_id": "night_bellflower", "quantity": 18 },
-        { "item_id": "autumn_herb", "quantity": 4 }
+        {
+          "item_id": "sea_shell",
+          "quantity": 15
+        },
+        {
+          "item_id": "mist_grape",
+          "quantity": 12
+        },
+        {
+          "item_id": "night_bellflower",
+          "quantity": 18
+        },
+        {
+          "item_id": "autumn_herb",
+          "quantity": 4
+        }
       ]
     }
   ]
