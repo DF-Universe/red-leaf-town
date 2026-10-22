@@ -1284,6 +1284,18 @@ export interface ExplorationResolutionResult {
   completed: boolean
 }
 
+export interface ExplorationWithdrawalResult {
+  expedition_id: string
+  completed: boolean
+  depth: number
+  stamina_spent: number
+  entry_fee: number
+  drops: ExplorationDrop[]
+  equipment_drops: DelveCarriedItem[]
+  returned_items: DelveCarriedItem[]
+  guide_leaves?: number
+}
+
 export interface ExplorationRun {
   run_id: string
   expedition_id: string

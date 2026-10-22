@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 import { api, ApiError } from '@/api'
 import { PRODUCTION_COPY, type ProductionIndustry } from '@/lib/production'
 import { qualityName } from '@/lib/quality'
+import { explorationWithdrawalText } from '@/lib/exploration'
 import { rewardSummary } from '@/lib/rewards'
 import { useStoryStore } from '@/stores/story'
 import { useTickerStore } from '@/stores/ticker'
@@ -21,6 +22,7 @@ import type {
   CrossoverClaimResult,
   DelveBattleActionResult,
   ExplorationResolutionResult,
+  ExplorationWithdrawalResult,
   GachaResult,
   GameState,
   LivestockCollectResult,
@@ -300,9 +302,9 @@ export const useGameStore = defineStore('game', () => {
 
   async function withdrawExploration() {
     const result = await action('exploration:withdraw', `${API_ROOT}/exploration/current/withdraw`) as
-      | (ProductionOutcome & { depth?: number })
+      | ExplorationWithdrawalResult
       | undefined
-    if (result) showNotice(outcomeText(result, '返程带回了', '战利品') || `从第 ${result.depth || 0} 段路线返程`)
+    if (result) showNotice(explorationWithdrawalText(result))
     return result
   }
 

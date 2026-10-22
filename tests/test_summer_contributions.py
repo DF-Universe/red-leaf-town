@@ -174,3 +174,32 @@ def test_signature_weapon_rejects_non_owner(event_game):
     with pytest.raises(GameError, match='认主'):
         s._build_delve_loadout(repo.get(pid), PARTY, {'fein_sp': {'weapon_item_id': 'spotlight_mic_blade'}})
     assert s._build_delve_loadout(repo.get(pid), PARTY, {'guqi_sp': {'weapon_item_id': 'spotlight_mic_blade'}})['guqi_sp'].weapon_item_id == 'spotlight_mic_blade'
+
+
+def test_midsummer_victory_returns_fixed_seeds_and_awards_inventory(event_game):
+    s, repo, pid = start_dungeon(event_game)
+    # Make combat deterministic without replacing the route or its reward definitions.
+    s.rng = FixedRandom([])
+    def strengthen(p):
+        for member in p.exploration_run.combat_party.values():
+            member.max_hp = member.hp = 10000
+        p.exploration_run.current_rolls = [20, 20]
+    repo.update(pid, strengthen)
+    before = repo.get(pid)
+    s.resolve_exploration_event('event-sub', 'i_am_a_fan')
+    s.resolve_exploration_event('event-sub', 'step_onto_the_stage')
+    for _ in range(100):
+        run = repo.get(pid).exploration_run
+        if run.battle is None:
+            break
+        enemy = next(e for e in run.battle.enemies if e.hp > 0)
+        s.resolve_delve_battle_action('event-sub', 'attack', enemy.key)
+    assert repo.get(pid).exploration_run.status == 'completed'
+    result = s.withdraw_exploration('event-sub')['result']
+    assert result['drops'] == []
+    assert [(d['item_id'], d['quantity']) for d in result['equipment_drops']] == [('ribbed_berry_seed', 2)]
+    assert result['guide_leaves'] == 2
+    saved = repo.get(pid)
+    assert saved.inventory['ribbed_berry_seed'][0] == before.inventory.get('ribbed_berry_seed', {}).get(0, 0) + 2
+    assert saved.guide_leaves == before.guide_leaves + 2
+    assert saved.exploration_run is None
