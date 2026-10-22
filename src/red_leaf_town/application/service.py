@@ -13,6 +13,7 @@ from uuid import uuid4
 from .facilities import FacilitiesServiceMixin
 from .sailing import SailingServiceMixin
 from .summer import SummerServiceMixin
+from .summer_skins import SummerSkinsMixin, skin_artworks, attach_skin_artworks, VIEW_PREFIX
 from red_leaf_town.summer_content import POINT_UNITS
 
 from red_leaf_town.achievements import (
@@ -220,7 +221,7 @@ class GameError(Exception):
         self.status = status
 
 
-class GameService(FacilitiesServiceMixin, SummerServiceMixin, SailingServiceMixin):
+class GameService(FacilitiesServiceMixin, SummerSkinsMixin, SummerServiceMixin, SailingServiceMixin):
     def __init__(
         self,
         content: GameContent,
@@ -376,7 +377,8 @@ class GameService(FacilitiesServiceMixin, SummerServiceMixin, SailingServiceMixi
             else:
                 party_loadout, combat_party, frozen_items = {}, {}, []
             try:
-                spend_coins(player, expedition.entry_fee)
+                if expedition.entry_fee:
+                    spend_coins(player, expedition.entry_fee)
             except EconomyError as exc:
                 raise GameError("resource_insufficient", str(exc)) from exc
             run = ExplorationRunState(
@@ -809,7 +811,16 @@ class GameService(FacilitiesServiceMixin, SummerServiceMixin, SailingServiceMixi
                     [entry.quantity for entry in rewards], run.season_bonus.multiplier,
                 )):
                     reward.quantity = quantity
+            first_clear_leaves = 0
             if run.status == "completed":
+                definition = self.content.exploration_expedition_map.get(run.expedition_id)
+                claim_key = "one_time_clear:" + run.expedition_id
+                if (definition and definition.one_time
+                        and run.expedition_id not in player.achievement_stats.completed_expedition_ids
+                        and not player.crossover_claims.get(claim_key)):
+                    first_clear_leaves = definition.first_clear_guide_leaves
+                    player.guide_leaves += first_clear_leaves
+                    player.crossover_claims[claim_key] = now
                 stats = player.achievement_stats
                 stats.completed_expedition_ids = sorted(set(stats.completed_expedition_ids) | {run.expedition_id})
                 if run.expedition_kind == "delve" and run.boss_defeated:
@@ -825,6 +836,7 @@ class GameService(FacilitiesServiceMixin, SummerServiceMixin, SailingServiceMixi
             result = {
                 "expedition_id": run.expedition_id,
                 "completed": run.status == "completed",
+                "guide_leaves": first_clear_leaves,
                 "depth": run.depth,
                 "stamina_spent": run.stamina_spent,
                 "entry_fee": run.entry_fee,
@@ -3933,10 +3945,16 @@ class GameService(FacilitiesServiceMixin, SummerServiceMixin, SailingServiceMixi
             definition = catalog.partner_map.get(partner_id)
             if definition is None:
                 raise GameError("partner_not_found", "伙伴配置不存在", 404)
+            if type(stage) is int and stage >= 100:
+                if not any(a['breakthrough'] == stage for a in skin_artworks(player, partner_id)):
+                    raise GameError("partner_artwork_locked", "尚未解锁这张立绘", 409)
+                player.crossover_claims[VIEW_PREFIX + partner_id] = stage
+                return {"partner_id": partner_id, "artwork_stage": stage}
             if type(stage) is not int or not 0 <= stage <= owned.breakthrough:
                 raise GameError("partner_artwork_locked", "尚未解锁这张立绘", 409)
             if definition.artwork_for(stage) is None:
                 raise GameError("partner_artwork_missing", "这张立绘尚未配置", 409)
+            player.crossover_claims.pop(VIEW_PREFIX + partner_id, None)
             owned.artwork_stage = stage
             return {"partner_id": partner_id, "artwork_stage": stage}
 
@@ -5965,11 +5983,17 @@ class GameService(FacilitiesServiceMixin, SummerServiceMixin, SailingServiceMixi
                 "event_note": getattr(season, prefix + "_note")}
 
     def _content_visible(self, player, definition) -> bool:
+        if (getattr(definition, "one_time", False)
+                and definition.id in player.achievement_stats.completed_expedition_ids):
+            return False
         return (definition is not None
                 and (not getattr(definition, "beta", False) or self._is_beta_player(player))
                 and self._season_open(definition, self._now()))
 
     def _require_content(self, player, definition) -> None:
+        if (getattr(definition, "one_time", False)
+                and definition.id in player.achievement_stats.completed_expedition_ids):
+            raise GameError("content_locked", "这个副本已经通关过了，不会再开", 403)
         if not self._season_open(definition, self._now()):
             raise GameError("content_locked", "活动尚未开放或已经结束，暂时不能开始新任务", 409)
         if not self._content_visible(player, definition):
@@ -6071,6 +6095,8 @@ class GameService(FacilitiesServiceMixin, SummerServiceMixin, SailingServiceMixi
                 definition = self.content.item_map.get(item_id)
                 if definition is None or definition.equipment is None:
                     raise GameError("delve_equipment_invalid", "选择了不存在的装备", 404)
+                if item_id == "spotlight_mic_blade" and partner_id not in {"guqi", "guqi_sp"}:
+                    raise GameError("delve_equipment_invalid", "盛夏回响认主，只有顾祇能驾驭", 409)
                 if definition.equipment.slot != slot:
                     raise GameError("delve_equipment_invalid", f"{definition.name}不能装备在这个槽位")
                 usage[item_id] = usage.get(item_id, 0) + 1
@@ -6252,6 +6278,13 @@ class GameService(FacilitiesServiceMixin, SummerServiceMixin, SailingServiceMixi
             actor_partner_ids = [actor_partner_id]
         if selected_actor_id and check.mode != "sum":
             actor_partner_ids = [selected_actor_id]
+        context["check_attribute"] = check.attribute
+        loadout = run.loadout.get("guqi_sp")
+        if (selected_actor_id == "guqi_sp" and check.mode != "sum" and loadout
+                and loadout.weapon_item_id == "spotlight_mic_blade"):
+            candidates = [(pid, definitions[pid].exploration_stats.modifier("agility") if pid == "guqi_sp" else value)
+                          for pid, value in candidates]
+            context["check_attribute"] = "agility"
         context["check_base_modifiers"] = dict(candidates)
         context["check_actor_partner_ids"] = actor_partner_ids
         context["base_dice_mode"] = check.dice
@@ -6307,7 +6340,7 @@ class GameService(FacilitiesServiceMixin, SummerServiceMixin, SailingServiceMixi
             }.get(dice_mode, 1 / 20)
             success_chance = max(success_chance, 1 - critical_failure_chance)
         return {
-            "check_attribute": check.attribute,
+            "check_attribute": context.get("check_attribute", check.attribute),
             "check_mode": check.mode,
             "dice_mode": dice_mode,
             "modifier": modifier,
@@ -7093,7 +7126,7 @@ class GameService(FacilitiesServiceMixin, SummerServiceMixin, SailingServiceMixi
                 "locked": lock_deadlines.get(owned.partner_id, 0) > now,
                 "locked_until": lock_deadlines.get(owned.partner_id) or None,
             })
-        return records
+        return attach_skin_artworks(player, records)
 
     def _partner_tendency_snapshot(self, definition, tendency, owned: OwnedPartnerState) -> dict:
         breakthrough_cap = level_cap_for_breakthrough(owned.breakthrough)

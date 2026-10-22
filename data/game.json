@@ -5382,7 +5382,7 @@
       "description": "灯牌把夜里照成白天，看台一层层围到场心。应援台正中立着一副披甲的身影——它每年夏天只来一天。推荐队伍平均等级 20。",
       "accent": "#e0679a",
       "min_level": 20,
-      "entry_fee": 1000,
+      "entry_fee": 0,
       "max_depth": 2,
       "final_event_id": "forum_king_stage",
       "quality": {
@@ -5489,7 +5489,9 @@
             }
           ]
         }
-      ]
+      ],
+      "one_time": true,
+      "first_clear_guide_leaves": 2
     }
   ],
   "delve_enemies": [

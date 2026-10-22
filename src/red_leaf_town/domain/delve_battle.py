@@ -338,10 +338,16 @@ def enemy_turn(
 ) -> None:
     """敌人的一个回合。多段攻击的每一击都单独选目标、单独掷骰，打空了就提前收手。"""
 
-    for _ in range(max(1, attacks_per_turn)):
-        if not living_members(members):
-            return
-        _enemy_attack(rng, battle, enemy, attacks, members)
+    from .boss_moves import boss_turn
+
+    def normal_turn():
+        for _ in range(max(1, attacks_per_turn)):
+            if not living_members(members):
+                return
+            _enemy_attack(rng, battle, enemy, attacks, members)
+
+    if not boss_turn(rng, battle, enemy, members, normal_turn):
+        normal_turn()
 
 
 def _enemy_attack(

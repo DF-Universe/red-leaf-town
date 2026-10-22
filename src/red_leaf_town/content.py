@@ -492,7 +492,9 @@ class ExplorationExpeditionDefinition(BaseModel):
     description: str = Field(min_length=1)
     accent: str = Field(pattern=r"^#[0-9a-fA-F]{6}$")
     min_level: int = Field(ge=1)
-    entry_fee: int = Field(gt=0)
+    one_time: bool = False
+    first_clear_guide_leaves: int = Field(default=0, ge=0)
+    entry_fee: int = Field(ge=0)
     max_depth: int = Field(ge=1, le=20)
     final_event_id: str = Field(min_length=1)
     quality: QualityCurveDefinition

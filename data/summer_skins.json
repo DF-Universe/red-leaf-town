@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "note": "夏活限定皮肤兑换（本地扩展）。cost 数量是 2026-10-08 小样，顾祇可随时改；改完重启后端生效。解锁记录存在存档 crossover_claims 的 summer_skin:<id> 键上。",
+  "note": "夏日限定皮肤兑换。修改配置后重启服务；同一伙伴的皮肤按追加顺序编号，请勿重排。解锁记录存在 crossover_claims 的 summer_skin:<id> 键上。",
   "skins": [
     {
       "id": "ai_xinyu_swimsuit",
