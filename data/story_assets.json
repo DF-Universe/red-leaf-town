@@ -751,6 +751,405 @@
         "offset_y": 0.0,
         "scale": 1.0
       }
+    },
+    {
+      "id": "summer_8cea0b0e87ad5f1d",
+      "kind": "portrait",
+      "name": "艾欣愉-透明",
+      "asset_key": "red-leaf-town/story/portrait/summer-up_69aad63f1c6b-aecc2d6eabef612b.webp",
+      "width": 941,
+      "height": 1672,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.24,
+        "scale": 1.23
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.24,
+        "scale": 1.23
+      }
+    },
+    {
+      "id": "summer_dba6cf1c68bdcb39",
+      "kind": "background",
+      "name": "CT和太晶斗",
+      "asset_key": "red-leaf-town/story/background/summer-up_a6cd0dcb069e-7d682529b5521ea0.webp",
+      "width": 1344,
+      "height": 768,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "summer_55e5702a5eff6d5c",
+      "kind": "portrait",
+      "name": "艾欣愉-震惊-透明",
+      "asset_key": "red-leaf-town/story/portrait/summer-up_acc983a4b0c9-f840036a97e53336.webp",
+      "width": 768,
+      "height": 1360,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.24,
+        "scale": 1.23
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.24,
+        "scale": 1.23
+      }
+    },
+    {
+      "id": "summer_151e191b7282748b",
+      "kind": "portrait",
+      "name": "绯恩-泳装-开心",
+      "asset_key": "red-leaf-town/story/portrait/summer-up_d62d25dde7cd-008024016964ae61.webp",
+      "width": 768,
+      "height": 1344,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.1,
+        "offset_y": 0.15,
+        "scale": 1.1
+      },
+      "stage_layout": {
+        "offset_x": 0.1,
+        "offset_y": 0.15,
+        "scale": 1.1
+      }
+    },
+    {
+      "id": "summer_72669f1daee94a65",
+      "kind": "portrait",
+      "name": "绯恩-泳装-羞涩",
+      "asset_key": "red-leaf-town/story/portrait/summer-up_688ef086e18e-e48d916541c6af88.webp",
+      "width": 940,
+      "height": 1672,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.15,
+        "scale": 1.11
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.15,
+        "scale": 1.11
+      }
+    },
+    {
+      "id": "summer_6d2ea6684b591384",
+      "kind": "background",
+      "name": "夏夜潮祭",
+      "asset_key": "red-leaf-town/story/background/summer-up_2397a161261d-036878af3ceb2a7b.webp",
+      "width": 1672,
+      "height": 941,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "summer_c00b7666e9ce69fc",
+      "kind": "background",
+      "name": "红吉他",
+      "asset_key": "red-leaf-town/story/background/summer-up_d61f8d2f7b19-f8da34b20244df0b.webp",
+      "width": 1672,
+      "height": 941,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "summer_640d549ac9eaf191",
+      "kind": "portrait",
+      "name": "绯恩-演奏-透明",
+      "asset_key": "red-leaf-town/story/portrait/summer-up_27082e4c5eaf-c2482da20f7aab62.webp",
+      "width": 768,
+      "height": 1344,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.08,
+        "offset_y": 0.24,
+        "scale": 1.22
+      },
+      "stage_layout": {
+        "offset_x": 0.08,
+        "offset_y": 0.24,
+        "scale": 1.22
+      }
+    },
+    {
+      "id": "summer_73b100fdea13bd12",
+      "kind": "background",
+      "name": "舞台背景-黄昏",
+      "asset_key": "red-leaf-town/story/background/summer-up_4e917e0d1d95-c7e7f7fc83d86fc9.webp",
+      "width": 1344,
+      "height": 768,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "summer_15d0d2d10e259972",
+      "kind": "background",
+      "name": "鱼趴窝",
+      "asset_key": "red-leaf-town/story/background/summer-up_55e7c76ae8cf-0c2cbd0361ecf5f0.webp",
+      "width": 1672,
+      "height": 940,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "summer_cf189a623e36672a",
+      "kind": "background",
+      "name": "顾祇sp-修灯",
+      "asset_key": "red-leaf-town/story/background/summer-up_e2082ac9eee5-4ae47020f1097dea.webp",
+      "width": 1360,
+      "height": 768,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "summer_5cf837d264a5a4d6",
+      "kind": "portrait",
+      "name": "绯恩-泳装-鼓脸-透明",
+      "asset_key": "red-leaf-town/story/portrait/summer-up_f9829da93c4a-6655340f2c0b7c55.webp",
+      "width": 941,
+      "height": 1672,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.04,
+        "scale": 0.98
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.04,
+        "scale": 0.98
+      }
+    },
+    {
+      "id": "summer_4db9d144898aeefb",
+      "kind": "portrait",
+      "name": "绯恩-泳装-低头-透明",
+      "asset_key": "red-leaf-town/story/portrait/summer-up_0b3c04a8b639-b965baf0427e2dfc.webp",
+      "width": 941,
+      "height": 1672,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.23,
+        "scale": 1.23
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.23,
+        "scale": 1.23
+      }
+    },
+    {
+      "id": "summer_918d39e43c6fd08c",
+      "kind": "background",
+      "name": "吉他摆放",
+      "asset_key": "red-leaf-town/story/background/summer-up_7d73852c1167-0efae99714d1c215.webp",
+      "width": 1672,
+      "height": 941,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "summer_9fd5318f7ca44007",
+      "kind": "portrait",
+      "name": "绯恩-泳装-微笑-透明",
+      "asset_key": "red-leaf-town/story/portrait/summer-up_a560e4daecea-298b88e56d8669e4.webp",
+      "width": 941,
+      "height": 1672,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.07,
+        "offset_y": 0.23,
+        "scale": 1.23
+      },
+      "stage_layout": {
+        "offset_x": 0.07,
+        "offset_y": 0.23,
+        "scale": 1.23
+      }
+    },
+    {
+      "id": "summer_fb9548e405b887c3",
+      "kind": "background",
+      "name": "夏活-登台",
+      "asset_key": "red-leaf-town/story/background/summer-up_04f53c7d20b3-0bc4504027597e78.webp",
+      "width": 1672,
+      "height": 941,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "summer_0bea6f3577a0f3db",
+      "kind": "portrait",
+      "name": "绯恩-泳装-演奏-透明",
+      "asset_key": "red-leaf-town/story/portrait/summer-up_5608fa1b6065-1fe565ac0fa30841.webp",
+      "width": 768,
+      "height": 1344,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.05,
+        "offset_y": 0.22,
+        "scale": 1.22
+      },
+      "stage_layout": {
+        "offset_x": 0.05,
+        "offset_y": 0.22,
+        "scale": 1.22
+      }
+    },
+    {
+      "id": "summer_a014e53a6016a724",
+      "kind": "background",
+      "name": "吉他黄昏",
+      "asset_key": "red-leaf-town/story/background/summer-up_27e143d02277-194040153c375fc9.webp",
+      "width": 1672,
+      "height": 941,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "summer_98182fde8955ea86",
+      "kind": "background",
+      "name": "绯恩教学",
+      "asset_key": "red-leaf-town/story/background/summer-up_cd11ca37fc97-d18af55b0a588113.webp",
+      "width": 1672,
+      "height": 941,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "summer_3bf8ff005aa4c2bf",
+      "kind": "background",
+      "name": "钓鱼",
+      "asset_key": "red-leaf-town/story/background/summer-up_12ac20c67f90-6942418020470f11.webp",
+      "width": 1672,
+      "height": 941,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      },
+      "stage_layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.0,
+        "scale": 1.0
+      }
+    },
+    {
+      "id": "summer_ef94cb88f9ff9552",
+      "kind": "portrait",
+      "name": "艾欣愉-泳装-透明",
+      "asset_key": "red-leaf-town/story/portrait/summer-up_8f4874fe1813-3dd455322a1c94d8.webp",
+      "width": 941,
+      "height": 1672,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "offset_x": 0.08,
+        "offset_y": 0.25,
+        "scale": 1.23
+      },
+      "stage_layout": {
+        "offset_x": 0.08,
+        "offset_y": 0.25,
+        "scale": 1.23
+      }
     }
   ]
 }

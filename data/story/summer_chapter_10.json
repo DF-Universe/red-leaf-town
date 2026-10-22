@@ -1,0 +1,535 @@
+{
+  "id": "summer_chapter_10",
+  "title": "终幕",
+  "priority": 0,
+  "trigger": {
+    "hook": "all_of",
+    "repeatable": true,
+    "params": {
+      "conditions": [
+        {
+          "hook": "cue",
+          "params": {
+            "cue": "summer:summer_chapter_10"
+          }
+        },
+        {
+          "hook": "season_progress",
+          "params": {
+            "season_id": "summer_tide_festival",
+            "points": 1000,
+            "previous_story_id": "summer_chapter_9"
+          }
+        }
+      ]
+    }
+  },
+  "steps": [
+    {
+      "asset_id": "summer_73b100fdea13bd12",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "第二天，同样的时刻。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "你比约定早到了一会儿。舞台没亮灯，只有天边剩着一点落日。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "台沿上坐着一个人影。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_9fd5318f7ca44007",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "offset_x": -0.06,
+        "offset_y": 0.23,
+        "scale": 1.23
+      },
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "不赖嘛，很准时。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "你竟然那么早就到了？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "在你的认知中，绯恩一直是工作很勤奋的人。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "她没有回答，只是微笑，看着你。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "顾祇说，开关在右边那根立柱下边。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "……行吧，我去。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "开关就在她说的地方。咔哒一声，整座舞台亮了起来。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "她抬手挡了一下光，然后把手放下了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……比昨天的暗。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "回头我换个亮的。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……嗯。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "对了，一直想问。这身泳装……是不是就是你前几天……？",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "summer_4db9d144898aeefb",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……你现在才看出来。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "说这话的时候，她没看你，手指把腰间的系带绞成了麻花。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "什么时候做好的？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……那时候订的。做好了很久了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "你想问“那时候”是什么时候，又觉得答案大概会让你睡不好觉，就没问。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "你的视线侧过了她，台侧放着顾祇的设备箱。人没到，东西先到了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "琴呢？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "放这儿了。明天还要用。以后……可能都要用。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "她说得很快，快得像早就背好了。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_a014e53a6016a724",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "那把吉他就立在灯下，靠着音箱，谁也没动过。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "你随手拨了一下弦。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "（一阵嘈杂且毫无章法的吉他声）",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……吵死了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "但她没有把吉他护回去，反而绕到了你旁边。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "手，伸出来。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_98182fde8955ea86",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "她掰开你的手指，一根一根按回指板上。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "琴弦有点凉，但她的手是温热的。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "手型错了，全错。……真笨。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "嘴上这么说，她还是没有松手。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "……你不是一直不太会跟人说话吗。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "认真学，别说话。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_73b100fdea13bd12",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "动静先从台下来。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "沙滩那边传来一声怪叫，紧接着是鱼尾拍水的声音。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_3bf8ff005aa4c2bf",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "哗哈！又是一条大的！今晚加餐嗷！",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "（抬头看见台上）咦——绯恩？你居然真的在台上哎！",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_73b100fdea13bd12",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "asset_id": "summer_9fd5318f7ca44007",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "昨晚，你在人群里喊了什么？",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_ef94cb88f9ff9552",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "offset_x": -0.21,
+        "offset_y": 0.25,
+        "scale": 1.23
+      },
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "你听见了！",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "没有。全被歌声盖掉了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "那我再说一遍嗷！爱心鱼——向乐手，使用水炮，庆祝！",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "更靠海的那边，古剑喵还是戴着她的小鬼头环，凡妮莎正在和白凛一起卸货。爱神朝这边挥了一下手，然后重新躺平，像什么都没发生。手边的小本子摊开着，今天的勾大概都打完了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "来看演唱会的人，比昨天更多了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "她们来看你演出了，绯恩。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_9fd5318f7ca44007",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……嗯。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "帘子哗啦一声。顾祇拎着另一只箱子到了，往台下扫了一眼。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_5ecd20b2ead465e6",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "人挺多。开始吧。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "你退到台侧帮忙理线。台上是她，台侧是顾祇，台下是刚到的观众。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "灯亮着，潮声很近。第一个音符响起来的时候，这个夏天还没走。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    }
+  ]
+}

@@ -1,0 +1,611 @@
+{
+  "id": "summer_chapter_8",
+  "title": "第 8 章",
+  "priority": 0,
+  "trigger": {
+    "hook": "all_of",
+    "repeatable": true,
+    "params": {
+      "conditions": [
+        {
+          "hook": "cue",
+          "params": {
+            "cue": "summer:summer_chapter_8"
+          }
+        },
+        {
+          "hook": "season_progress",
+          "params": {
+            "season_id": "summer_tide_festival",
+            "points": 800,
+            "previous_story_id": "summer_chapter_7"
+          }
+        }
+      ]
+    }
+  },
+  "steps": [
+    {
+      "asset_id": "summer_648dd3f7e15dd1d8",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "从矿洞里出来之后，顾祇每天都会来舞台这边。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "舞台的工程量很大，想要在夏夜潮祭期间顺利举行演唱会，装修进度就不能迟滞。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "更何况还有踩点练歌、打磨舞台感的任务。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_5ecd20b2ead465e6",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "这几个东西也是顺利装好了……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "在来红叶镇之前，顾祇从来没上过舞台。堕天使不擅长唱歌跳舞，所以一切都得重新练习。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "……嗯？这是什么东西？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "在一大堆材料包裹边上，有一个精致的包裹。包装华美得不像一般的东西。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "拆出来看，是一把很精致的吉他。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "summer_c00b7666e9ce69fc",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "从品质来看，不像是一般的乐器。顾祇拿在手上掂了掂，颈部比一般的吉他细一些，一只手刚好能握住。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "是把好乐器。可惜，弦松了点。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "她旁若无人地坐下，开始调弦。和接到的每一个包裹一样，她从来不问为什么。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_648dd3f7e15dd1d8",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "asset_id": "summer_5ecd20b2ead465e6",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "（有人在看着？）",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "顾祇抬头看了一眼，正好与那人视线对上。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_09dac7c15c736f62",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "怎么了。一脸想说话又不想说的表情。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "绯恩准备了一肚子的话，可那些话在包裹被拆开的一刹那，都成了苍白的解释。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "谁的吉他？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……我、我的。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "哦——帮你调好了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "绯恩沉默了很久，似乎在找一个合适的措辞。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "那个……金红的。要是沾了水，会掉吗？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "顾祇抬起头，打量了一下她，和手里的吉他。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "桃桃和橙橙？",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_da73c7805cc58a31",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "——！！",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "难怪，我说怎么颜色那么正。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "summer_09dac7c15c736f62",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "顾祇把吉他递了过去。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "绯恩接过了吉他，半天没动。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "顾祇小姐，只有一个人吗？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "想来不是。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "那和你一块儿的那个人，还没来吗？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "来了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "诶？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "她左右看了一圈，台上只有她们两个人。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……一块儿的，是什么？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "那想必是，一块儿给夏夜潮祭找点乐子的。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "顾祇把手里的东西一推，顺手捡起了丢在音箱上的话筒。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "会几个调？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……三、三个。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "倒也够了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "我……我没有……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "后半段话，她终究没有说出口。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_640d549ac9eaf191",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "乐声起得比歌声慢半拍。她弹得很认真，认真到每个音都要先在心里过一遍。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "手是凉的。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……我没紧张。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "嗯哼。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "音箱得往后挪半尺。立柱挡着，回音糊成一团，高音会顶回来。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "好。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "summer_73b100fdea13bd12",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "asset_id": "fein_story",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "好累……",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_5ecd20b2ead465e6",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "绯恩小姐很有天赋——或者，不是第一次演奏了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "诶！感谢夸赞……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "明儿如果还来，还是这个点。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "！？可是……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "没什么“可是”的。到得早记得开灯，开关在右边那根立柱下边。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "要是连做自己想做的事情都需要觉得丢人的话，顾虑的事情未免太多了。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_09dac7c15c736f62",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "有话不妨直说嘛。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……那个，别和他说。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "怎么会。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "绯恩把外套的扣子重新系到了最上面一颗。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "顾祇把工具收进箱子，拎起来，走了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "舞台上还留着一盏没关的灯。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "灯下靠着一把金红的吉他。夜露正一点一点落在琴弦上。",
+      "type": "dialogue"
+    }
+  ]
+}

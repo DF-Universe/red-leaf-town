@@ -1,4 +1,6 @@
 import asyncio
+import copy
+import hashlib
 import json
 from pathlib import Path
 
@@ -164,24 +166,22 @@ def test_reward_rejects_insufficient_future_expired(event_game):
         s.claim_summer_reward('event-sub', 200)
 
 
-def test_story_gates_replay_and_no_chapter_six(event_game):
+def test_story_gates_replay_and_complete_finale(event_game):
     s = event_game[0]
     assert not s.story_cue('event-sub', 'summer:summer_chapter_1')['stories']
     with pytest.raises(GameError, match='尚未解锁'):
         s.mark_story_seen('event-sub', 'summer_chapter_1')
     give_points(event_game, 1000)
     assert not s.story_cue('event-sub', 'summer:summer_chapter_1')['stories']
-    for i in range(6):
+    for i in range(11):
         result = s.story_cue('event-sub', f'summer:summer_chapter_{i}')
         assert len(result['stories']) == 1
         s.mark_story_seen('event-sub', f'summer_chapter_{i}')
     assert s.story_cue('event-sub', 'summer:summer_chapter_1')['stories']  # replay
-    assert not s.story_cue('event-sub', 'summer:summer_chapter_6')['stories']
-    with pytest.raises(GameError, match='不存在'):
-        s.mark_story_seen('event-sub', 'summer_chapter_6')
     close_window(event_game)
     assert s.story_cue('event-sub', 'summer:summer_chapter_5')['stories']
-    assert len(s.snapshot_by_sub('event-sub')['summer_event']['chapters']) == 6
+    assert len(s.snapshot_by_sub('event-sub')['summer_event']['chapters']) == 11
+    assert s.story_cue('event-sub', 'summer:summer_chapter_10')['stories']
 
 
 def test_story_before_event_is_blocked(event_game):
@@ -212,6 +212,15 @@ def test_public_scripts_preserve_share_dialogue_and_layout():
         assert new['mode'] == 'stage'
         assert len(new['steps']) == entry['steps']
         assert script.rewards.empty
+        if entry.get('render_sha256'):
+            steps = copy.deepcopy(new['steps'])
+            for step in steps:
+                if step.get('asset'):
+                    step.pop('asset_id', None)
+                    step.pop('partner_id', None)
+                    step['asset'].pop('id', None)
+            digest = hashlib.sha256(json.dumps(steps, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+            assert digest == entry['render_sha256']
         for i, step in enumerate(new['steps']):
             if step.get('asset'):
                 assert '/community/' not in step['asset']['asset_key']
@@ -259,3 +268,24 @@ def test_cancelled_gathering_never_scores(event_game):
     begin_gathering(event_game)
     event_game[0].cancel_task('event-sub', 'gathering', SITE)
     assert points(event_game) == 0
+
+
+@pytest.mark.parametrize("chapter", range(6, 11))
+def test_late_summer_chapters_require_points_and_previous_read(event_game, chapter):
+    s, repo, _, pid, _ = event_game
+    story_id = f"summer_chapter_{chapter}"
+    previous = f"summer_chapter_{chapter - 1}"
+    give_points(event_game, chapter * 100)
+    assert not s.story_cue('event-sub', 'summer:' + story_id)['stories']
+    with pytest.raises(GameError, match='尚未解锁'):
+        s.mark_story_seen('event-sub', story_id)
+    repo.update(pid, lambda p: p.seen_story_ids.append(previous))
+    give_points(event_game, chapter * 100 - 1)
+    assert not s.story_cue('event-sub', 'summer:' + story_id)['stories']
+    with pytest.raises(GameError, match='尚未解锁'):
+        s.mark_story_seen('event-sub', story_id)
+    give_points(event_game, chapter * 100)
+    result = s.story_cue('event-sub', 'summer:' + story_id)
+    assert len(result['stories']) == 1
+    s.mark_story_seen('event-sub', story_id)
+    assert story_id in repo.get(pid).seen_story_ids

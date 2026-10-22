@@ -65,7 +65,7 @@ async function play(chapter: SummerChapter) {
       </div>
 
       <section class="summer-section" aria-labelledby="summer-story-title">
-        <div class="summer-heading"><h2 id="summer-story-title"><BookOpen :size="19" />夏日故事</h2><small>当前开放前置与第 1～5 章</small></div>
+        <div class="summer-heading"><h2 id="summer-story-title"><BookOpen :size="19" />夏日故事</h2><small>共 {{ event.chapters.length }} 段剧情 · 按活动点数依次解锁</small></div>
         <div class="summer-chapters">
           <article v-for="chapter in event.chapters" :key="chapter.story_id" class="summer-card chapter-card" :class="{ 'is-locked': !chapter.unlocked }">
             <div class="chapter-icon"><Check v-if="chapter.seen" :size="19" /><BookOpen v-else-if="chapter.unlocked" :size="19" /><Lock v-else :size="19" /></div>

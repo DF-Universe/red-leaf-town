@@ -1,0 +1,617 @@
+{
+  "id": "summer_chapter_7",
+  "title": "第 7 章",
+  "priority": 0,
+  "trigger": {
+    "hook": "all_of",
+    "repeatable": true,
+    "params": {
+      "conditions": [
+        {
+          "hook": "cue",
+          "params": {
+            "cue": "summer:summer_chapter_7"
+          }
+        },
+        {
+          "hook": "season_progress",
+          "params": {
+            "season_id": "summer_tide_festival",
+            "points": 700,
+            "previous_story_id": "summer_chapter_6"
+          }
+        }
+      ]
+    }
+  },
+  "steps": [
+    {
+      "asset_id": "summer_ebdda7c9f438633a",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "你又来到了这个水潭。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "和你一起来的是顾祇，她已经换回了平日里那套装束，背着她的大镐头。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_ce1bc23ceabeb065",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "有时候你真的会怀疑，她明明挖矿都不需要镐，为什么非要背着一把镐。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "就是这里。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "你一直在留意这一块？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "就和你们意识到海边凭空多了个舞台一样。一成不变的红叶镇多出了一条路，在我眼里和点了盏明灯没什么区别。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "更何况，这里一直锣鼓喧天的。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "顾祇抱起了胳膊。她的唱歌功力随着每天的练习已经颇为出色，至少不会发出这种嗡嗡扰扰的杂音。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "那你觉得这儿会是怎么回事？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "不会有第二个人像我一样在这个时候练歌的。你要知道，乐队这种事，没第二个人会想到。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "……好。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "其实你不知道为什么顾祇会那么自信，但你总觉得她说的话会被回旋镖。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "我们到了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "面前看起来是个很平凡的树丛。顾祇让你后退了两步，然后抡起了她的镐。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "嘿哈！",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "summer_6d2ea6684b591384",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "树林的背后，是一片海滩。里面影影绰绰，人头攒动。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "顾祇谨慎地握住了手里的镐。但你很快认出了那些人，镇子上的很多人都在。牧羊的，伐木劈柴的，种地的，加工的。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "看起来，享受夏日的不止你一个呢。偶像小姐。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_ce1bc23ceabeb065",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "……呵。是我在矿洞里太久了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "欢快的游客",
+      "text": "嘿——这不是一直在矿洞里挖矿的小姑娘吗——",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "豪迈的酒客",
+      "text": "我就说嘛……嗝儿……哪怕是所谓的堕天使，也得享受假期嘛……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "你看着顾祇。她脸上的表情从谨慎逐渐放松，逐渐释怀。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "其实吧……早知道这样，又何必……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "你",
+      "text": "就不用那样偷偷摸摸的了？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "我又不是某些死要面子的家伙。既然晚上那么开心，现在加入也不迟。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "summer_5ecd20b2ead465e6",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "offset_x": 0.0,
+        "offset_y": 0.23,
+        "scale": 1.24
+      },
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "各位——晚上好——",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "你看着顾祇离去的背影，不由得感慨回旋镖竟然来得如此之快。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "但看着顾祇踩滑道，爬灯架挂灯笼，一群人围着她听她唱歌——顾祇似乎也乐在其中的样子。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "歌声在人群中央热热闹闹地响着。你退到了人堆的边上。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": " 然后你看见了——在最外面，站着一个再熟悉不过的身影。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "  她没有看台上，反倒像是在找什么人。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "fein_story",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "offset_x": -0.07,
+        "offset_y": 0.25,
+        "scale": 1.31
+      },
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": " 外套是她出门前随手抓的，扣子系到了最上面一颗。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "  她站在灯笼照不到的地方。再往前两步，就是人群。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "   她迈了半步，又收了回来。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "其实没人会看见她。夜里，裹着外套的她只是又一个看热闹的人 。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "这件事她知道。她还是站在了最外面。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "欢快的游客",
+      "text": "再来一首——！！",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "呼声从人堆里滚出来，她肩膀缩了一下。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "然后她又踮起脚，朝人群里头看。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "她找到了她要找的人。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "你朝她走了过去。人堆里的歌声、吆喝、碰杯声，一路都在你背后。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_da73c7805cc58a31",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "诶！？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "我、我不是——",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "她准备了很久的那套说法，开口第一句就泄了气。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……我只是、路过。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "你什么都没问。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "你只是默默的在她身边站定了。于是在最外面看热闹的人，变成了一对。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "center",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "summer_09dac7c15c736f62",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "offset_x": 0.1,
+        "offset_y": 0.2,
+        "scale": 1.23
+      },
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "台上的人拿着话筒，朝人群看了一眼。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_5ecd20b2ead465e6",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "嗯，人比我预想的多不少。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "那这一首，献给夏夜潮祭。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "她说话的语气，像是在说今天推了几车矿。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "好像台上台下，本就是一回事。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "台下很快安静了下来。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "绯恩也不再说话了，她的眼睛一直没离开台上。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "歌唱到一半，人堆里有人跟着哼。第二个人，第三个人。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "她没有跟着哼。她只是把外套的袖口攥得更紧了一点。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "一曲唱完，人群鼓噪着往前挤。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "绯恩被挤得动了半步，站到了灯笼够得着的地方。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "在远处，台上的顾祇正跟台下有一搭没一搭地说话。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_5ecd20b2ead465e6",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "顾祇",
+      "text": "光我一个人唱没意思。什么时候，得找个一块儿的——",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "你听见身边那个人很轻地吸了一口气。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "然后她什么都没说。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    }
+  ]
+}

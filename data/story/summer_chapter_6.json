@@ -1,0 +1,625 @@
+{
+  "id": "summer_chapter_6",
+  "title": "第 6 章",
+  "priority": 0,
+  "trigger": {
+    "hook": "all_of",
+    "repeatable": true,
+    "params": {
+      "conditions": [
+        {
+          "hook": "cue",
+          "params": {
+            "cue": "summer:summer_chapter_6"
+          }
+        },
+        {
+          "hook": "season_progress",
+          "params": {
+            "season_id": "summer_tide_festival",
+            "points": 600,
+            "previous_story_id": "summer_chapter_5"
+          }
+        }
+      ]
+    }
+  },
+  "steps": [
+    {
+      "asset_id": "summer_f5a8c9c360a21523",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "水潭边，阳光正好。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "绯恩在水潭边上坐了一上午了。这个时候大部分人在工作，所以没人来这边找她。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "fein_story",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "她什么也没说，只是有一搭没一搭地用手指撩拨着水花。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "乐声遥遥地传来。明明已经知道是怎么回事了，但女孩反而更心乱如麻。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "但没有时间让绯恩继续发愣了。出现在面前的是——",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_8cea0b0e87ad5f1d",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "offset_x": -0.2,
+        "offset_y": 0.24,
+        "scale": 1.23
+      },
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "哇哈！对上了视线！爱心鱼使用水炮！",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "艾欣愉小姐，你怎么在这……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "害！鱼出现在水里难道不是很合理吗？",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "summer_dba6cf1c68bdcb39",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "自从安装了“太晶斗”栅栏之后，古剑喵就再也不敢偷鱼了。她可害怕那些拳头了。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_f5a8c9c360a21523",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "asset_id": "fein_story",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "啊这……没想到那种看着很玄学的东西真的有用……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "那是。要不然为什么每次我抡出去的椅子总能准确的砸到路过的麻咪呢？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "其实艾欣愉每次都想砸古剑喵，但是古剑喵太灵活了，所以都是麻咪在遭殃。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "但好在，那些栅栏虽然让古剑喵退避三舍，但对麻咪毫无影响。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "绯恩小姐在这里干嘛。难道是在摸鱼？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "我警告你嗷，你要是被我培养的粗糙皮肤爱心鱼蹭伤了手，可别怪我没提醒你。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "感谢提醒……虽然我并不是在这里摸鱼啦……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "那是怎么回事？这欲言又止的样子，我至少在十个人脸上看到过。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "要我说，想说什么就大大方方去说。说对了就成了，没说对就说你在假。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "反正那群人天天假来假去，也不差你一个了。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "噗。还真是别开生面的引导呢。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "绯——恩——小——姐——！！",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "啊哈，有人来找你了。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_468eaa830ec69bd2",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "offset_x": 0.19,
+        "offset_y": 0.19,
+        "scale": 1.23
+      },
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "你是什么鱼，吃我水炮！",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "害搁这水炮呢，古剑喵戴了一个幽灵小鬼头环，翻过了你的太晶斗栅栏。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_55e5702a5eff6d5c",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "offset_x": -0.2,
+        "offset_y": 0.24,
+        "scale": 1.23
+      },
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "艾欣愉",
+      "text": "什么，我的鱼啊，溜！",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "艾欣愉飞一样地跑掉了，仿佛触发了悠游自如。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "fein_story",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "asset_id": "summer_468eaa830ec69bd2",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "古语俞小姐？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "订单做完了。请绯恩小姐有空的时候去一趟工坊。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "衣服做完了，总得现场试试。若是不合身，还可以改。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "focus": "none",
+      "speaker": "",
+      "text": "回到工坊的时候，工坊已经没人了。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_c436166693d1ad1d",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    },
+    {
+      "asset_id": "fein_story",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "asset_id": "summer_468eaa830ec69bd2",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "！！",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "怎样？姐姐我的手笔。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "summer_151e191b7282748b",
+      "breakthrough": 0,
+      "duration": 3.0,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "slide",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "嗯……凉飕飕的……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "对啦，那个人现在应该在港口那边呢。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "诶？？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "我说——你们俩昨天出双入对腻歪在一块，真以为咱都是电灯泡啊！",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "诶！！！",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_72669f1daee94a65",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "offset_x": 0.16,
+        "offset_y": 0.05,
+        "scale": 0.96
+      },
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "这……这这这……",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "算啦~不调侃你。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "不过有件事需要顺道拜托绯恩小姐一下。",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_151e191b7282748b",
+      "breakthrough": 0,
+      "duration": 3.0,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "slide",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "什么事？",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "萤火草、夜铃花。最近的工单上出现了这些材料。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "我去商店问过，没有这些物产出售，所以想请绯恩小姐帮忙，找到合适的时候采集一些。",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "没问题！我下午就去！",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "倒也不用这么急。你真的不去给那一位看一下嘛~",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "summer_72669f1daee94a65",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "offset_x": 0.16,
+        "offset_y": 0.05,
+        "scale": 0.96
+      },
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": true
+    },
+    {
+      "focus": "none",
+      "speaker": "绯恩",
+      "text": "古语俞小姐不要再说奇怪的话了！",
+      "type": "dialogue"
+    },
+    {
+      "focus": "none",
+      "speaker": "古语俞",
+      "text": "呵呵……",
+      "type": "dialogue"
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "left",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "",
+      "breakthrough": 0,
+      "duration": 0.28,
+      "flip": false,
+      "layout": null,
+      "partner_id": "",
+      "slot": "right",
+      "transition": "fade",
+      "type": "portrait",
+      "visible": false
+    },
+    {
+      "asset_id": "",
+      "duration": 0.45,
+      "transition": "fade",
+      "type": "background"
+    }
+  ]
+}

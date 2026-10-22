@@ -203,6 +203,36 @@
       "title": "第 5 章",
       "points": 500,
       "previous_story_id": "summer_chapter_4"
+    },
+    {
+      "story_id": "summer_chapter_6",
+      "title": "第 6 章",
+      "points": 600,
+      "previous_story_id": "summer_chapter_5"
+    },
+    {
+      "story_id": "summer_chapter_7",
+      "title": "第 7 章",
+      "points": 700,
+      "previous_story_id": "summer_chapter_6"
+    },
+    {
+      "story_id": "summer_chapter_8",
+      "title": "第 8 章",
+      "points": 800,
+      "previous_story_id": "summer_chapter_7"
+    },
+    {
+      "story_id": "summer_chapter_9",
+      "title": "第 9 章",
+      "points": 900,
+      "previous_story_id": "summer_chapter_8"
+    },
+    {
+      "story_id": "summer_chapter_10",
+      "title": "终幕",
+      "points": 1000,
+      "previous_story_id": "summer_chapter_9"
     }
   ]
 }

@@ -29,6 +29,36 @@
       "story_id": "summer_chapter_5",
       "share_id": "5083d534b1a0e0f194df3f0fefcb99b65c6cdefac5136c18bcc031153b936fc0",
       "steps": 107
+    },
+    {
+      "story_id": "summer_chapter_6",
+      "share_id": "c11e4ff10d47d87ac0e797dc4ffa64690050d11cef581c78904ac6b49c288bc6",
+      "steps": 75,
+      "render_sha256": "7bc896852ae871e40e361fe5901a088f18d8162c79dfe369d3c75eb7be906251"
+    },
+    {
+      "story_id": "summer_chapter_7",
+      "share_id": "bc98e39c1a86c009dad212189c2f7016d915d29f5c21426d68f47e656f9596bb",
+      "steps": 81,
+      "render_sha256": "127d80fdfc2d6306d0cba7ee430b5b0e16ef00b4801e56afd4ecead621fae9e4"
+    },
+    {
+      "story_id": "summer_chapter_8",
+      "share_id": "df4a453fa87f866b9e4af1523d20190d974dd995f45ff9504a9de5e6e0b92b42",
+      "steps": 82,
+      "render_sha256": "cc9012a1b6d53d83465b8ac986bf1d1cd37735dcf1bdf6aeecc4eed93e70c48c"
+    },
+    {
+      "story_id": "summer_chapter_9",
+      "share_id": "f95aebfcee09f62b5bdc653736d8e4cda64a7c41df0fd31dfc00bcaa2178650a",
+      "steps": 110,
+      "render_sha256": "cb8b57e248e8d281dbbe99052bf5b785fb61b3db1e099e45156fd339d822a3d4"
+    },
+    {
+      "story_id": "summer_chapter_10",
+      "share_id": "a1cb5291c6ccba894c63d9f32f104be31d046138c34d0839947e4b3571196154",
+      "steps": 71,
+      "render_sha256": "0d0da5560008192b2e763e2bd31e8b75a2f3a86a46fc5ea119c0f43e75ece47f"
     }
   ],
   "asset_copies": {
@@ -55,6 +85,27 @@
     "red-leaf-town/story/community/portrait/up_48541378cceb-d97d9647637a28c1.webp": "red-leaf-town/story/portrait/summer-up_48541378cceb-d97d9647637a28c1.webp",
     "red-leaf-town/story/community/background/up_472d6673c173-2bd1d3b94bda1453.webp": "red-leaf-town/story/background/summer-up_472d6673c173-2bd1d3b94bda1453.webp",
     "red-leaf-town/story/community/background/up_af8e2dbadf36-84e9d7bfa319f061.webp": "red-leaf-town/story/background/summer-up_af8e2dbadf36-84e9d7bfa319f061.webp",
-    "red-leaf-town/story/community/background/up_1539a3e9a077-a8790d6ddd6322eb.webp": "red-leaf-town/story/background/summer-up_1539a3e9a077-a8790d6ddd6322eb.webp"
+    "red-leaf-town/story/community/background/up_1539a3e9a077-a8790d6ddd6322eb.webp": "red-leaf-town/story/background/summer-up_1539a3e9a077-a8790d6ddd6322eb.webp",
+    "red-leaf-town/story/community/portrait/up_69aad63f1c6b-aecc2d6eabef612b.webp": "red-leaf-town/story/portrait/summer-up_69aad63f1c6b-aecc2d6eabef612b.webp",
+    "red-leaf-town/story/community/background/up_a6cd0dcb069e-7d682529b5521ea0.webp": "red-leaf-town/story/background/summer-up_a6cd0dcb069e-7d682529b5521ea0.webp",
+    "red-leaf-town/story/community/portrait/up_acc983a4b0c9-f840036a97e53336.webp": "red-leaf-town/story/portrait/summer-up_acc983a4b0c9-f840036a97e53336.webp",
+    "red-leaf-town/story/community/portrait/up_d62d25dde7cd-008024016964ae61.webp": "red-leaf-town/story/portrait/summer-up_d62d25dde7cd-008024016964ae61.webp",
+    "red-leaf-town/story/community/portrait/up_688ef086e18e-e48d916541c6af88.webp": "red-leaf-town/story/portrait/summer-up_688ef086e18e-e48d916541c6af88.webp",
+    "red-leaf-town/story/community/background/up_2397a161261d-036878af3ceb2a7b.webp": "red-leaf-town/story/background/summer-up_2397a161261d-036878af3ceb2a7b.webp",
+    "red-leaf-town/story/community/background/up_d61f8d2f7b19-f8da34b20244df0b.webp": "red-leaf-town/story/background/summer-up_d61f8d2f7b19-f8da34b20244df0b.webp",
+    "red-leaf-town/story/community/portrait/up_27082e4c5eaf-c2482da20f7aab62.webp": "red-leaf-town/story/portrait/summer-up_27082e4c5eaf-c2482da20f7aab62.webp",
+    "red-leaf-town/story/community/background/up_4e917e0d1d95-c7e7f7fc83d86fc9.webp": "red-leaf-town/story/background/summer-up_4e917e0d1d95-c7e7f7fc83d86fc9.webp",
+    "red-leaf-town/story/community/background/up_55e7c76ae8cf-0c2cbd0361ecf5f0.webp": "red-leaf-town/story/background/summer-up_55e7c76ae8cf-0c2cbd0361ecf5f0.webp",
+    "red-leaf-town/story/community/background/up_e2082ac9eee5-4ae47020f1097dea.webp": "red-leaf-town/story/background/summer-up_e2082ac9eee5-4ae47020f1097dea.webp",
+    "red-leaf-town/story/community/portrait/up_f9829da93c4a-6655340f2c0b7c55.webp": "red-leaf-town/story/portrait/summer-up_f9829da93c4a-6655340f2c0b7c55.webp",
+    "red-leaf-town/story/community/portrait/up_0b3c04a8b639-b965baf0427e2dfc.webp": "red-leaf-town/story/portrait/summer-up_0b3c04a8b639-b965baf0427e2dfc.webp",
+    "red-leaf-town/story/community/background/up_7d73852c1167-0efae99714d1c215.webp": "red-leaf-town/story/background/summer-up_7d73852c1167-0efae99714d1c215.webp",
+    "red-leaf-town/story/community/portrait/up_a560e4daecea-298b88e56d8669e4.webp": "red-leaf-town/story/portrait/summer-up_a560e4daecea-298b88e56d8669e4.webp",
+    "red-leaf-town/story/community/background/up_04f53c7d20b3-0bc4504027597e78.webp": "red-leaf-town/story/background/summer-up_04f53c7d20b3-0bc4504027597e78.webp",
+    "red-leaf-town/story/community/portrait/up_5608fa1b6065-1fe565ac0fa30841.webp": "red-leaf-town/story/portrait/summer-up_5608fa1b6065-1fe565ac0fa30841.webp",
+    "red-leaf-town/story/community/background/up_27e143d02277-194040153c375fc9.webp": "red-leaf-town/story/background/summer-up_27e143d02277-194040153c375fc9.webp",
+    "red-leaf-town/story/community/background/up_cd11ca37fc97-d18af55b0a588113.webp": "red-leaf-town/story/background/summer-up_cd11ca37fc97-d18af55b0a588113.webp",
+    "red-leaf-town/story/community/background/up_12ac20c67f90-6942418020470f11.webp": "red-leaf-town/story/background/summer-up_12ac20c67f90-6942418020470f11.webp",
+    "red-leaf-town/story/community/portrait/up_8f4874fe1813-3dd455322a1c94d8.webp": "red-leaf-town/story/portrait/summer-up_8f4874fe1813-3dd455322a1c94d8.webp"
   }
 }
