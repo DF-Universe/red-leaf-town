@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "note": "夏日限定皮肤兑换。修改配置后重启服务；同一伙伴的皮肤按追加顺序编号，请勿重排。解锁记录存在 crossover_claims 的 summer_skin:<id> 键上。",
+  "skins": [
+    {
+      "id": "ai_xinyu_swimsuit",
+      "partner_id": "ai_xinyu",
+      "name": "泳装 · 艾欣愉",
+      "display_name": "盛夏鳞光",
+      "subtitle": "夏日限定立绘",
+      "asset_key": "red-leaf-town/partners/ai_xinyu/swimsuit-ce3259123c40003a.webp",
+      "width": 941,
+      "height": 1672,
+      "cost": [
+        {
+          "item_id": "night_bell_brew",
+          "quantity": 5
+        },
+        {
+          "item_id": "heart_scale",
+          "quantity": 15
+        },
+        {
+          "item_id": "sea_shell",
+          "quantity": 20
+        },
+        {
+          "item_id": "falling_star_ear",
+          "quantity": 6
+        }
+      ]
+    },
+    {
+      "id": "aishen_swimsuit",
+      "partner_id": "aishen",
+      "name": "泳装 · 爱神",
+      "display_name": "雷鸣假日",
+      "subtitle": "夏日限定立绘",
+      "asset_key": "red-leaf-town/partners/aishen/swimsuit-4dbeadfbce008b97.webp",
+      "width": 941,
+      "height": 1672,
+      "cost": [
+        {
+          "item_id": "sea_shell",
+          "quantity": 15
+        },
+        {
+          "item_id": "mist_grape",
+          "quantity": 12
+        },
+        {
+          "item_id": "night_bellflower",
+          "quantity": 18
+        },
+        {
+          "item_id": "autumn_herb",
+          "quantity": 4
+        }
+      ]
+    }
+  ]
+}

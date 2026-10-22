@@ -947,6 +947,7 @@ export const useGameStore = defineStore('game', () => {
     readMail,
     claimMail,
     claimSummerReward: (points: number) => action(`summer:claim:${points}`, `${API_ROOT}/summer/rewards/${points}/claim`, { successMessage: '活动回礼已放入仓库' }),
+    claimSummerSkin: (skinId: string) => action(`summer:skin:${skinId}`, `${API_ROOT}/summer/skins/${skinId}/claim`, { successMessage: '限定立绘已解锁' }),
     claimAchievement,
     claimAllAchievements,
     createBindingCode,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { BookOpen, Check, Compass, Fish, Gift, Lock, Sun, Trees } from 'lucide-vue-next'
+import { BookOpen, Check, Compass, Fish, Gift, Lock, Shirt, Sun, Trees } from 'lucide-vue-next'
 import { api } from '@/api'
 import ActionButton from '@/components/ActionButton.vue'
 import ProgressBar from '@/components/ProgressBar.vue'
@@ -87,6 +87,29 @@ async function play(chapter: SummerChapter) {
           </article>
         </div>
       </section>
+      <section v-if="event.skins?.length" class="summer-section" aria-labelledby="summer-skin-title">
+        <div class="summer-heading"><h2 id="summer-skin-title"><Shirt :size="19" />夏日限定</h2><small>用活动物产兑换限定立绘 · 每款限一次</small></div>
+        <article v-for="skin in event.skins" :key="skin.id" class="summer-card skin-card" :class="{ 'is-unlocked': skin.unlocked }">
+          <div class="skin-art">
+            <img v-if="skin.url" :src="skin.url" :alt="skin.name" :class="{ 'is-locked': !skin.unlocked }" loading="lazy" />
+            <div v-else class="skin-art-placeholder"><Lock :size="26" /></div>
+          </div>
+          <div class="skin-body">
+            <h3>{{ skin.display_name || skin.name }}<span class="skin-tag">{{ skin.name }}</span></h3>
+            <div class="skin-cost">
+              <span v-for="entry in skin.cost" :key="entry.item_id" class="cost-chip" :class="{ 'is-short': entry.owned < entry.quantity }">
+                {{ entry.item_name }} {{ Math.min(entry.owned, entry.quantity) }}/{{ entry.quantity }}
+              </span>
+            </div>
+            <div class="skin-actions">
+              <span v-if="skin.unlocked" class="reward-done"><Check :size="15" />已解锁</span>
+              <ActionButton v-else :action-key="`summer:skin:${skin.id}`" :disabled="!skin.can_claim" :variant="skin.can_claim ? 'primary' : 'secondary'" @click="game.claimSummerSkin(skin.id)">
+                {{ !event.active ? '活动已结束' : skin.can_claim ? '兑换解锁' : '材料不足' }}
+              </ActionButton>
+            </div>
+          </div>
+        </article>
+      </section>
       <details class="summer-card summer-rules"><summary>点数规则</summary><p>仅三个夏活场所计分。探秘结算节点时按实际耗体计分，失败额外耗体也计入；战斗结束或成功逃跑时结算，已得点数不因全灭、撤离扣回。钓鱼追加搏鱼无论成功与否都按耗体计分。</p><p>采集按开工时冻结的实际任务时长计算，取消不给点，成熟后等待领取不加点。点数不受 SP 收益加成、物产品质或数量影响。活动结束后停止积点，已有任务仍可领取物产；奖励领取期额外保留 7 天。</p></details>
     </template>
   </section>
@@ -124,6 +147,17 @@ p, .summer-muted, .summer-heading > small { color: #a8b5a5; font-size: 13px; lin
 .reward-threshold small { display: block; font-size: 11px; color: #a8b5a5; font-weight: 400; margin-top: 3px; }
 .reward-done { display: flex; align-items: center; gap: 5px; color: #a6c594; font-size: 13px; }
 .is-claimed { background: #18211c; }
+.skin-card { display: flex; gap: 16px; padding: 16px 20px; }
+.skin-art { width: 120px; aspect-ratio: 9 / 16; border-radius: 12px; overflow: hidden; background: #101713; flex-shrink: 0; }
+.skin-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.skin-art img.is-locked { filter: blur(14px) saturate(0.6) brightness(0.7); transform: scale(1.08); }
+.skin-art-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #82917e; }
+.skin-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.skin-tag { margin-left: 8px; font-size: 13px; font-weight: 600; color: #8ab4f8; }
+.skin-cost { display: flex; flex-wrap: wrap; gap: 6px; }
+.cost-chip { font-size: 12px; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; color: #c8d2c4; background: #1c2620; }
+.cost-chip.is-short { color: #d09b84; border-color: #6b4a3a66; }
+.skin-actions { margin-top: auto; }
 .summer-rules { font-size: 13px; color: #acbaa6; }
 .summer-rules summary { cursor: pointer; color: var(--cream); }
 .summer-rules p { margin-top: 10px; }

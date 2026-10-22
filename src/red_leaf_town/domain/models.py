@@ -720,6 +720,7 @@ class CarriedItemSnapshot(BaseModel):
 
 
 class DelveEnemyState(BaseModel):
+    phase_started_round: int | None = Field(default=None, ge=1)
     key: str = Field(min_length=1)
     enemy_id: str = Field(min_length=1)
     name: str = Field(min_length=1)
@@ -779,7 +780,7 @@ class ExplorationRunState(BaseModel):
     partner_ids: list[str] = Field(min_length=1, max_length=3)
     leader_partner_id: str = Field(min_length=1)
     exploration_ability: int = Field(ge=0)
-    entry_fee: int = Field(gt=0)
+    entry_fee: int = Field(ge=0)
     started_at: int = Field(ge=0)
     depth: int = Field(default=0, ge=0)
     current_event_id: str = Field(min_length=1)

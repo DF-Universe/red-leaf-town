@@ -2323,6 +2323,25 @@
       "sell_price": 0,
       "has_quality": false,
       "tags": []
+    },
+    {
+      "id": "spotlight_mic_blade",
+      "name": "盛夏回响",
+      "icon": "mic",
+      "kind": "equipment",
+      "sell_price": 0,
+      "has_quality": false,
+      "tags": [
+        "exploration_equipment"
+      ],
+      "equipment": {
+        "slot": "weapon",
+        "attribute": "agility",
+        "damage_dice": "1d10",
+        "attack_bonus": 2,
+        "initiative_bonus": 2,
+        "description": "顾祇登台用的立麦。握着它，任何检定都交给身法，一律以敏捷结算——它只认她一个人的手。"
+      }
     }
   ],
   "crops": [
@@ -5355,6 +5374,124 @@
         }
       ],
       "season_id": "summer_tide_festival"
+    },
+    {
+      "id": "midsummer_appeal_ground",
+      "kind": "delve",
+      "name": "盛夏应援场",
+      "description": "灯牌把夜里照成白天，看台一层层围到场心。应援台正中立着一副披甲的身影——它每年夏天只来一天。推荐队伍平均等级 20。",
+      "accent": "#e0679a",
+      "min_level": 20,
+      "entry_fee": 0,
+      "max_depth": 2,
+      "final_event_id": "forum_king_stage",
+      "quality": {
+        "thresholds": [
+          60.0,
+          130.0,
+          220.0,
+          340.0
+        ],
+        "width": 24.0,
+        "miracle_probability_cap": 0.005,
+        "miracle_eligible": true
+      },
+      "events": [
+        {
+          "id": "appeal_ground_gate",
+          "name": "暖粉认证",
+          "description": "队伍刚挤到看台边上，应援台上那副甲胄忽然转过头来，尾巴尖的贝壳一张一合：「你是暖粉吗？」它身后的灯牌一排排亮起，全场的目光跟着压过来。",
+          "min_depth": 1,
+          "max_depth": 1,
+          "weight": 1.0,
+          "max_occurrences": 1,
+          "choices": [
+            {
+              "id": "i_am_a_fan",
+              "label": "我是暖粉",
+              "description": "抬头迎上那道目光，把应援词一句不落地接下去。",
+              "route_stamina": 2,
+              "action_stamina": 1,
+              "check": {
+                "attribute": "intelligence",
+                "mode": "best",
+                "dice": "normal",
+                "dc": 14
+              },
+              "success": {
+                "text": "队伍把应援词从头接到尾，连和声都没跑。吧主甲盯了两秒，尾巴尖的贝壳缓缓张开——「……是暖粉。」前排的粉丝让开一条道，直接把队伍送上了第二层看台。",
+                "next_route_discount": 2
+              },
+              "critical_success": {
+                "text": "队伍不但接上了应援词，还替旁边的人补了半句和声。整片看台的灯牌一起转向他们，吧主甲抬起尾巴算作点头——「进来吧，前排给你留着。」",
+                "next_route_discount": 3
+              },
+              "failure": {
+                "text": "第二句就卡住了。吧主甲尾巴尖的贝壳慢慢合拢：「……你不是暖粉吧。」上千块灯牌一齐转过来，嘘声从四面八方压下去。队伍只能低着头，在全场的质疑里硬挤上第二层。",
+                "stamina_surcharge": 2
+              },
+              "critical_failure": {
+                "text": "第一句就唱错了调。吧主甲尾巴一沉，整片看台安静下来——「你在质疑我的应援？」灯牌同时举向队伍，质问声压得人抬不起头。队伍在嘘声里一路挨到第二层。",
+                "stamina_surcharge": 3
+              }
+            },
+            {
+              "id": "i_am_a_hater",
+              "label": "我是黑粉",
+              "description": "把灯牌一推，当着全场的面把这句话说完。",
+              "route_stamina": 3,
+              "action_stamina": 2,
+              "battle": {
+                "enemy_ids": [
+                  "forum_king_fan_a",
+                  "forum_king_fan_b"
+                ],
+                "can_flee": true,
+                "flee_dc": 16
+              },
+              "success": {
+                "text": "两个暖粉举着灯牌退了回去，看台边让出一条缝。吧主甲没说话，只把尾巴尖的贝壳合上——「……那你上来。」队伍踩着散落的灯牌，走上了第二层。"
+              }
+            }
+          ]
+        },
+        {
+          "id": "forum_king_stage",
+          "name": "应援台前",
+          "description": "看台最前排，那副披甲的影子比灯牌还高，壳后拖着一条尾巴，尾尖那枚贝壳正一下一下地张合。它转过身来，全场的光跟着偏向队伍。",
+          "min_depth": 2,
+          "max_depth": 2,
+          "weight": 1.0,
+          "max_occurrences": 1,
+          "choices": [
+            {
+              "id": "step_onto_the_stage",
+              "label": "走上应援台",
+              "description": "不绕弯子，直接上台。",
+              "route_stamina": 3,
+              "action_stamina": 3,
+              "battle": {
+                "enemy_ids": [
+                  "midsummer_forum_king"
+                ],
+                "can_flee": false,
+                "flee_dc": 20
+              },
+              "success": {
+                "text": "吧主甲的甲壳碎成一地亮片，尾尖那枚贝壳滚出去两圈才停下。看台安静了一瞬，随后有人把这一趟的收成塞进队伍怀里：两片引路枫叶，两袋棱瓜果种子。",
+                "fixed_rewards": [
+                  {
+                    "item_id": "ribbed_berry_seed",
+                    "quantity": 2
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "one_time": true,
+      "first_clear_guide_leaves": 2
     }
   ],
   "delve_enemies": [
@@ -5628,6 +5765,69 @@
         },
         {
           "name": "烟花爆散",
+          "to_hit": 5,
+          "damage_dice": "1d6",
+          "damage_bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "midsummer_forum_king",
+      "name": "盛夏之吧主甲",
+      "icon": "crown",
+      "description": "应援台正中那副甲胄半泡在浅浅的水里，尾巴尖上咬着一枚贝壳，眼神半天不动——它总比应援的节拍慢半拍。可只要它一抬手，整片看台的光就跟着偏半寸。",
+      "max_hp": 110,
+      "armor_class": 16,
+      "initiative_bonus": 3,
+      "attacks_per_turn": 2,
+      "boss": true,
+      "attacks": [
+        {
+          "name": "盛夏贝壳刃",
+          "to_hit": 7,
+          "damage_dice": "1d10",
+          "damage_bonus": 3
+        },
+        {
+          "name": "臂贝加农",
+          "to_hit": 6,
+          "damage_dice": "2d6",
+          "damage_bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "forum_king_fan_a",
+      "name": "吧主甲的暖粉A",
+      "icon": "lamp-desk",
+      "description": "举着灯牌挤在第一排的暖粉，嗓门比灯牌还亮。它没有名字，只有一句应援词，喊到嗓子劈了也不肯停。",
+      "max_hp": 32,
+      "armor_class": 13,
+      "initiative_bonus": 3,
+      "attacks_per_turn": 1,
+      "boss": false,
+      "attacks": [
+        {
+          "name": "灯牌应援砸",
+          "to_hit": 5,
+          "damage_dice": "1d6",
+          "damage_bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "forum_king_fan_b",
+      "name": "吧主甲的暖粉B",
+      "icon": "lamp-desk",
+      "description": "比 A 矮半个头，灯牌却举得更高。它把应援词尾音拖得老长，像是非要把吧主甲喊回头不可。",
+      "max_hp": 32,
+      "armor_class": 13,
+      "initiative_bonus": 3,
+      "attacks_per_turn": 1,
+      "boss": false,
+      "attacks": [
+        {
+          "name": "灯牌应援砸",
           "to_hit": 5,
           "damage_dice": "1d6",
           "damage_bonus": 2

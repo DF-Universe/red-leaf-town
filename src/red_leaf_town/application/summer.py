@@ -47,6 +47,7 @@ class SummerServiceMixin:
         partners = self.partner_catalog_loader()
         return {
             "visible": started, "active": active, "can_claim": can_claim,
+            "skins": self._skins_view(player, now),
             "name": season.name if season else "夏夜潮祭",
             "starts_at": int(season.starts_at.timestamp()) if season else 0,
             "ends_at": int(season.ends_at.timestamp()) if season else 0,

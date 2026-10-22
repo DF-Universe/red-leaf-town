@@ -1462,6 +1462,12 @@ def create_blueprint(
         result = get_service().dump_feed(subject)
         return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
 
+    @blueprint.post("/api/red-leaf-town/summer/skins/<string:skin_id>/claim")
+    @login_required
+    async def claim_summer_skin(subject: str, skin_id: str):
+        result = get_service().claim_summer_skin(subject, skin_id)
+        return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
+
     @blueprint.post("/api/red-leaf-town/summer/rewards/<int:points>/claim")
     @login_required
     async def claim_summer_reward(subject: str, points: int):
