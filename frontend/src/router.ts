@@ -61,6 +61,7 @@ export default createRouter({
     },
     { path: '/', name: 'dashboard', component: DashboardView, meta: { title: '总览' } },
     { path: '/summer', name: 'summer', component: () => import('@/views/SummerEventView.vue'), meta: { title: '夏夜潮祭' } },
+    { path: '/harvest', name: 'harvest', component: () => import('@/views/HarvestFestivalView.vue'), meta: { title: '丰收祭' } },
     { path: '/farm', name: 'farm', component: FarmView, meta: { title: '农场' } },
     { path: '/gathering', name: 'gathering', component: GatheringView, meta: { title: '采集' } },
     {

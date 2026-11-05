@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import { Beef, Compass, DoorOpen, Flame, FlaskConical, Hammer, HandHeart, LayoutDashboard, Pickaxe, Sparkles, Sprout, Store, Sun, Trees, Waves } from 'lucide-vue-next'
+import { Beef, Compass, DoorOpen, Flame, FlaskConical, Hammer, HandHeart, LayoutDashboard, Pickaxe, Sparkles, Sprout, Store, Sun, Trees, Utensils, Waves } from 'lucide-vue-next'
 
 import type { GameState } from '@/types'
 
@@ -18,6 +18,7 @@ export interface NavItem {
 export const NAV_ITEMS: NavItem[] = [
   { to: '/', label: '总览', icon: LayoutDashboard, primary: true },
   { to: '/summer', label: '夏夜潮祭', icon: Sun, primary: false, accent: 'festival', unlocked: (state) => !!state.summer_event?.visible },
+  { to: '/harvest', label: '丰收祭', icon: Utensils, primary: false, accent: 'festival', unlocked: (state) => !!state.harvest?.visible },
   { to: '/farm', label: '农场', icon: Sprout, primary: true, readyGroup: 'plots' },
   {
     to: '/gathering',

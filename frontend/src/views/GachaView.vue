@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import { Flame, Leaf, Percent, Sparkles, Stamp } from 'lucide-vue-next'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { Flame, Leaf, Percent, RotateCw, Sparkles, Stamp } from 'lucide-vue-next'
 
 import ActionButton from '@/components/ActionButton.vue'
 import StateBlock from '@/components/StateBlock.vue'
@@ -101,6 +101,48 @@ const singlePullDisabled = computed(() => activePool.value?.remaining_pulls === 
 const tenPullDisabled = computed(() => {
   const remaining = activePool.value?.remaining_pulls
   return remaining !== null && remaining !== undefined && remaining < 10
+})
+
+/* ---- 轮替池：倒计时以服务端时间为准，本地只负责滴答 ---- */
+const rotation = computed(() => activePool.value?.rotation || null)
+const tick = ref(Date.now())
+let syncAt = Date.now()
+let tickTimer: number | null = null
+watch(() => game.state?.server_time, () => { syncAt = Date.now() })
+
+const serverNow = computed(() => {
+  const base = game.state?.server_time
+  if (!base) return tick.value / 1000
+  return base + (tick.value - syncAt) / 1000
+})
+
+const rotationSecondsLeft = computed(() => {
+  if (!rotation.value) return 0
+  return Math.max(0, rotation.value.ends_at - serverNow.value)
+})
+
+const rotationCountdown = computed(() => {
+  const total = Math.floor(rotationSecondsLeft.value)
+  if (total <= 0) return '即将换期'
+  const days = Math.floor(total / 86400)
+  const hours = Math.floor((total % 86400) / 3600)
+  const minutes = Math.floor((total % 3600) / 60)
+  const seconds = total % 60
+  if (days > 0) return `${days} 天 ${hours} 小时`
+  if (hours > 0) return `${hours} 小时 ${minutes} 分`
+  return `${minutes} 分 ${seconds} 秒`
+})
+
+/* 倒计时归零后就地刷新一次，让池子自己翻页 */
+watch(rotationSecondsLeft, (left, previous) => {
+  if (left === 0 && previous > 0) void game.refresh(true)
+})
+
+onMounted(() => {
+  tickTimer = window.setInterval(() => { tick.value = Date.now() }, 1000)
+})
+onUnmounted(() => {
+  if (tickTimer !== null) window.clearInterval(tickTimer)
 })
 
 function recapMeta(drop: GachaDrop): GachaResultMeta {
@@ -212,6 +254,23 @@ async function pull(count: 1 | 10) {
           :background-url="posterBackground"
           :pity-tags="pityTags"
         >
+          <template #meta>
+            <div v-if="rotation" class="poster-rotation">
+              <p class="poster-rotation-now">
+                <RotateCw :size="13" />
+                <strong>{{ rotation.partner_name }}</strong>
+                <em v-if="rotation.title">{{ rotation.title }}</em>
+                <span class="poster-rotation-round">第 {{ rotation.round_no }} 轮</span>
+              </p>
+              <p v-if="rotation.tagline" class="poster-rotation-tagline">{{ rotation.tagline }}</p>
+              <p class="poster-rotation-foot">
+                <span>本期剩余 <b>{{ rotationCountdown }}</b></span>
+                <span v-if="rotation.next_partner_name" class="poster-rotation-next">
+                  下期 {{ rotation.next_partner_name }}<template v-if="rotation.next_title">「{{ rotation.next_title }}」</template>
+                </span>
+              </p>
+            </div>
+          </template>
           <template #actions>
             <span class="poster-balance"><Leaf :size="14" />引路枫叶 ×{{ game.player?.guide_leaves || 0 }}</span>
             <button type="button" class="text-button gacha-details-trigger" @click="detailsDialogOpen = true">
@@ -273,6 +332,58 @@ async function pull(count: 1 | 10) {
 
 .gacha-layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; align-items: start; }
 .pool-sidebar-note { color: #7c877e; font-size: 11px; line-height: 1.6; }
+
+/* 轮替信息（写在卡面里，不再是独立的一条） */
+.poster-rotation {
+  display: grid;
+  gap: 5px;
+  padding: 2px 0 2px 11px;
+  border-left: 2px solid rgba(215, 173, 88, .72);
+}
+.poster-rotation-now { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 9px; margin: 0; }
+.poster-rotation-now svg { align-self: center; color: var(--gold); }
+.poster-rotation-now strong {
+  color: #f8f2df;
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 800;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .55);
+}
+.poster-rotation-now em {
+  padding: 2px 8px;
+  border: 1px solid rgba(215, 173, 88, .45);
+  border-radius: 999px;
+  background: rgba(58, 46, 20, .72);
+  color: #f0d79a;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+.poster-rotation-round {
+  color: rgba(240, 234, 216, .66);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+.poster-rotation-tagline {
+  margin: 0;
+  color: rgba(243, 238, 224, .9);
+  font-size: 12px;
+  line-height: 1.65;
+  text-shadow: 0 1px 7px rgba(0, 0, 0, .8);
+}
+.poster-rotation-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 2px 0 0;
+  color: rgba(238, 232, 215, .82);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 7px rgba(0, 0, 0, .8);
+}
+.poster-rotation-foot b { color: #f6e9c4; font-weight: 800; letter-spacing: .02em; }
+.poster-rotation-next::before { content: '·'; margin-right: 8px; color: rgba(232, 226, 208, .4); }
 
 .poster-balance { display: flex; align-items: center; gap: 6px; color: #c9d3c6; font-size: 12px; }
 .poster-balance svg { color: var(--leaf-bright); }

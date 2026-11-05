@@ -1372,6 +1372,7 @@ export interface GameState {
   stamina_supply: StaminaSupplyState
   mail: MailSummary
   summer_event: SummerEventState
+  harvest: HarvestState
   achievements: AchievementState
   crops: CropDefinition[]
   shop: ShopEntry[]
@@ -1649,8 +1650,27 @@ export interface GachaPoolState {
   featured_guaranteed: boolean
   featured_four_star_partner_id: string | null
   featured_four_star_rate: number
+  /** 轮替池专用：只有轮替池有这一块，常驻池为 undefined。 */
+  rotation?: GachaRotationState
   catalog: GachaCatalogPartner[]
   task_items: Omit<TaskItemState, 'quantity'>[]
+}
+
+export interface GachaRotationState {
+  index: number
+  total: number
+  round_no: number
+  partner_id: string
+  partner_name: string
+  title: string
+  tagline: string
+  starts_at: number
+  ends_at: number
+  /** 整段轮替的起点（= 活动开始时间），第一期从这里算 */
+  season_start_at?: number
+  next_partner_id: string | null
+  next_partner_name: string | null
+  next_title: string | null
 }
 
 export interface GachaDrop {
@@ -1910,3 +1930,70 @@ export interface FacilityUpgrade { id: string; name: string; kind: 'farm' | 'fee
 export interface RefiningRecipe { id: string; name: string; min_level: number; unlocked: boolean; input_quantity: number; input_item: AquaticItemRef; item: AquaticItemRef; output_prices: number[]; options: { quality: number; owned: number; input_value: number; quality_times: number[] }[] }
 export interface RefiningTask { task_id: string; input_quality: number; started_at: number; quality_times: number[]; item: AquaticItemRef; max_quality: number }
 export interface FacilitiesState { farm_stage: number; feed_stage: number; upgrades: FacilityUpgrade[]; refining: { built: boolean; unlocked: boolean; locked: boolean; assigned_partner: OwnedPartner | null; ability: number; quality_ability: number; max_quality: number; slots: (RefiningTask | null)[]; recipes: RefiningRecipe[] } }
+
+// ---- 秋活 · 丰收祭（活动本身走 /harvest/state，GameState 里只带 visible 等摘要） ----
+export interface HarvestDish {
+  item_id: string
+  name: string
+  icon: string
+  required: number
+  sent: number
+  remaining: number
+  owned: number
+  done: boolean
+}
+
+export interface HarvestTable {
+  id: string
+  name: string
+  subtitle: string
+  requires: string | null
+  unlocked: boolean
+  required: number
+  sent: number
+  filled: boolean
+  claimed: boolean
+  dishes: HarvestDish[]
+  today_sent: number
+  today_left: number
+  reward: Reward
+}
+
+export interface HarvestChapter {
+  story_id: string
+  title: string
+  cue: string
+  note: string
+  /** 剧本还没写：卡片留着位置，标「未完待续」，不给点 */
+  pending: boolean
+  unlocked: boolean
+  seen: boolean
+}
+
+export interface HarvestRite {
+  id: string
+  name: string
+  host: string
+  story_id: string
+  cue: string
+  unlocked: boolean
+  done: boolean
+}
+
+export interface HarvestState {
+  visible: boolean
+  active: boolean
+  name: string
+  starts_at: number
+  ends_at: number
+  today: string
+  daily_limit: number
+  min_level: number
+  tables: HarvestTable[]
+  chapters: HarvestChapter[]
+  rites: HarvestRite[]
+  skins: SummerSkinOffer[]
+  total_required: number
+  total_sent: number
+  all_filled: boolean
+}
