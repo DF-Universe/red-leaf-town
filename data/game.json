@@ -2439,7 +2439,7 @@
       "name": "蜜薯烤饼",
       "icon": "cooking-pot",
       "kind": "product",
-      "sell_price": 190,
+      "sell_price": 326,
       "has_quality": true,
       "tags": [
         "food"
@@ -2461,7 +2461,7 @@
       "name": "枫糖烤秋刀",
       "icon": "fish",
       "kind": "product",
-      "sell_price": 260,
+      "sell_price": 222,
       "has_quality": true,
       "tags": [
         "food"
@@ -2472,7 +2472,7 @@
       "name": "金玉蛋酥",
       "icon": "egg-fried",
       "kind": "product",
-      "sell_price": 300,
+      "sell_price": 440,
       "has_quality": true,
       "tags": [
         "food"
@@ -2494,7 +2494,7 @@
       "name": "菌菇藕煲",
       "icon": "vegan",
       "kind": "product",
-      "sell_price": 340,
+      "sell_price": 266,
       "has_quality": true,
       "tags": [
         "food"
@@ -2505,7 +2505,7 @@
       "name": "桂花蜜藕",
       "icon": "flower-2",
       "kind": "product",
-      "sell_price": 300,
+      "sell_price": 256,
       "has_quality": true,
       "tags": [
         "food"
@@ -2516,7 +2516,7 @@
       "name": "满月米糕",
       "icon": "moon",
       "kind": "product",
-      "sell_price": 460,
+      "sell_price": 470,
       "has_quality": true,
       "tags": [
         "food"
@@ -2527,7 +2527,7 @@
       "name": "丰收大拼盘",
       "icon": "utensils",
       "kind": "product",
-      "sell_price": 880,
+      "sell_price": 1512,
       "has_quality": true,
       "tags": [
         "food"
@@ -6616,7 +6616,7 @@
       "name": "丰收灶台",
       "description": "晒谷场边新砌的灶台，掌灶的是洛纳莉。与镇民工坊各排各的队。",
       "accent": "#c8862f",
-      "min_level": 1
+      "min_level": 3
     }
   ],
   "recipes": [
@@ -7581,7 +7581,7 @@
       "duration_seconds": 160,
       "time_difficulty": 150,
       "stamina_cost": 2,
-      "collect_xp": 14,
+      "collect_xp": 12,
       "quality": {
         "thresholds": [
           55.0,
@@ -7626,7 +7626,7 @@
       "duration_seconds": 200,
       "time_difficulty": 150,
       "stamina_cost": 2,
-      "collect_xp": 15,
+      "collect_xp": 12,
       "quality": {
         "thresholds": [
           55.0,
@@ -7667,7 +7667,7 @@
       "duration_seconds": 180,
       "time_difficulty": 150,
       "stamina_cost": 2,
-      "collect_xp": 15,
+      "collect_xp": 12,
       "quality": {
         "thresholds": [
           55.0,
@@ -7712,7 +7712,7 @@
       "duration_seconds": 200,
       "time_difficulty": 150,
       "stamina_cost": 2,
-      "collect_xp": 16,
+      "collect_xp": 12,
       "quality": {
         "thresholds": [
           55.0,
@@ -7839,7 +7839,7 @@
       "duration_seconds": 180,
       "time_difficulty": 150,
       "stamina_cost": 2,
-      "collect_xp": 17,
+      "collect_xp": 12,
       "quality": {
         "thresholds": [
           55.0,
@@ -7884,7 +7884,7 @@
       "duration_seconds": 300,
       "time_difficulty": 150,
       "stamina_cost": 3,
-      "collect_xp": 20,
+      "collect_xp": 18,
       "quality": {
         "thresholds": [
           55.0,
@@ -7933,7 +7933,7 @@
       "duration_seconds": 360,
       "time_difficulty": 150,
       "stamina_cost": 4,
-      "collect_xp": 30,
+      "collect_xp": 24,
       "quality": {
         "thresholds": [
           55.0,
