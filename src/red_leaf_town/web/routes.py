@@ -1468,6 +1468,42 @@ def create_blueprint(
         result = get_service().claim_summer_skin(subject, skin_id)
         return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
 
+    @blueprint.get("/api/red-leaf-town/harvest/state")
+    @login_required
+    async def harvest_state(subject: str):
+        result = get_service().harvest_snapshot(subject)
+        return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
+
+    @blueprint.post("/api/red-leaf-town/harvest/submit")
+    @login_required
+    async def harvest_submit(subject: str):
+        payload = await request.get_json(silent=True) or {}
+        result = get_service().harvest_submit(
+            subject,
+            str(payload.get("table_id") or ""),
+            str(payload.get("dish_id") or ""),
+            int(payload.get("quantity") or 1),
+        )
+        return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
+
+    @blueprint.post("/api/red-leaf-town/harvest/skins/<string:skin_id>/claim")
+    @login_required
+    async def harvest_claim_skin(subject: str, skin_id: str):
+        result = get_service().harvest_claim_skin(subject, skin_id)
+        return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
+
+    @blueprint.post("/api/red-leaf-town/harvest/reset")
+    @login_required
+    async def harvest_reset(subject: str):
+        result = get_service().harvest_reset(subject)
+        return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
+
+    @blueprint.post("/api/red-leaf-town/story/replay/<string:story_id>")
+    @login_required
+    async def story_replay(subject: str, story_id: str):
+        result = get_service().story_replay(subject, story_id)
+        return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
+
     @blueprint.post("/api/red-leaf-town/summer/rewards/<int:points>/claim")
     @login_required
     async def claim_summer_reward(subject: str, points: int):

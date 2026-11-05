@@ -11,6 +11,8 @@ from typing import NamedTuple
 from uuid import uuid4
 
 from .facilities import FacilitiesServiceMixin
+from .harvest import HarvestServiceMixin
+from .rotating_gacha import RotatingGachaMixin
 from .sailing import SailingServiceMixin
 from .summer import SummerServiceMixin
 from .summer_skins import SummerSkinsMixin, skin_artworks, attach_skin_artworks, VIEW_PREFIX
@@ -221,7 +223,7 @@ class GameError(Exception):
         self.status = status
 
 
-class GameService(FacilitiesServiceMixin, SummerSkinsMixin, SummerServiceMixin, SailingServiceMixin):
+class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin, SummerServiceMixin, SailingServiceMixin, RotatingGachaMixin):
     def __init__(
         self,
         content: GameContent,
@@ -288,7 +290,11 @@ class GameService(FacilitiesServiceMixin, SummerSkinsMixin, SummerServiceMixin, 
         pool = self.gacha_pool_loader().get(pool_id)
         if pool is None:
             raise GameError("gacha_pool_not_found", "招募池不存在", 404)
-        return pool
+        # 轮替池按当前期改写 UP；档期外返回 None，视同池子不存在。
+        rotated = self._rotate_gacha(pool)
+        if rotated is None:
+            raise GameError("gacha_pool_not_found", "招募池不存在", 404)
+        return rotated
 
     def ensure_player(self, oauth_sub: str, display_name: str) -> PlayerState:
         return self.repository.ensure_player(oauth_sub, display_name or "红叶镇居民", self._now())
@@ -4798,7 +4804,11 @@ class GameService(FacilitiesServiceMixin, SummerSkinsMixin, SummerServiceMixin, 
             del player.commission_takes[index]
 
     def _unlocked_commission_items(self, player: PlayerState) -> set[str]:
-        """能被要求的只有玩家已经能自己产出的东西，条件直接取自现有内容配置。"""
+        """能被要求的只有玩家已经能自己产出的东西，条件直接取自现有内容配置。
+
+        季节限定的采集点/任务只在档期内算数：否则活动一上线，它产出的物品就会被
+        日常委托盯上，活动结束后玩家又没法交，等于把委托卡死（秋活踩过）。
+        """
         unlocked: set[str] = set()
         for crop in self.content.crops:
             if crop.min_level <= player.level:
@@ -4806,17 +4816,21 @@ class GameService(FacilitiesServiceMixin, SummerSkinsMixin, SummerServiceMixin, 
         gathering_sites = self.content.gathering_site_map
         for task in self.content.gathering_tasks:
             site = gathering_sites.get(task.site_id)
-            if site and task.min_level <= player.level and site.min_level <= player.level:
+            if (site and task.min_level <= player.level and site.min_level <= player.level
+                    and self._content_visible(player, site) and self._content_visible(player, task)):
                 unlocked.update(output.item_id for output in task.outputs)
         mining_sites = self.content.mining_site_map
         for task in self.content.mining_tasks:
             site = mining_sites.get(task.site_id)
-            if site and task.min_level <= player.level and site.min_level <= player.level:
+            if (site and task.min_level <= player.level and site.min_level <= player.level
+                    and self._content_visible(player, site) and self._content_visible(player, task)):
                 unlocked.add(task.produce_item_id)
         stations = self.content.crafting_station_map
         for recipe in self.content.recipes:
             station = stations.get(recipe.station_id)
             if not station or station.min_level > player.level:
+                continue
+            if not (self._content_visible(player, station) and self._content_visible(player, recipe)):
                 continue
             if evaluate_recipe_unlock(player, recipe.unlock_condition.hook, recipe.unlock_condition.params):
                 unlocked.add(recipe.produce_item_id)
@@ -5446,9 +5460,14 @@ class GameService(FacilitiesServiceMixin, SummerSkinsMixin, SummerServiceMixin, 
         """保底会强制抽出 4★ 和 5★，所以三个星级都得有人，池子才算能开。"""
         return all(candidates[rarity] for rarity in (3, 4, 5))
 
-    @staticmethod
-    def _gacha_featured_guaranteed(player: PlayerState, gacha: GachaDefinition) -> bool:
-        """按本池最后一个五星判断大保底，兼容修复前的抽卡历史。"""
+    def _gacha_featured_guaranteed(self, player: PlayerState, gacha: GachaDefinition) -> bool:
+        """按本池最后一个五星判断大保底，兼容修复前的抽卡历史。
+
+        轮替池有自己的一套（跨期继承），由 `_rotation_guaranteed` 接管。
+        """
+        override = self._rotation_guaranteed(player, gacha)
+        if override is not None:
+            return override
         if gacha.featured_partner_id:
             for record in reversed(player.gacha_history):
                 if record.pool_id == gacha.pool_id:
@@ -7003,6 +7022,7 @@ class GameService(FacilitiesServiceMixin, SummerSkinsMixin, SummerServiceMixin, 
             "mail": self._mail_summary(player, now),
             "achievements": achievement_snapshot(player, self.content),
             "summer_event": self._summer_snapshot(player, now),
+            "harvest": self._harvest_snapshot(player, now),
             "crops": [
                 crop.model_dump()
                 for crop in self.content.crops
@@ -7218,6 +7238,8 @@ class GameService(FacilitiesServiceMixin, SummerSkinsMixin, SummerServiceMixin, 
         task_items_payload = [entry.model_dump() for entry in self.content.task_items]
         story_assets = self.story_asset_loader().asset_map
         pools = sorted(self.gacha_pool_loader().values(), key=lambda entry: (entry.display_order, entry.min_level, entry.pool_id))
+        # 轮替池在这里也要换成当期：抽卡走 `_gacha_pool`，界面走这里，两处必须同一份定义。
+        pools = [rotated for pool in pools if (rotated := self._rotate_gacha(pool)) is not None]
         snapshots = []
         for gacha in pools:
             if not self._content_visible(player, gacha):
@@ -7267,7 +7289,7 @@ class GameService(FacilitiesServiceMixin, SummerSkinsMixin, SummerServiceMixin, 
                 ],
                 "task_items": task_items_payload,
             })
-        return snapshots
+        return self._rotation_decorate(snapshots)
 
     def _clear_partner_assignment(self, player: PlayerState, partner_id: str, now: int | None = None) -> None:
         """把伙伴从别的生产格上腾出来。
