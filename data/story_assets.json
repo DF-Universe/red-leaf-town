@@ -1150,6 +1150,106 @@
         "offset_y": 0.25,
         "scale": 1.23
       }
+    },
+    {
+      "id": "gacha_rot_gujian_miao",
+      "kind": "background",
+      "name": "古剑喵 · 雪痕剑影",
+      "asset_key": "red-leaf-town/story/background/gujian_miao_rot-bc70af645bf4bc14.webp",
+      "width": 1672,
+      "height": 941,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "scale": 1.0,
+        "offset_x": 0.0,
+        "offset_y": 0.0
+      },
+      "stage_layout": {
+        "scale": 1.0,
+        "offset_x": 0.0,
+        "offset_y": 0.0
+      },
+      "created_at": 0
+    },
+    {
+      "id": "gacha_rot_leilei",
+      "kind": "background",
+      "name": "蕾蕾 · 御风号令",
+      "asset_key": "red-leaf-town/story/background/leilei_rot-9e159ccd98c61c64.webp",
+      "width": 1672,
+      "height": 941,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "scale": 1.0,
+        "offset_x": 0.0,
+        "offset_y": 0.0
+      },
+      "stage_layout": {
+        "scale": 1.0,
+        "offset_x": 0.0,
+        "offset_y": 0.0
+      },
+      "created_at": 0
+    },
+    {
+      "id": "gacha_rot_luo_nali",
+      "kind": "background",
+      "name": "洛纳莉 · 百草知时",
+      "asset_key": "red-leaf-town/story/background/luo_nali_rot-655537a60300e706.webp",
+      "width": 1672,
+      "height": 941,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "scale": 1.0,
+        "offset_x": 0.0,
+        "offset_y": 0.0
+      },
+      "stage_layout": {
+        "scale": 1.0,
+        "offset_x": 0.0,
+        "offset_y": 0.0
+      },
+      "created_at": 0
+    },
+    {
+      "id": "gacha_rot_mami",
+      "kind": "background",
+      "name": "麻咪 · 垄上春秋",
+      "asset_key": "red-leaf-town/story/background/mami_rot-0a5184f406091a85.webp",
+      "width": 1672,
+      "height": 941,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "scale": 1.0,
+        "offset_x": 0.0,
+        "offset_y": 0.0
+      },
+      "stage_layout": {
+        "scale": 1.0,
+        "offset_x": 0.0,
+        "offset_y": 0.0
+      },
+      "created_at": 0
+    },
+    {
+      "id": "gacha_rot_zhuoyan",
+      "kind": "background",
+      "name": "灼焱 · 燎原余烬",
+      "asset_key": "red-leaf-town/story/background/zhuoyan_rot-e65862bcd744fcf2.webp",
+      "width": 1672,
+      "height": 941,
+      "content_type": "image/webp",
+      "inline_layout": {
+        "scale": 1.0,
+        "offset_x": 0.0,
+        "offset_y": 0.0
+      },
+      "stage_layout": {
+        "scale": 1.0,
+        "offset_x": 0.0,
+        "offset_y": 0.0
+      },
+      "created_at": 0
     }
   ]
 }

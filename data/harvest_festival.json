@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "season_id": "autumn_harvest_festival",
+  "name": "丰收祭",
+  "min_level": 1,
+  "daily_limit_per_table": 4,
+  "tables": [
+    {
+      "id": "table_1",
+      "name": "晒谷场的开席",
+      "subtitle": "咸口四道 · 先摆给谷场上干活的人",
+      "requires": null,
+      "dishes": [
+        {
+          "item_id": "pumpkin_soup",
+          "quantity": 5
+        },
+        {
+          "item_id": "maple_saury_roast",
+          "quantity": 5
+        },
+        {
+          "item_id": "golden_egg_pastry",
+          "quantity": 5
+        },
+        {
+          "item_id": "sweet_potato_cake",
+          "quantity": 5
+        }
+      ],
+      "reward": {
+        "coins": 6000,
+        "guide_leaves": 2,
+        "items": []
+      },
+      "story_id": "harvest_act_2"
+    },
+    {
+      "id": "table_2",
+      "name": "长桌的正席",
+      "subtitle": "主食与山货 · 接上从镇头来的长桌",
+      "requires": "table_1",
+      "dishes": [
+        {
+          "item_id": "chestnut_rice",
+          "quantity": 5
+        },
+        {
+          "item_id": "mushroom_lotus_stew",
+          "quantity": 5
+        },
+        {
+          "item_id": "osmanthus_lotus",
+          "quantity": 5
+        },
+        {
+          "item_id": "moon_rice_cake",
+          "quantity": 5
+        }
+      ],
+      "reward": {
+        "coins": 8000,
+        "guide_leaves": 2,
+        "items": [
+          {
+            "item_id": "miracle_crystal",
+            "quantity": 3,
+            "quality": 0
+          }
+        ]
+      },
+      "story_id": "harvest_act_3"
+    },
+    {
+      "id": "table_3",
+      "name": "团圆席",
+      "subtitle": "把整桌再上一遍 · 另需四道成品做拼盘",
+      "requires": "table_2",
+      "dishes": [
+        {
+          "item_id": "pumpkin_soup",
+          "quantity": 5
+        },
+        {
+          "item_id": "maple_saury_roast",
+          "quantity": 5
+        },
+        {
+          "item_id": "golden_egg_pastry",
+          "quantity": 5
+        },
+        {
+          "item_id": "sweet_potato_cake",
+          "quantity": 5
+        },
+        {
+          "item_id": "chestnut_rice",
+          "quantity": 5
+        },
+        {
+          "item_id": "mushroom_lotus_stew",
+          "quantity": 5
+        },
+        {
+          "item_id": "osmanthus_lotus",
+          "quantity": 5
+        },
+        {
+          "item_id": "moon_rice_cake",
+          "quantity": 5
+        },
+        {
+          "item_id": "harvest_platter",
+          "quantity": 1
+        }
+      ],
+      "reward": {
+        "coins": 12000,
+        "guide_leaves": 4,
+        "items": [
+          {
+            "item_id": "harvest_ear",
+            "quantity": 1,
+            "quality": 3
+          }
+        ]
+      },
+      "story_id": "harvest_act_4"
+    }
+  ],
+  "chapters": [
+    {
+      "story_id": "harvest_act_1",
+      "title": "第一幕",
+      "cue": "harvest:act_1",
+      "unlock": "start"
+    },
+    {
+      "story_id": "harvest_act_2",
+      "title": "第二幕",
+      "cue": "harvest:act_2",
+      "unlock": "table_1"
+    },
+    {
+      "story_id": "harvest_act_3",
+      "title": "第三幕",
+      "cue": "harvest:act_3",
+      "unlock": "table_2"
+    },
+    {
+      "story_id": "harvest_act_4",
+      "title": "第四幕",
+      "cue": "harvest:act_4",
+      "unlock": "table_3",
+      "pending": true
+    }
+  ],
+  "rites": [
+    {
+      "id": "field",
+      "name": "祭田",
+      "host": "luo_nali",
+      "unlock": "table_1",
+      "story_id": "harvest_rite_field",
+      "cue": "harvest:rite_field"
+    },
+    {
+      "id": "final",
+      "name": "谢秋大祭",
+      "host": "luo_nali",
+      "unlock": "table_3",
+      "story_id": "harvest_rite_final",
+      "cue": "harvest:rite_final"
+    }
+  ]
+}

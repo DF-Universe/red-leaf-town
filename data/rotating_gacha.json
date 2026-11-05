@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "pool_id": "harvest-rotation-1",
+  "title": "秋日轮替",
+  "season_id": "autumn_harvest_festival",
+  "starts_at": "2026-10-29T00:00:00+08:00",
+  "ends_at": "2026-11-28T00:00:00+08:00",
+  "period_hours": 72,
+  "featured_rate": 0.8,
+  "note": "5 位 5★ 轮流坐庄，3 天一期，档期内正好两轮。软保底与大保底均跨期继承：歪了就一直挂着，换期后第一个五星仍必出当期 UP。",
+  "partners": [
+    {
+      "partner_id": "leilei",
+      "name": "蕾蕾",
+      "title": "御风号令",
+      "tagline": "马蹄踏碎一地红叶，号令既出，无人回头。",
+      "background_asset_id": "gacha_rot_leilei"
+    },
+    {
+      "partner_id": "luo_nali",
+      "name": "洛纳莉",
+      "title": "百草知时",
+      "tagline": "她认得每一种草的脾气，也认得每一场秋雨。",
+      "background_asset_id": "gacha_rot_luo_nali"
+    },
+    {
+      "partner_id": "gujian_miao",
+      "name": "古剑喵",
+      "title": "雪痕剑影",
+      "tagline": "剑过无痕，只在雪上留下半个猫爪印。",
+      "background_asset_id": "gacha_rot_gujian_miao"
+    },
+    {
+      "partner_id": "mami",
+      "name": "麻咪",
+      "title": "垄上春秋",
+      "tagline": "垄沟直得像尺子量过，一季的收成全在她手里。",
+      "background_asset_id": "gacha_rot_mami"
+    },
+    {
+      "partner_id": "zhuoyan",
+      "name": "灼焱",
+      "title": "燎原余烬",
+      "tagline": "火星子落在干草上，荒原就该烧起来了。",
+      "background_asset_id": "gacha_rot_zhuoyan"
+    }
+  ]
+}

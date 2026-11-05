@@ -1,0 +1,53 @@
+{
+  "pool_id": "harvest-rotation-1",
+  "title": "秋日轮替",
+  "min_level": 2,
+  "season_id": "autumn_harvest_festival",
+  "display_order": -250,
+  "max_pulls_per_player": null,
+  "rarity_probabilities": {
+    "3": 0.4,
+    "4": 0.125,
+    "5": 0.025
+  },
+  "item_probability": 0.45,
+  "first_pulls_without_items": 0,
+  "four_star_guarantee": 10,
+  "five_star_pity": 50,
+  "item_drops": [
+    {
+      "task_item_id": "thick_soil_fertilizer",
+      "weight": 35.0,
+      "quantity": 2
+    },
+    {
+      "task_item_id": "maple_wind_whistle",
+      "weight": 35.0,
+      "quantity": 2
+    },
+    {
+      "task_item_id": "harvest_knot",
+      "weight": 20.0,
+      "quantity": 2
+    },
+    {
+      "task_item_id": "handover_order",
+      "weight": 5.0,
+      "quantity": 1
+    },
+    {
+      "task_item_id": "night_lamp_tea",
+      "weight": 4.0,
+      "quantity": 1
+    },
+    {
+      "task_item_id": "golden_leaf",
+      "weight": 1.0,
+      "quantity": 1
+    }
+  ],
+  "background_asset_id": "",
+  "featured_partner_id": "leilei",
+  "featured_rate": 0.8,
+  "partner_ids": []
+}

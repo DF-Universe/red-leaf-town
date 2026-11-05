@@ -2342,6 +2342,205 @@
         "initiative_bonus": 2,
         "description": "顾祇登台用的立麦。握着它，任何检定都交给身法，一律以敏捷结算——它只认她一个人的手。"
       }
+    },
+    {
+      "id": "new_rice",
+      "name": "晚稻新米",
+      "icon": "wheat",
+      "kind": "material",
+      "sell_price": 55,
+      "has_quality": true,
+      "tags": [
+        "forage",
+        "food",
+        "fodder"
+      ],
+      "feed": {
+        "units": 6,
+        "score": 35
+      }
+    },
+    {
+      "id": "chestnut",
+      "name": "板栗",
+      "icon": "cherry",
+      "kind": "material",
+      "sell_price": 40,
+      "has_quality": true,
+      "tags": [
+        "forage",
+        "food",
+        "fodder"
+      ],
+      "feed": {
+        "units": 5,
+        "score": 32
+      }
+    },
+    {
+      "id": "chestnut_mushroom",
+      "name": "栗茸菇",
+      "icon": "vegan",
+      "kind": "material",
+      "sell_price": 45,
+      "has_quality": true,
+      "tags": [
+        "forage",
+        "food",
+        "fodder"
+      ],
+      "feed": {
+        "units": 3,
+        "score": 28
+      }
+    },
+    {
+      "id": "osmanthus",
+      "name": "金桂",
+      "icon": "flower-2",
+      "kind": "material",
+      "sell_price": 70,
+      "has_quality": true,
+      "tags": [
+        "forage",
+        "food"
+      ]
+    },
+    {
+      "id": "sweet_potato",
+      "name": "蜜薯",
+      "icon": "carrot",
+      "kind": "produce",
+      "sell_price": 48,
+      "has_quality": true,
+      "tags": [
+        "crop",
+        "food",
+        "fodder"
+      ],
+      "feed": {
+        "units": 6,
+        "score": 36
+      }
+    },
+    {
+      "id": "sweet_potato_seed",
+      "name": "蜜薯藤苗",
+      "icon": "sprout",
+      "kind": "seed",
+      "sell_price": 0,
+      "has_quality": true,
+      "tags": [
+        "crop_seed"
+      ]
+    },
+    {
+      "id": "sweet_potato_cake",
+      "name": "蜜薯烤饼",
+      "icon": "cooking-pot",
+      "kind": "product",
+      "sell_price": 190,
+      "has_quality": true,
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "pumpkin_soup",
+      "name": "南瓜浓汤",
+      "icon": "glass-water",
+      "kind": "product",
+      "sell_price": 280,
+      "has_quality": true,
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "maple_saury_roast",
+      "name": "枫糖烤秋刀",
+      "icon": "fish",
+      "kind": "product",
+      "sell_price": 260,
+      "has_quality": true,
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "golden_egg_pastry",
+      "name": "金玉蛋酥",
+      "icon": "egg-fried",
+      "kind": "product",
+      "sell_price": 300,
+      "has_quality": true,
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "chestnut_rice",
+      "name": "板栗焖饭",
+      "icon": "wheat",
+      "kind": "product",
+      "sell_price": 320,
+      "has_quality": true,
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "mushroom_lotus_stew",
+      "name": "菌菇藕煲",
+      "icon": "vegan",
+      "kind": "product",
+      "sell_price": 340,
+      "has_quality": true,
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "osmanthus_lotus",
+      "name": "桂花蜜藕",
+      "icon": "flower-2",
+      "kind": "product",
+      "sell_price": 300,
+      "has_quality": true,
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "moon_rice_cake",
+      "name": "满月米糕",
+      "icon": "moon",
+      "kind": "product",
+      "sell_price": 460,
+      "has_quality": true,
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "harvest_platter",
+      "name": "丰收大拼盘",
+      "icon": "utensils",
+      "kind": "product",
+      "sell_price": 880,
+      "has_quality": true,
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "harvest_ear",
+      "name": "丰年穗",
+      "icon": "wheat",
+      "kind": "material",
+      "sell_price": 300,
+      "has_quality": true,
+      "tags": []
     }
   ],
   "crops": [
@@ -2754,6 +2953,33 @@
         "miracle_probability_cap": 0.003,
         "miracle_eligible": true
       }
+    },
+    {
+      "id": "sweet_potato",
+      "name": "蜜薯",
+      "icon": "carrot",
+      "seed_item_id": "sweet_potato_seed",
+      "produce_item_id": "sweet_potato",
+      "growth_seconds": 28800,
+      "time_difficulty": 120,
+      "yield_min": 2,
+      "yield_max": 4,
+      "stamina_cost": 0,
+      "plant_xp": 2,
+      "harvest_xp": 8,
+      "min_level": 1,
+      "accent": "#c96a3f",
+      "quality": {
+        "thresholds": [
+          45.0,
+          90.0,
+          160.0,
+          250.0
+        ],
+        "width": 20.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      }
     }
   ],
   "gathering_sites": [
@@ -2785,6 +3011,22 @@
       "accent": "#7f8ee0",
       "min_level": 12,
       "season_id": "summer_tide_festival"
+    },
+    {
+      "id": "harvest_threshing_floor",
+      "name": "落日晒谷场",
+      "description": "谷场西边摊开的晚稻田，稻穗压得低；田尾一洼浅水，泥里还埋着藕。",
+      "accent": "#c8862f",
+      "min_level": 1,
+      "season_id": "autumn_harvest_festival"
+    },
+    {
+      "id": "harvest_chestnut_grove",
+      "name": "桂香栗林",
+      "description": "栗子落了一地，风里有桂花味。",
+      "accent": "#8d5a3b",
+      "min_level": 1,
+      "season_id": "autumn_harvest_festival"
     }
   ],
   "gathering_tasks": [
@@ -3000,6 +3242,114 @@
         "miracle_eligible": true
       },
       "season_id": "summer_tide_festival"
+    },
+    {
+      "id": "harvest_reap_rice",
+      "site_id": "harvest_threshing_floor",
+      "name": "收稻挖藕",
+      "duration_seconds": 14400,
+      "minimum_duration_seconds": 7200,
+      "time_difficulty": 180,
+      "outputs": [
+        {
+          "item_id": "new_rice",
+          "weight": 38.0,
+          "quantity_min": 2,
+          "quantity_max": 3
+        },
+        {
+          "item_id": "wild_lotus_root",
+          "weight": 20.0,
+          "quantity_min": 1,
+          "quantity_max": 2
+        },
+        {
+          "item_id": "sweet_potato_seed",
+          "weight": 18.0,
+          "quantity_min": 1,
+          "quantity_max": 1
+        },
+        {
+          "item_id": "autumn_herb",
+          "weight": 14.0,
+          "quantity_min": 1,
+          "quantity_max": 1
+        },
+        {
+          "item_id": "chestnut",
+          "weight": 10.0,
+          "quantity_min": 1,
+          "quantity_max": 2
+        }
+      ],
+      "draws": {
+        "base_draws": 10,
+        "ability_bonus": 1.5,
+        "difficulty": 120
+      },
+      "stamina_cost": 0,
+      "collect_xp": 12,
+      "min_level": 1,
+      "quality": {
+        "thresholds": [
+          25.0,
+          55.0,
+          90.0,
+          210.0
+        ],
+        "width": 16.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      },
+      "season_id": "autumn_harvest_festival"
+    },
+    {
+      "id": "harvest_pick_chestnut",
+      "site_id": "harvest_chestnut_grove",
+      "name": "拾栗打桂",
+      "duration_seconds": 21600,
+      "minimum_duration_seconds": 10800,
+      "time_difficulty": 180,
+      "outputs": [
+        {
+          "item_id": "chestnut",
+          "weight": 42.0,
+          "quantity_min": 2,
+          "quantity_max": 3
+        },
+        {
+          "item_id": "chestnut_mushroom",
+          "weight": 33.0,
+          "quantity_min": 1,
+          "quantity_max": 2
+        },
+        {
+          "item_id": "osmanthus",
+          "weight": 25.0,
+          "quantity_min": 1,
+          "quantity_max": 2
+        }
+      ],
+      "draws": {
+        "base_draws": 10,
+        "ability_bonus": 1.5,
+        "difficulty": 120
+      },
+      "stamina_cost": 0,
+      "collect_xp": 14,
+      "min_level": 1,
+      "quality": {
+        "thresholds": [
+          25.0,
+          55.0,
+          90.0,
+          210.0
+        ],
+        "width": 16.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      },
+      "season_id": "autumn_harvest_festival"
     }
   ],
   "exploration_expeditions": [
@@ -6260,6 +6610,13 @@
       "description": "一张结实的工作台，可以处理农作物和林野素材。",
       "accent": "#b08155",
       "min_level": 3
+    },
+    {
+      "id": "harvest_hearth",
+      "name": "丰收灶台",
+      "description": "晒谷场边新砌的灶台，掌灶的是洛纳莉。与镇民工坊各排各的队。",
+      "accent": "#c8862f",
+      "min_level": 1
     }
   ],
   "recipes": [
@@ -7204,6 +7561,399 @@
           "level": 20
         }
       }
+    },
+    {
+      "id": "bake_sweet_potato_cake",
+      "station_id": "harvest_hearth",
+      "name": "烤制蜜薯烤饼",
+      "inputs": [
+        {
+          "item_id": "sweet_potato",
+          "quantity": 2
+        },
+        {
+          "item_id": "flour",
+          "quantity": 1
+        }
+      ],
+      "produce_item_id": "sweet_potato_cake",
+      "produce_quantity": 1,
+      "duration_seconds": 160,
+      "time_difficulty": 150,
+      "stamina_cost": 2,
+      "collect_xp": 14,
+      "quality": {
+        "thresholds": [
+          55.0,
+          110.0,
+          180.0,
+          280.0
+        ],
+        "width": 18.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      },
+      "unlock_condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 1
+        }
+      },
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "cook_pumpkin_soup",
+      "station_id": "harvest_hearth",
+      "name": "熬制南瓜浓汤",
+      "inputs": [
+        {
+          "item_id": "pumpkin",
+          "quantity": 1
+        },
+        {
+          "item_id": "milk",
+          "quantity": 1
+        },
+        {
+          "item_id": "autumn_herb",
+          "quantity": 1
+        }
+      ],
+      "produce_item_id": "pumpkin_soup",
+      "produce_quantity": 1,
+      "duration_seconds": 200,
+      "time_difficulty": 150,
+      "stamina_cost": 2,
+      "collect_xp": 15,
+      "quality": {
+        "thresholds": [
+          55.0,
+          110.0,
+          180.0,
+          280.0
+        ],
+        "width": 18.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      },
+      "unlock_condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 1
+        }
+      },
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "roast_maple_saury",
+      "station_id": "harvest_hearth",
+      "name": "烤制枫糖烤秋刀",
+      "inputs": [
+        {
+          "item_id": "sail_saury",
+          "quantity": 2
+        },
+        {
+          "item_id": "maple_resin",
+          "quantity": 1
+        }
+      ],
+      "produce_item_id": "maple_saury_roast",
+      "produce_quantity": 1,
+      "duration_seconds": 180,
+      "time_difficulty": 150,
+      "stamina_cost": 2,
+      "collect_xp": 15,
+      "quality": {
+        "thresholds": [
+          55.0,
+          110.0,
+          180.0,
+          280.0
+        ],
+        "width": 18.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      },
+      "unlock_condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 1
+        }
+      },
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "bake_golden_egg_pastry",
+      "station_id": "harvest_hearth",
+      "name": "烤制金玉蛋酥",
+      "inputs": [
+        {
+          "item_id": "duck_egg",
+          "quantity": 2
+        },
+        {
+          "item_id": "flour",
+          "quantity": 1
+        },
+        {
+          "item_id": "milk",
+          "quantity": 1
+        }
+      ],
+      "produce_item_id": "golden_egg_pastry",
+      "produce_quantity": 1,
+      "duration_seconds": 200,
+      "time_difficulty": 150,
+      "stamina_cost": 2,
+      "collect_xp": 16,
+      "quality": {
+        "thresholds": [
+          55.0,
+          110.0,
+          180.0,
+          280.0
+        ],
+        "width": 18.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      },
+      "unlock_condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 1
+        }
+      },
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "steam_chestnut_rice",
+      "station_id": "harvest_hearth",
+      "name": "焖制板栗焖饭",
+      "inputs": [
+        {
+          "item_id": "new_rice",
+          "quantity": 2
+        },
+        {
+          "item_id": "chestnut",
+          "quantity": 2
+        }
+      ],
+      "produce_item_id": "chestnut_rice",
+      "produce_quantity": 1,
+      "duration_seconds": 240,
+      "time_difficulty": 150,
+      "stamina_cost": 3,
+      "collect_xp": 18,
+      "quality": {
+        "thresholds": [
+          55.0,
+          110.0,
+          180.0,
+          280.0
+        ],
+        "width": 18.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      },
+      "unlock_condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 1
+        }
+      },
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "stew_mushroom_lotus",
+      "station_id": "harvest_hearth",
+      "name": "煲制菌菇藕煲",
+      "inputs": [
+        {
+          "item_id": "chestnut_mushroom",
+          "quantity": 2
+        },
+        {
+          "item_id": "wild_lotus_root",
+          "quantity": 1
+        },
+        {
+          "item_id": "autumn_herb",
+          "quantity": 1
+        }
+      ],
+      "produce_item_id": "mushroom_lotus_stew",
+      "produce_quantity": 1,
+      "duration_seconds": 240,
+      "time_difficulty": 150,
+      "stamina_cost": 3,
+      "collect_xp": 18,
+      "quality": {
+        "thresholds": [
+          55.0,
+          110.0,
+          180.0,
+          280.0
+        ],
+        "width": 18.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      },
+      "unlock_condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 1
+        }
+      },
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "glaze_osmanthus_lotus",
+      "station_id": "harvest_hearth",
+      "name": "蜜制桂花蜜藕",
+      "inputs": [
+        {
+          "item_id": "wild_lotus_root",
+          "quantity": 1
+        },
+        {
+          "item_id": "osmanthus",
+          "quantity": 2
+        }
+      ],
+      "produce_item_id": "osmanthus_lotus",
+      "produce_quantity": 1,
+      "duration_seconds": 180,
+      "time_difficulty": 150,
+      "stamina_cost": 2,
+      "collect_xp": 17,
+      "quality": {
+        "thresholds": [
+          55.0,
+          110.0,
+          180.0,
+          280.0
+        ],
+        "width": 18.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      },
+      "unlock_condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 1
+        }
+      },
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "steam_moon_rice_cake",
+      "station_id": "harvest_hearth",
+      "name": "蒸制满月米糕",
+      "inputs": [
+        {
+          "item_id": "new_rice",
+          "quantity": 3
+        },
+        {
+          "item_id": "osmanthus",
+          "quantity": 1
+        },
+        {
+          "item_id": "milk",
+          "quantity": 1
+        }
+      ],
+      "produce_item_id": "moon_rice_cake",
+      "produce_quantity": 1,
+      "duration_seconds": 300,
+      "time_difficulty": 150,
+      "stamina_cost": 3,
+      "collect_xp": 20,
+      "quality": {
+        "thresholds": [
+          55.0,
+          110.0,
+          180.0,
+          280.0
+        ],
+        "width": 18.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      },
+      "unlock_condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 1
+        }
+      },
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "assemble_harvest_platter",
+      "station_id": "harvest_hearth",
+      "name": "拼制丰收大拼盘",
+      "inputs": [
+        {
+          "item_id": "chestnut_rice",
+          "quantity": 1
+        },
+        {
+          "item_id": "mushroom_lotus_stew",
+          "quantity": 1
+        },
+        {
+          "item_id": "osmanthus_lotus",
+          "quantity": 1
+        },
+        {
+          "item_id": "moon_rice_cake",
+          "quantity": 1
+        }
+      ],
+      "produce_item_id": "harvest_platter",
+      "produce_quantity": 1,
+      "duration_seconds": 360,
+      "time_difficulty": 150,
+      "stamina_cost": 4,
+      "collect_xp": 30,
+      "quality": {
+        "thresholds": [
+          55.0,
+          110.0,
+          180.0,
+          280.0
+        ],
+        "width": 18.0,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      },
+      "unlock_condition": {
+        "hook": "player_level",
+        "params": {
+          "level": 1
+        }
+      },
+      "tags": [
+        "food"
+      ]
     }
   ],
   "mining_sites": [
@@ -7983,7 +8733,23 @@
       "pumpkin_preserve",
       "blue_carp_dried",
       "grape_wine",
-      "blue_carp_fry"
+      "blue_carp_fry",
+      "new_rice",
+      "chestnut",
+      "chestnut_mushroom",
+      "osmanthus",
+      "sweet_potato",
+      "sweet_potato_seed",
+      "sweet_potato_cake",
+      "pumpkin_soup",
+      "maple_saury_roast",
+      "golden_egg_pastry",
+      "chestnut_rice",
+      "mushroom_lotus_stew",
+      "osmanthus_lotus",
+      "moon_rice_cake",
+      "harvest_platter",
+      "harvest_ear"
     ],
     "tiers": [
       {
