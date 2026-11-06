@@ -60,6 +60,7 @@ class HarvestRite(BaseModel):
     unlock: str = "start"
     story_id: str = ""
     cue: str = ""
+    pending: bool = False
 
 
 class HarvestFestival(BaseModel):

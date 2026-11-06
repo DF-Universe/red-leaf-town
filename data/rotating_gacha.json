@@ -4,8 +4,11 @@
   "title": "秋日轮替",
   "season_id": "autumn_harvest_festival",
   "period_hours": 72,
+  "rounds": 3,
+  "reset_hour": 4,
+  "timezone": "Asia/Shanghai",
   "featured_rate": 0.8,
-  "note": "5 位 5★ 轮流坐庄，3 天一期，30 天档期正好跑两轮。第一期从活动开始那一刻起算（读 seasons.json 里 autumn_harvest_festival 的窗口，活动日期由上游定，这里不写死）。软保底与大保底均跨期继承：歪了就一直挂着，换期后第一个五星仍必出当期 UP。",
+  "note": "5 位 5★ 各轮替 3 次，共 15 期。首期从实际上线时刻开始，之后每 3 个自然日于北京时间 04:00 换期；上线日期加 45 天的 04:00 结束。档期由发布脚本一次性写入 seasons.json，重启不重置。软保底与大保底跨期继承。",
   "partners": [
     {
       "partner_id": "leilei",

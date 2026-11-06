@@ -468,6 +468,8 @@ class GachaRequestRecord(BaseModel):
     pool_id: str = Field(min_length=1)
     count: Literal[1, 10]
     created_at: int = Field(ge=0)
+    # Freeze the actual UP at draw time so later schedule edits cannot rewrite pity.
+    featured_partner_id: str | None = None
     results: list[GachaDropRecord] = Field(min_length=1, max_length=10)
 
 

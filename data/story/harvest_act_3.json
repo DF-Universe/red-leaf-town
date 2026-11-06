@@ -1,0 +1,1071 @@
+{
+  "id": "harvest_act_3",
+  "title": "秋活-第三幕",
+  "trigger": {
+    "hook": "cue",
+    "params": {
+      "cue": "harvest:act_3"
+    },
+    "repeatable": false
+  },
+  "steps": [
+    {
+      "type": "background",
+      "asset_id": "harvest_8b213a8ffce89454",
+      "transition": "fade",
+      "duration": 0.45
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "第二桌摆齐的这天，长桌外头的红叶丛里多了两颗脑袋。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "一个白，一个也白。一双眼睛亮，另一双更亮。",
+      "focus": "none"
+    },
+    {
+      "type": "background",
+      "asset_id": "harvest_f016f04ff5a599e4",
+      "transition": "fade",
+      "duration": 0.45
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "别动。你一喘气叶子就响。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "古剑喵把头顶那片红叶按住了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "太假了，不是你在大声咆哮。生怕别人不知道咱们在这。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "我希望你回答“知道了”，而不是在这里假——诶哟，你压着我头发了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "古剑喵瞅了她一眼，挪了个位置。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "两个人趴在那儿，一动不动地看那张桌子。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "你先看见啥了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "香的，甜的。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "对。我眼里也就那两样。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "灼焱大声咽了一下口水，古剑喵又瞅了她一眼。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "你瞅啥。你的冷气隔老远都能感觉到。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "那是你太热了！别老拿自己的问题说我。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "你的小鬼头环呢？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "这里没有太晶斗栅栏。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "灼焱没忍住笑了一下。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "别笑。你来你也过不了第二关。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "两个人又盯了一会儿。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "算一下，几步。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "你从东边绕，我从桌腿底下钻。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "凭啥我去绕。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "我70速，你135速，我带讲究围巾都没你快。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "……你这话我居然无法反驳。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "一只鸡，一盘蟹，一锅汤，八串——全是肉。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "甜的在最里头。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "那就先甜的。完事儿了往哪跑。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "退回这儿。被发现了就跑，比发现我们的快就行。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "偷一次，要够本。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "够吃就行。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "吃多了，速度变成60了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "不行，要够本。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "红叶晃了一下。树篱后头空了。",
+      "focus": "none"
+    },
+    {
+      "type": "background",
+      "asset_id": "harvest_8b213a8ffce89454",
+      "transition": "fade",
+      "duration": 0.45
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "三分钟后。桌上少了一份桂花蜜藕。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "满月米糕从边角上缺了一块，缺得一点都不规矩。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "烧鸡被扯掉了两条腿，大闸蟹少了两只。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "树篱后头，两个人蹲着分赃。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "left",
+      "visible": true,
+      "asset_id": "harvest_9621ff8bd30203c0",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.17,
+        "offset_x": 0.07,
+        "offset_y": 0.24
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "这藕，绝了。（嘴里塞满）",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "right",
+      "visible": true,
+      "asset_id": "harvest_77ee94eb4c82d1c6",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.22,
+        "offset_x": -0.21,
+        "offset_y": 0.24
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "米糕也好吃。就是有点噎。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "灼焱把鸡腿塞进嘴里，熟练地掰开大闸蟹的壳。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "那就再去拿一份。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "说好够吃就行。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "那是刚才的我说的。现在的我觉得不够。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "古剑喵看了她三秒。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "太假了。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "left",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "portrait",
+      "slot": "right",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "background",
+      "asset_id": "harvest_fc5bcdb5b606eacc",
+      "transition": "fade",
+      "duration": 0.45
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "日头落到长桌那头。洛纳莉开始过菜——每碟掀一下，看一眼，闻一下。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "走到第三碟，她停了。她罕见地皱了皱眉。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": true,
+      "asset_id": "harvest_ba9bd5b9d0ad2734",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.23,
+        "offset_x": -0.1,
+        "offset_y": 0.21
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "少了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "少了什么？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "烧鸡，大闸蟹。甜的也少了一份。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "谁干的？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "这桌上的份数是谁数的，你去问数数的。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "蕾蕾？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "洛纳莉没回你。她把盖子盖回去，轻得像怕碰坏什么。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "你去了就知道。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "background",
+      "asset_id": "harvest_36cc250c12580fe1",
+      "transition": "fade",
+      "duration": 0.45
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "带着一肚子的疑问，你前往了谷仓。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "秋日正是丰收节，收下来的东西大多都堆在这儿。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你正左顾右盼，她自己来了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "晒谷场那头走过来一个人。紫发，紫裙，猫耳，走得不快，一步一步像在量路。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她像从夜里走出来还没回去。裙角沾着泥，只在下摆一圈，沾得很齐。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": true,
+      "asset_id": "harvest_437648b83dadb852",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.22,
+        "offset_x": -0.09,
+        "offset_y": 0.24
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "少了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "……你也知道。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "我数的啊。四碟，四十份。今早过了两遍，刚才又过一遍。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "洛纳莉不知什么时候靠在门框上，手里还捏着那片没盖回去的盖子。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "portrait",
+      "slot": "left",
+      "visible": true,
+      "asset_id": "harvest_437648b83dadb852",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.22,
+        "offset_x": 0.17,
+        "offset_y": 0.24
+      }
+    },
+    {
+      "type": "portrait",
+      "slot": "right",
+      "visible": true,
+      "asset_id": "harvest_ba9bd5b9d0ad2734",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": true,
+      "layout": {
+        "scale": 1.23,
+        "offset_x": -0.2,
+        "offset_y": 0.21
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "还数出瘾了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "不数干嘛，对艾欣愉使用岩崩吗。我又不会。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "少了多少。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "麻咪正要说，一张椅子飞了过来，差点砸到她。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "艾——欣——愉——！！！",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": true,
+      "asset_id": "harvest_74dc1bb9cf4e0c9b",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.23,
+        "offset_x": 0.0,
+        "offset_y": 0.51
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "艾欣愉",
+      "text": "冲啊，宇宙勇者麻袋！",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "艾欣愉",
+      "text": "哟，正上课呢。记着啊，麻咪不会岩崩，也不会用惊吓打出会心一击把你打到剩1点hp，然后让你畏缩不能动。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "艾欣愉跑走了。麻咪脸上的神情依旧不太好。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "桂花蜜藕、满月米糕。两个鸡腿一个鸡翅。大闸蟹。藕不是我的，米是我的。鸡是隔壁鸡舍的。大闸蟹是天天跟着你的小姑娘捞回来的。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她说的是绯恩。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "你倒分得清。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "分不清就别种地了，改行吧。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "洛纳莉把盖子盖上，拎起那只空碗。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "今晚有人守。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "我也去。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "你不用。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "夜行麻咪不用睡觉。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "洛纳莉看了她一眼，没再说，走了。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "left",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "portrait",
+      "slot": "right",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": true,
+      "asset_id": "harvest_437648b83dadb852",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.22,
+        "offset_x": -0.09,
+        "offset_y": 0.24
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "麻咪把碗搁下。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "双脚离地了，聪明的智商就占领高地了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "……你说什么？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "可惜，现在我只能站在地上。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "你以前还会飞？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "在有的地方可以。你没见过？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "……没见过。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "没见过你还想了这么久。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "回去罢，估摸着有人还在等你。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "麻咪不再看你。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你往镇口走。走出十几步，回头看了一眼。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "灯下站着一个抱荷叶包的，和一个坐在门槛上的。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "left",
+      "visible": true,
+      "asset_id": "harvest_9621ff8bd30203c0",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.17,
+        "offset_x": 0.13,
+        "offset_y": 0.24
+      }
+    },
+    {
+      "type": "portrait",
+      "slot": "right",
+      "visible": true,
+      "asset_id": "harvest_437648b83dadb852",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.22,
+        "offset_x": -0.27,
+        "offset_y": 0.24
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "那个……给你留的。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "什么。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "鸡翅。糕也有一块，角我吃了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "桌上拿的？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "桌上拿的。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她答得痛快，痛快得像在交作业。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "你知道我会数。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "知道啊。所以先给你留一份。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "这叫打点。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "这叫交个朋友。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "麻咪把荷叶包接过去，打开。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她咬了一口，嚼得很慢，很认真。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "咸了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "……咸得还行。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她又咬一口，把骨头吐在手心，摆到碗边，摆得很齐。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "那今晚……",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "今晚什么。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "你别数那么细。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "我吃我的，数我的。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "这不冲突吗。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "麻咪",
+      "text": "我的意思是，洛纳莉拜托我看场子，得加钱。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "灼焱愣了两秒，笑得像舔了一口蜂蜜。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "成交！",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她转身就跑，跑出两步又回头。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "灼焱",
+      "text": "明晚还给你留！",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "麻咪没应。她把第二根骨头摆齐，低头看自己的手指。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "指尖上有点油。她在树叶子上蹭掉了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你在暗处看完，转身走了。谁也没提。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "left",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "portrait",
+      "slot": "right",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "background",
+      "asset_id": "",
+      "transition": "fade",
+      "duration": 0.45
+    }
+  ],
+  "priority": 0,
+  "rewards": {
+    "coins": 0,
+    "experience": 0,
+    "talent_points": 0,
+    "maple_flame": 0,
+    "guide_leaves": 0,
+    "items": [],
+    "partner_ids": []
+  }
+}

@@ -146,6 +146,34 @@ async def test_unknown_story_seen_returns_404(client):
 
 
 @runs
+async def test_harvest_reset_is_not_a_public_endpoint(client):
+    authenticate(client)
+    service = get_service()
+    player = service.repository.get_by_sub("story-sub")
+    service.repository.update(player.player_id, lambda state: state.crossover_claims.update({
+        "harvest:table:table_1": 1, "harvest:dayn:table_1": 4,
+    }))
+    before = service.repository.get_by_sub("story-sub").model_dump()
+    response = await client.post("/api/red-leaf-town/harvest/reset")
+    assert response.status_code == 404
+    assert service.repository.get_by_sub("story-sub").model_dump() == before
+
+
+@runs
+async def test_replay_requires_login_and_a_seen_story(client):
+    url = "/api/red-leaf-town/story/replay/welcome"
+    assert (await client.post(url)).status_code == 401
+    authenticate(client)
+    response = await client.post(url)
+    assert response.status_code == 403
+    assert (await response.get_json())["code"] == "story_locked"
+    await client.post("/api/red-leaf-town/story/welcome/seen")
+    response = await client.post(url)
+    assert response.status_code == 200
+    assert (await response.get_json())["data"]["story"]["id"] == "welcome"
+
+
+@runs
 async def test_admin_story_payload_requires_admin_session(client):
     response = await client.get("/api/red-leaf-town/admin/story")
     assert response.status_code == 403

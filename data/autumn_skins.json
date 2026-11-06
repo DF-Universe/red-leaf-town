@@ -9,14 +9,26 @@
       "name": "旗袍 · 蕾蕾",
       "display_name": "红叶夜宴",
       "subtitle": "丰收祭限定立绘",
-      "asset_key": "red-leaf-town/partners/leilei/qipao-68894fece311c6f6.webp",
+      "asset_key": "red-leaf-town/partners/leilei/autumn-e41ef88bb1531d38.webp",
       "width": 941,
       "height": 1672,
       "cost": [
-        { "item_id": "chestnut", "quantity": 35 },
-        { "item_id": "sweet_potato", "quantity": 30 },
-        { "item_id": "chestnut_mushroom", "quantity": 20 },
-        { "item_id": "osmanthus", "quantity": 15 }
+        {
+          "item_id": "chestnut",
+          "quantity": 35
+        },
+        {
+          "item_id": "sweet_potato",
+          "quantity": 30
+        },
+        {
+          "item_id": "chestnut_mushroom",
+          "quantity": 20
+        },
+        {
+          "item_id": "osmanthus",
+          "quantity": 15
+        }
       ]
     },
     {
@@ -25,14 +37,26 @@
       "name": "旗袍 · 洛纳莉",
       "display_name": "金穗长歌",
       "subtitle": "丰收祭限定立绘",
-      "asset_key": "red-leaf-town/partners/luo_nali/qipao-838d646d4022279f.webp",
+      "asset_key": "red-leaf-town/partners/luo_nali/autumn-4489eaa698f46a9f.webp",
       "width": 941,
       "height": 1672,
       "cost": [
-        { "item_id": "osmanthus", "quantity": 35 },
-        { "item_id": "chestnut_mushroom", "quantity": 25 },
-        { "item_id": "chestnut", "quantity": 20 },
-        { "item_id": "sweet_potato", "quantity": 20 }
+        {
+          "item_id": "osmanthus",
+          "quantity": 35
+        },
+        {
+          "item_id": "chestnut_mushroom",
+          "quantity": 25
+        },
+        {
+          "item_id": "chestnut",
+          "quantity": 20
+        },
+        {
+          "item_id": "sweet_potato",
+          "quantity": 20
+        }
       ]
     }
   ]

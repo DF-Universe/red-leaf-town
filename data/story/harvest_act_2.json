@@ -1,0 +1,655 @@
+{
+  "id": "harvest_act_2",
+  "title": "秋活-第二幕",
+  "trigger": {
+    "hook": "cue",
+    "params": {
+      "cue": "harvest:act_2"
+    },
+    "repeatable": false
+  },
+  "steps": [
+    {
+      "type": "background",
+      "asset_id": "harvest_fc5bcdb5b606eacc",
+      "transition": "fade",
+      "duration": 0.45
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "镇口支起了一张长桌。桌面上零星摆着几只碗，碗口盖着布。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "有个人背对着你，正把一条桌腿下面的土踩平。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": true,
+      "asset_id": "harvest_ba9bd5b9d0ad2734",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.23,
+        "offset_x": -0.06,
+        "offset_y": 0.22
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她穿长裤，裤脚挽到脚踝上面，鞋面上全是泥。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "等一下啊，这条腿还差一点——",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她踩了两脚，退开半步看了看，才转过身。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "好了。找我？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "蕾蕾让我来的。她说要找做菜的，和主祭的。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "哦，那两样都是我。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "……都是你？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "是啦，每年都这样。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她说这话的时候在笑。笑得很自然，像这句话说过很多年。你不知道该怎么接，她好像也不需要你接。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "锅我管，话我也说。就是说的话不太好听，你别介意。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "比如？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "比如“今年也谢谢了，明年还得再麻烦你们”。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她说这句的时候朝上抬了抬下巴。上面什么都没有，只有天。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "这是在做什么？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她掀开一只碗上的布，看了一眼，又盖回去。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "这些是先摆的。摆着好看，其实都凉了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "凉了还摆？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "得让路过的人看见桌上满了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "这些规矩，谁定的？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "没人定。祭是年年有的。可镇上人一半是裂隙里掉下来的，谁也不比谁多记得几年。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她把布重新盖好，压了压碗沿。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "所以计划每年都从头做。好在我们有白璃，去年做了什么，全记在她本子上。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "本子？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "嗯。你要是拿不准端什么，改天去问她借去年的看看。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "你也要端一道。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "什么？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "丰收祭正日，桌上得有你自己的一道。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你低头，想了想。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你想不出自己会做什么。也想不出自己吃过什么。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "想不出来？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "……嗯。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她没再问。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "那明天来。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "来做什么？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "搬桌子。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "……就搬桌子？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "搬着搬着就知道了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她弯腰去抬另一头。你手里还攥着那束麦子。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你把它塞进兜里，走过去，抬了起来。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "background",
+      "asset_id": "harvest_8b213a8ffce89454",
+      "transition": "fade",
+      "duration": 0.45
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "第二天你到的时候，长桌已经不在原来的地方了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "昨天临走前，你们把桌子挪到井边——洛纳莉说正日那天，这里路过的人最多。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": true,
+      "asset_id": "harvest_ba9bd5b9d0ad2734",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.23,
+        "offset_x": -0.06,
+        "offset_y": 0.22
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "来啦。快，搭把手。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她蹲在桌角，正把一块垫桌脚的石头往土里敲。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你们齐心协力将桌子放平了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "然后呢？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "然后进来。灶上坐着一锅水，别让它干了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她绕到桌后的棚子。灶是新盘的，火已经生起来了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "棚子不大。案板、菜刀、一摞碗，码得整整齐齐。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "今天不做什么难的。切菜，下锅，搅。会这三步就行。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "就这三步？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "基本功做扎实，比什么都强。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她把一把豆角推到你面前。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "切段。一指长。慢点切，别看我的手，看你自己的刀。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你切了。第一刀下去就歪了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "案板上的豆角有长有短。长的有二指长，短的只有二三厘米。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "歪就歪点。进了锅没人看刀口。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她顺手拿过剩下的一把，刀起刀落，几下就切出一把齐的。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "这手是我弟教的。他切得比我快。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她没往下说。你也没问。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "这几根齐的留着摆盘。碎的下锅。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "摆盘还分好坏？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "桌上那一圈是给人看的。自己那碗才是给自己吃的。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "水开了。她把碎的那把倒进去，把勺塞进你手里。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "搅。顺一个方向。中途别换手。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你用力搅动了勺子。锅里的动静慢慢匀了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "行啊。比我第一次强。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "你第一次也这样？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "我第一次把醋当酱油放。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "说这话的时候，她自己都忍俊不禁。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "所以你搞砸一锅也别慌。丰收祭年年有，明年再练。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "豆角熟了。她捞出一根，掐了一段，尝了尝，点头。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "出锅。捞的时候抖两下勺，别带汤。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你照做。一碗豆角落在案板上，还冒着热气。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她端过去看了看，往里点了几滴香油。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "先搁着，碗擦干净。等摆好盘再上桌。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你擦了碗。她把小碟里那几根齐整的豆角摆在面上，一根一根排过去。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "摆盘就一个理：让人一眼看出碗里是什么。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "谁规定要摆？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "没人规定。可你端一碗糊成一团的上去，人家怎么知道你放了什么心思。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她把碗转了半圈，把最长的那根摆到正中间。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "好了。比刚才强。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你把碗端上桌。说不上好看，但一眼看得出来，是摆过的。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "洛纳莉看了一眼，没说话，把碗往里挪了挪，让它挨着别的碗。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "练手够了。祭那天你端的那道，材料还差着。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "还差什么？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她从围裙兜里摸出一小张单子，塞给你。字不大，一笔一笔很齐。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "白璃早上抄给我的。缺什么拿什么，别拿多。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "田里现在还有人？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "蕾蕾天天在。你就说端一道的事，她懂。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你把单子折好，塞进兜里，和那束麦子放在一处。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "走出几步，你回头看了一眼。长桌上的碗，比昨天多了一只。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "background",
+      "asset_id": "",
+      "transition": "fade",
+      "duration": 0.45
+    }
+  ],
+  "priority": 0,
+  "rewards": {
+    "coins": 0,
+    "experience": 0,
+    "talent_points": 0,
+    "maple_flame": 0,
+    "guide_leaves": 0,
+    "items": [],
+    "partner_ids": []
+  }
+}

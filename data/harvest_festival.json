@@ -170,7 +170,8 @@
       "host": "luo_nali",
       "unlock": "table_3",
       "story_id": "harvest_rite_final",
-      "cue": "harvest:rite_final"
+      "cue": "harvest:rite_final",
+      "pending": true
     }
   ]
 }

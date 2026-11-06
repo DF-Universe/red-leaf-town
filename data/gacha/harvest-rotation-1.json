@@ -1,5 +1,6 @@
 {
   "pool_id": "harvest-rotation-1",
+  "rotating": true,
   "title": "秋日轮替",
   "min_level": 2,
   "season_id": "autumn_harvest_festival",

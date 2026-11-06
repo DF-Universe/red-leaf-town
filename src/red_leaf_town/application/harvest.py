@@ -25,7 +25,6 @@ SENT = "harvest:sent:"
 DAY = "harvest:day:"
 DAYN = "harvest:dayn:"
 TABLE_DONE = "harvest:table:"
-CLEAR_PREFIX = "harvest:"
 
 
 def _owned(player, item_id: str) -> int:
@@ -75,7 +74,7 @@ class HarvestServiceMixin:
         festival = self._harvest_festival()
         season = self._harvest_season()
         active = bool(season and season.is_open(now))
-        started = bool(season and now >= season.starts_at.timestamp())
+        started = bool(season and season.enabled and now >= season.starts_at.timestamp())
         return festival, season, active, started
 
     def _harvest_day(self, now: int) -> str:
@@ -86,6 +85,17 @@ class HarvestServiceMixin:
         if int(player.crossover_claims.get(DAY + table_id, 0)) != _day_number(day):
             return limit
         return max(0, limit - int(player.crossover_claims.get(DAYN + table_id, 0)))
+
+    def _require_harvest_story(self, player, story_id: str, now: int) -> None:
+        """Gate first playback and the seen endpoint, not just the page buttons."""
+        from .service import GameError
+
+        festival, _, _, started = self._harvest_clock(now)
+        entry = next((entry for entry in [*festival.chapters, *festival.rites]
+                      if entry.story_id == story_id), None)
+        if (entry is None or not started or getattr(entry, "pending", False)
+                or (entry.unlock != "start" and not player.crossover_claims.get(TABLE_DONE + entry.unlock))):
+            raise GameError("story_locked", "这段丰收祭剧情尚未解锁", 409)
 
     def _require_harvest_table(self, festival: HarvestFestival, table_id: str) -> HarvestTable:
         from .service import GameError
@@ -167,9 +177,10 @@ class HarvestServiceMixin:
                 "id": rite.id,
                 "name": rite.name or rite.id,
                 "host": rite.host,
+                "pending": rite.pending,
                 "story_id": rite.story_id,
                 "cue": rite.cue,
-                "unlocked": unlocked and started,
+                "unlocked": unlocked and started and not rite.pending,
                 "done": bool(rite.story_id) and rite.story_id in player.seen_story_ids,
             })
 
@@ -279,25 +290,8 @@ class HarvestServiceMixin:
             return active
         return super()._event_skin_open(event, now)
 
-    def harvest_reset(self, oauth_sub: str) -> dict:
-        """调试用：清空活动进度（已发奖励、已兑换皮肤都不追回）。
-
-        只清 `harvest:` 前缀。**皮肤解锁（`autumn_skin:`）故意不清**——那是玩家的
-        资产，一个"重玩活动"的调试接口不该顺手把人家的立绘收走。
-        """
-        now = self._now()
-
-        def mutation(player):
-            keys = [key for key in player.crossover_claims if key.startswith(CLEAR_PREFIX)]
-            for key in keys:
-                player.crossover_claims.pop(key, None)
-            return {"cleared": len(keys)}
-
-        player, result = self._update_by_sub(oauth_sub, mutation)
-        return {"result": result, "state": self._harvest_snapshot(player, self._now())}
-
     def story_replay(self, oauth_sub: str, story_id: str) -> dict:
-        """只读回看：不看 `seen`、不写 `seen`、不结算奖励。
+        """仅允许回看已经读过的剧本；不修改存档，也不结算奖励。
 
         `story_cue` 会把已读剧本过滤掉（那是给自动触发用的），活动页的"回看"
         按钮走的也是 cue，于是看过一次就再也拿不到。这里按 id 直接取。
@@ -311,6 +305,8 @@ class HarvestServiceMixin:
         script = self.story_catalog_loader().script_map.get(story_id)
         if script is None:
             raise GameError("story_not_found", "剧情不存在", 404)
+        if story_id not in player.seen_story_ids:
+            raise GameError("story_locked", "尚未读过这段剧情，不能回看", 403)
         return {
             "story": serialize_script(
                 script,

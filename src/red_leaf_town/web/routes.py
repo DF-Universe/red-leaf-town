@@ -1492,12 +1492,6 @@ def create_blueprint(
         result = get_service().harvest_claim_skin(subject, skin_id)
         return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
 
-    @blueprint.post("/api/red-leaf-town/harvest/reset")
-    @login_required
-    async def harvest_reset(subject: str):
-        result = get_service().harvest_reset(subject)
-        return jsonify({"code": 0, "data": _attach_cdn_urls(result)})
-
     @blueprint.post("/api/red-leaf-town/story/replay/<string:story_id>")
     @login_required
     async def story_replay(subject: str, story_id: str):

@@ -21,6 +21,7 @@ class SeasonDefinition(BaseModel):
     name: str = Field(min_length=1)
     starts_at: datetime
     ends_at: datetime
+    enabled: bool = True
     leader_bonus: SeasonBonus | None = None
     companion_bonus: SeasonBonus | None = None
     gathering_bonus: SeasonBonus | None = None
@@ -39,7 +40,7 @@ class SeasonDefinition(BaseModel):
         return self
 
     def is_open(self, now: int) -> bool:
-        return self.starts_at.timestamp() <= now < self.ends_at.timestamp()
+        return self.enabled and self.starts_at.timestamp() <= now < self.ends_at.timestamp()
 
     def bonus_snapshot(self, kind: str, partner_ids: list[str]) -> SeasonBonusSnapshot | None:
         bonus = getattr(self, kind)

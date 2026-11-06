@@ -1,0 +1,409 @@
+{
+  "id": "harvest_act_1",
+  "title": "秋活-第一幕",
+  "trigger": {
+    "hook": "cue",
+    "params": {
+      "cue": "harvest:act_1"
+    },
+    "repeatable": false
+  },
+  "steps": [
+    {
+      "type": "background",
+      "asset_id": "harvest_b567367294ef8a00",
+      "transition": "fade",
+      "duration": 0.45
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "盛夏一过，天气就凉爽了下来。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "在那场夏日盛会结束后，红叶镇就回归了日复一日的平淡生活当中。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "left",
+      "visible": true,
+      "asset_id": "harvest_77ee94eb4c82d1c6",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "dialogue",
+      "speaker": "古剑喵",
+      "text": "逃跑！",
+      "focus": "left"
+    },
+    {
+      "type": "portrait",
+      "slot": "right",
+      "visible": true,
+      "asset_id": "harvest_4b1402e16e85a26c",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.23,
+        "offset_x": -0.13,
+        "offset_y": 0.26
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "艾欣愉",
+      "text": "别跑！你这个打不过盛夏之吧主甲的家伙，吃我一葱！",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "left",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "portrait",
+      "slot": "right",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "一对活宝很快乐地跑远了。从来到红叶镇开始，她们两个从未消停过。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "左右无事，循着她们的脚步往前走——",
+      "focus": "none"
+    },
+    {
+      "type": "background",
+      "asset_id": "harvest_2bafeda6ce31c57e",
+      "transition": "fade",
+      "duration": 0.45
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "眼前是一片丰收的农田，麦穗黄澄澄的，一片欣欣向荣的景象。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": true,
+      "asset_id": "harvest_86eadc54b1c9f9ea",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.22,
+        "offset_x": -0.09,
+        "offset_y": 0.22
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "田地中间立着一个身影，风姿绰约，亭亭玉立。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "哦？是你。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "蕾蕾是丰饶的化身。她不是第一批来的住客，但是自从加入红叶镇起，时时能见她的身影。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "丰饶之主天生属于自然。她不爱在烟火气缭绕的地方驻足。相反，无论是枫林草甸的探索，还是在牧场与生灵作伴，总是能见到她。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她手里有一把镰刀。脚边已经放倒了一小片，割口齐得像用尺子量过。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "站着做什么。过来。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "……叫我？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "田里就我们两个。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她把镰刀递过来。你接了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "割这里。往下压，别往回拉。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你割了一把。割口毛糙，还带起了一截根。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "……算了。反正也要落回地里。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她把你割下的那几根拢成一小束，用草绳捆了，塞回你手里。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "拿着。第一束归割的人。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "这个有什么用？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "没用。规矩。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她直起身，往镇子的方向看了一眼。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "这一茬秋收结束，就该祭了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "祭？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "丰收祭。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她说得很平，像在说一件每年都会发生的事。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "每年都有？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "不祭天地，明年就没有丰收。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你捏了捏手里那束麦子。它比看上去轻。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你想问去年是什么样子。话到嘴边，又咽了回去。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "明明面前的人也是从裂隙里出来没多久的过客，却像是经历了无数次秋收一样。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "今年有两件事，还没定。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "什么事？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "丰收祭主祭的人选还没定。本来想找白璃，小姑娘只想陪着她姐姐。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "要做一桌子菜。要主持祭祀。收来的东西摆出来，先敬天地，再一起吃。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "做菜的。主祭的。这得找两个人。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "找一个。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "……？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "镇口。看谁的手最脏。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "她叫什么？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "你去就知道了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "……你怎么不自己去。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "烟火气沾在叶子上，洗不掉。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她说完就弯下腰，去捡掉在地上的麦穗。镰刀又响了起来。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你知道，这一趟落在你身上了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你把麦束塞进兜里，朝镇口走。",
+      "focus": "none"
+    },
+    {
+      "type": "background",
+      "asset_id": "",
+      "transition": "fade",
+      "duration": 0.45
+    }
+  ],
+  "priority": 0,
+  "rewards": {
+    "coins": 0,
+    "experience": 0,
+    "talent_points": 0,
+    "maple_flame": 0,
+    "guide_leaves": 0,
+    "items": [],
+    "partner_ids": []
+  }
+}

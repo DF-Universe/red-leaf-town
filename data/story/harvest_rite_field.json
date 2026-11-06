@@ -1,0 +1,427 @@
+{
+  "id": "harvest_rite_field",
+  "title": "秋活-祭田",
+  "trigger": {
+    "hook": "cue",
+    "params": {
+      "cue": "harvest:rite_field"
+    },
+    "repeatable": false
+  },
+  "steps": [
+    {
+      "type": "background",
+      "asset_id": "harvest_fc5bcdb5b606eacc",
+      "transition": "fade",
+      "duration": 0.45
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "第一张桌子摆满了，碗一只挨着一只。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "洛纳莉从灶棚里出来，手上还带着灰。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": true,
+      "asset_id": "harvest_ba9bd5b9d0ad2734",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.23,
+        "offset_x": -0.17,
+        "offset_y": 0.21
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "走。跟我去趟田里。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "现在？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "趁着天还亮。",
+      "focus": "none"
+    },
+    {
+      "type": "background",
+      "asset_id": "",
+      "transition": "fade",
+      "duration": 0.45
+    },
+    {
+      "type": "portrait",
+      "slot": "center",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "background",
+      "asset_id": "harvest_2bafeda6ce31c57e",
+      "transition": "fade",
+      "duration": 0.45
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "田头有人。蕾蕾蹲在田垄边，正把最后一束麦扎起来。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "left",
+      "visible": true,
+      "asset_id": "harvest_ba9bd5b9d0ad2734",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "你还在。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "土要看一遍。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "right",
+      "visible": true,
+      "asset_id": "harvest_86eadc54b1c9f9ea",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": {
+        "scale": 1.22,
+        "offset_x": -0.37,
+        "offset_y": 0.21
+      }
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她把麦束搁在脚边，站起来，拍了拍膝盖上的土。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "东边那块怎么样。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "差半分。一亩三斗。明年换种。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "记得跟白璃说。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "你自己去。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "我说不清。你说。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "洛纳莉笑了一下，没再争。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "蕾蕾这才看你一眼。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "站着做什么。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "……叫我？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "田里就我们三个。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "洛纳莉把手里的桂枝分了一半给你。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "插。一根一根，直着插。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你插下去，桂枝歪歪斜斜。蕾蕾没说话，伸手把你插的那根拔了，重插了一遍。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "洛纳莉蹲下去，捻起一撮土，在指间搓开，递给蕾蕾。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "蕾蕾闻了闻。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "三场。最后一场在割之前。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "土也能闻出来？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "能。你闻不出来，是因为你没闻过。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "洛纳莉抓了一小把新米，摊在手心，撒在桂枝周围。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "敬田。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "就两个字。没有祷词，也没有求什么。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "不用说话吗。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "土地不认话。它认东西。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你把手掌按在土上，按了一会儿。风从麦茬上过去。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你想起兜里那束麦，掏出来。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "田里割的。第一束。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "嗯。留着了。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她看了一眼，没再说别的。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "插桂枝里头。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "你把它插进去。几束并在一起，一般高。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "蕾蕾把脚边那束麦拎起来，往肩上一搭。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "西边还没看。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "饭呢。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "看完再吃。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她说完就走。走出几步，回头。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "西边那块，你来。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "……我？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "蕾蕾",
+      "text": "你手稳。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "right",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "dialogue",
+      "speaker": "",
+      "text": "她走了。麦茬在她脚底下响。",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "你",
+      "text": "她跟谁都这样？",
+      "focus": "none"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "洛纳莉",
+      "text": "嗯……跟我好一点。",
+      "focus": "none"
+    },
+    {
+      "type": "portrait",
+      "slot": "left",
+      "visible": false,
+      "asset_id": "",
+      "partner_id": "",
+      "breakthrough": 0,
+      "transition": "fade",
+      "duration": 0.28,
+      "flip": false,
+      "layout": null
+    },
+    {
+      "type": "background",
+      "asset_id": "",
+      "transition": "fade",
+      "duration": 0.45
+    }
+  ],
+  "priority": 0,
+  "rewards": {
+    "coins": 0,
+    "experience": 0,
+    "talent_points": 0,
+    "maple_flame": 0,
+    "guide_leaves": 0,
+    "items": [],
+    "partner_ids": []
+  }
+}

@@ -8,7 +8,7 @@ import pytest
 from red_leaf_town.application import GameError, GameService
 from red_leaf_town.content import load_content
 from red_leaf_town.domain.economy import add_item
-from red_leaf_town.domain.models import GachaDropRecord, GachaRequestRecord
+from red_leaf_town.domain.models import GachaDropRecord, GachaRequestRecord, GachaPoolProgressState
 from red_leaf_town.harvest_content import load_harvest_festival
 from red_leaf_town.infrastructure import InMemoryPlayerRepository
 from red_leaf_town.season_content import load_seasons
@@ -41,7 +41,9 @@ def game(season_window):
     repository = InMemoryPlayerRepository(content)
     started, _ = season_window
     clock = Clock(started + 5 * 86400 + 12 * 3600)   # 第 2 期正中
-    service = GameService(content, repository, clock=clock, rng=random.Random(11))
+    seasons = load_seasons()
+    seasons["autumn_harvest_festival"] = seasons["autumn_harvest_festival"].model_copy(update={"enabled": True})
+    service = GameService(content, repository, clock=clock, rng=random.Random(11), season_loader=lambda: seasons)
     player = service.ensure_player(SUB, "收秋居民")
     return service, repository, clock, player
 
@@ -163,7 +165,8 @@ def test_rotating_pool_follows_the_season_and_carries_pity_over(game, season_win
     first = pool()
     assert first["featured_partner_id"] == "luo_nali"
     assert first["rotation"]["index"] == 1
-    assert first["rotation"]["starts_at"] == started + 3 * 86400
+    season = service.season_loader()["autumn_harvest_festival"]
+    assert first["rotation"]["starts_at"] == int((season.starts_at.replace(hour=4, minute=0, second=0) + timedelta(days=3)).timestamp())
 
     # 换期：第 3 期是古剑喵，UP 跟着换、卡面跟着换
     clock.now = started + 7 * 86400
@@ -218,3 +221,172 @@ def test_story_replay_returns_a_seen_story(game):
     with pytest.raises(GameError) as error:
         service.story_replay(SUB, "story_that_does_not_exist")
     assert error.value.code == "story_not_found"
+
+
+def test_story_replay_rejects_unseen_story_without_changing_save(game):
+    service, repository, _, player = game
+    story_id = next(iter(service.story_catalog_loader().script_map))
+    before = repository.get_by_sub(SUB).model_dump()
+    with pytest.raises(GameError) as error:
+        service.story_replay(SUB, story_id)
+    assert error.value.code == "story_locked"
+    assert error.value.status == 403
+    assert repository.get_by_sub(SUB).model_dump() == before
+
+
+def test_all_tables_take_19_days_and_pay_exactly_once(game):
+    service, repository, clock, player = game
+    for table in load_harvest_festival().tables:
+        for dish in table.dishes:
+            stock(repository, player, dish.item_id, dish.quantity)
+    before = repository.get_by_sub(SUB)
+    rewards = []
+    for day in range(1, 20):
+        for table in service.harvest_snapshot(SUB)["tables"]:
+            # Refresh after completing the preceding table on the same day.
+            table = next(t for t in service.harvest_snapshot(SUB)["tables"] if t["id"] == table["id"])
+            if not table["unlocked"] or table["filled"]:
+                continue
+            remaining = table["today_left"]
+            for dish in table["dishes"]:
+                count = min(remaining, dish["remaining"])
+                if count:
+                    result = service.harvest_submit(SUB, table["id"], dish["item_id"], count)
+                    remaining -= result["result"]["submitted"]
+                    if result["result"]["table_filled"]:
+                        rewards.append(result["result"]["reward"])
+        state = service.harvest_snapshot(SUB)
+        assert state["all_filled"] == (day == 19)
+        clock.advance(86400)
+    after = repository.get_by_sub(SUB)
+    assert after.coins - before.coins == 26000
+    assert after.guide_leaves - before.guide_leaves == 8
+    assert len(rewards) == 3
+    assert sum(after.inventory["miracle_crystal"].values()) - sum(before.inventory.get("miracle_crystal", {}).values()) == 3
+    assert sum(after.inventory["harvest_ear"].values()) == 1
+    for table in load_harvest_festival().tables:
+        with pytest.raises(GameError) as error:
+            service.harvest_submit(SUB, table.id, table.dishes[0].item_id, 1)
+        assert error.value.code == "table_filled"
+    assert repository.get_by_sub(SUB).coins == after.coins
+
+
+@pytest.mark.parametrize("broken", [None, "{", "[]", '{"pool_id":"harvest-rotation-1"}'])
+def test_bad_rotation_config_hides_pool_without_breaking_other_pools(game, monkeypatch, tmp_path, broken):
+    from red_leaf_town.application import rotating_gacha
+    service, repository, _, _ = game
+    path = tmp_path / "rotation.json"
+    if broken is not None:
+        path.write_text(broken)
+    monkeypatch.setattr(rotating_gacha, "CONFIG_PATH", path)
+    pools = service._gacha_pools_snapshot(repository.get_by_sub(SUB))
+    assert pools
+    assert all(pool["pool_id"] != POOL for pool in pools)
+    with pytest.raises(GameError) as error:
+        service.recruit(SUB, 1, "invalid-config-recruit", POOL)
+    assert error.value.code == "gacha_pool_not_found"
+
+
+def test_disabled_harvest_has_no_entry_or_actions(game):
+    service, repository, _, player = game
+    season = service.season_loader()["autumn_harvest_festival"]
+    season.enabled = False
+    assert not service.harvest_snapshot(SUB)["visible"]
+    assert not service.harvest_snapshot(SUB)["active"]
+    with pytest.raises(GameError) as error:
+        service.harvest_submit(SUB, "table_1", "pumpkin_soup", 1)
+    assert error.value.code == "event_closed"
+    assert all(pool["pool_id"] != POOL for pool in service._gacha_pools_snapshot(player))
+
+
+def test_history_freezes_featured_partner_across_schedule_edits(game):
+    service, repository, clock, player = game
+    record = GachaRequestRecord(request_id="frozen-up-history", pool_id=POOL, count=1,
+                               created_at=int(clock.now), featured_partner_id="leilei",
+                               results=[GachaDropRecord(kind="partner", content_id="leilei", rarity=5)])
+    repository.update(player.player_id, lambda state: state.gacha_history.append(record))
+    # The timestamp now falls in Luo Nali's period. The saved actual UP wins.
+    assert service._gacha_pool(POOL).featured_partner_id == "luo_nali"
+    assert not service._gacha_featured_guaranteed(repository.get_by_sub(SUB), service._gacha_pool(POOL))
+
+
+def test_recruit_persists_actual_up_and_keeps_pity_across_boundary(game):
+    service, repository, clock, player = game
+    from red_leaf_town.application.rotating_gacha import load_rotation_config
+    config = load_rotation_config(service.season_loader())
+    clock.now = config.boundaries[1] - 1
+
+    def prepare(state):
+        state.experience = service.content.levels[-1].total_xp
+        state.guide_leaves = 10
+        state.gacha_progress[POOL] = GachaPoolProgressState(five_pity=49)
+        state.gacha_history = [GachaRequestRecord(
+            request_id="previous-missed-up", pool_id=POOL, count=1,
+            created_at=config.starts_at, featured_partner_id="leilei",
+            results=[GachaDropRecord(kind="partner", content_id="guqi", rarity=5)],
+        )]
+    repository.update(player.player_id, prepare)
+    # Save pity in the first period, then draw exactly at the second period.
+    clock.advance(1)
+    pulled = service.recruit(SUB, 1, "boundary-guaranteed-draw", POOL)
+    assert pulled["result"]["featured_partner_id"] == "luo_nali"
+    assert pulled["result"]["results"][0]["content_id"] == "luo_nali"
+    assert repository.get_by_sub(SUB).gacha_progress[POOL].five_pity == 0
+    balance = repository.get_by_sub(SUB).guide_leaves
+    repeated = service.recruit(SUB, 1, "boundary-guaranteed-draw", POOL)
+    assert repeated["result"]["replayed"]
+    assert repository.get_by_sub(SUB).guide_leaves == balance
+
+
+def test_harvest_story_cannot_be_marked_seen_to_bypass_replay_lock(game):
+    from red_leaf_town.story_content import StoryCatalog, StoryScript
+    service, repository, clock, player = game
+    script = StoryScript.model_validate({
+        "id": "harvest_act_2", "title": "第二幕测试",
+        "trigger": {"hook": "cue", "params": {"cue": "harvest:act_2"}},
+        "steps": [{"type": "dialogue", "speaker": "洛纳莉", "text": "测试"}],
+    })
+    service.story_catalog_loader = lambda: StoryCatalog(scripts=[script])
+    for action in [lambda: service.story_cue(SUB, "harvest:act_2"),
+                   lambda: service.mark_story_seen(SUB, script.id),
+                   lambda: service.story_replay(SUB, script.id)]:
+        with pytest.raises(GameError) as error:
+            action()
+        assert error.value.code == "story_locked"
+    assert script.id not in repository.get_by_sub(SUB).seen_story_ids
+    repository.update(player.player_id, lambda state: state.crossover_claims.update({"harvest:table:table_1": 1}))
+    assert service.story_cue(SUB, "harvest:act_2")["stories"][0]["id"] == script.id
+    service.mark_story_seen(SUB, script.id)
+    assert service.story_replay(SUB, script.id)["seen"]
+
+
+def test_published_harvest_scripts_preserve_author_steps_and_gate_unfinished_content(game):
+    import hashlib
+    import json
+    from pathlib import Path
+    service, repository, clock, player = game
+    root = Path(__file__).resolve().parents[1]
+    manifest = json.loads((root / 'docs/harvest-story-import.json').read_text())
+    catalog = service.story_catalog_loader()
+    assert len(manifest['chapters']) == 4
+    for entry in manifest['chapters']:
+        script = catalog.script_map[entry['story_id']]
+        assert len(script.steps) == entry['steps']
+        digest = hashlib.sha256(json.dumps([s.model_dump() for s in script.steps], sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+        assert digest == entry['steps_sha256']
+        for asset_id in script.asset_ids:
+            asset = service.story_asset_loader().asset_map[asset_id]
+            assert asset.asset_key and '/community/' not in asset.asset_key
+    assert service.story_cue(SUB, 'harvest:act_1')['stories'][0]['id'] == 'harvest_act_1'
+    with pytest.raises(GameError):
+        service.story_cue(SUB, 'harvest:act_3')
+    repository.update(player.player_id, lambda state: state.crossover_claims.update({
+        'harvest:table:table_1': 1, 'harvest:table:table_2': 1, 'harvest:table:table_3': 1,
+    }))
+    assert service.story_cue(SUB, 'harvest:act_3')['stories'][0]['id'] == 'harvest_act_3'
+    assert service.story_cue(SUB, 'harvest:rite_field')['stories'][0]['id'] == 'harvest_rite_field'
+    state = service.harvest_snapshot(SUB)
+    assert state['chapters'][-1]['pending']
+    assert state['rites'][-1]['pending'] and not state['rites'][-1]['unlocked']
+    service.mark_story_seen(SUB, 'harvest_rite_field')
+    assert service.story_replay(SUB, 'harvest_rite_field')['seen']

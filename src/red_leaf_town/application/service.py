@@ -286,12 +286,12 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
         context.pop("source_partner_id", None)
         return executed
 
-    def _gacha_pool(self, pool_id: str) -> GachaDefinition:
+    def _gacha_pool(self, pool_id: str, now: int | None = None) -> GachaDefinition:
         pool = self.gacha_pool_loader().get(pool_id)
         if pool is None:
             raise GameError("gacha_pool_not_found", "招募池不存在", 404)
         # 轮替池按当前期改写 UP；档期外返回 None，视同池子不存在。
-        rotated = self._rotate_gacha(pool)
+        rotated = self._rotate_gacha(pool, now)
         if rotated is None:
             raise GameError("gacha_pool_not_found", "招募池不存在", 404)
         return rotated
@@ -3820,7 +3820,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
         if len(request_id) < 8 or len(request_id) > 128:
             raise GameError("invalid_request_id", "招募请求标识不正确")
         now = self._now()
-        gacha = self._gacha_pool(pool_id)
+        gacha = self._gacha_pool(pool_id, now)
         economy = self.content.gacha_economy
         catalog = self.partner_catalog_loader()
         partners_by_rarity = self._pool_partner_candidates(gacha, catalog)
@@ -3846,7 +3846,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
                 raise GameError("gacha_pool_exhausted", f"这个招募池最多能招募 {gacha.max_pulls_per_player} 次，你还剩 {remaining} 次")
 
             player.guide_leaves -= count
-            featured_guaranteed = self._gacha_featured_guaranteed(player, gacha)
+            featured_guaranteed = self._gacha_featured_guaranteed(player, gacha, now)
             results: list[GachaDropRecord] = []
             for _ in range(count):
                 force_five = progress.five_pity + 1 >= gacha.five_star_pity
@@ -3893,6 +3893,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
                 pool_id=pool_id,
                 count=count,
                 created_at=now,
+                featured_partner_id=gacha.featured_partner_id,
                 results=results,
             )
             player.gacha_history.append(record)
@@ -5217,6 +5218,8 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
         for script in matched:
             if script.id.startswith("summer_chapter_"):
                 self._require_summer_story(player, script.id, context.now)
+            if script.id.startswith("harvest_"):
+                self._require_harvest_story(player, script.id, context.now)
         assets = self.story_asset_loader()
         partners = self.partner_catalog_loader()
         return {
@@ -5233,6 +5236,8 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
         def mutation(player: PlayerState):
             if script.id.startswith("summer_chapter_"):
                 self._require_summer_story(player, script.id, now)
+            if script.id.startswith("harvest_"):
+                self._require_harvest_story(player, script.id, now)
             if script.id in player.seen_story_ids:
                 return {"story_id": script.id, "granted": None}
             player.seen_story_ids.append(script.id)
@@ -5460,12 +5465,12 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
         """保底会强制抽出 4★ 和 5★，所以三个星级都得有人，池子才算能开。"""
         return all(candidates[rarity] for rarity in (3, 4, 5))
 
-    def _gacha_featured_guaranteed(self, player: PlayerState, gacha: GachaDefinition) -> bool:
+    def _gacha_featured_guaranteed(self, player: PlayerState, gacha: GachaDefinition, now: int | None = None) -> bool:
         """按本池最后一个五星判断大保底，兼容修复前的抽卡历史。
 
         轮替池有自己的一套（跨期继承），由 `_rotation_guaranteed` 接管。
         """
-        override = self._rotation_guaranteed(player, gacha)
+        override = self._rotation_guaranteed(player, gacha, now)
         if override is not None:
             return override
         if gacha.featured_partner_id:
@@ -7216,6 +7221,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
         }
 
     def _gacha_pools_snapshot(self, player: PlayerState) -> list[dict]:
+        now = self._now()
         catalog = self.partner_catalog_loader()
         catalog_payload = {
             definition.id: {
@@ -7239,7 +7245,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
         story_assets = self.story_asset_loader().asset_map
         pools = sorted(self.gacha_pool_loader().values(), key=lambda entry: (entry.display_order, entry.min_level, entry.pool_id))
         # 轮替池在这里也要换成当期：抽卡走 `_gacha_pool`，界面走这里，两处必须同一份定义。
-        pools = [rotated for pool in pools if (rotated := self._rotate_gacha(pool)) is not None]
+        pools = [rotated for pool in pools if (rotated := self._rotate_gacha(pool, now)) is not None]
         snapshots = []
         for gacha in pools:
             if not self._content_visible(player, gacha):
@@ -7279,7 +7285,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
                 "background": background_asset.model_dump() if background_asset else None,
                 "featured_partner_id": gacha.featured_partner_id,
                 "featured_rate": gacha.featured_rate,
-                "featured_guaranteed": self._gacha_featured_guaranteed(player, gacha),
+                "featured_guaranteed": self._gacha_featured_guaranteed(player, gacha, now),
                 "featured_four_star_partner_id": gacha.featured_four_star_partner_id,
                 "featured_four_star_rate": gacha.featured_four_star_rate,
                 "catalog": [
@@ -7289,7 +7295,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
                 ],
                 "task_items": task_items_payload,
             })
-        return self._rotation_decorate(snapshots)
+        return self._rotation_decorate(snapshots, now)
 
     def _clear_partner_assignment(self, player: PlayerState, partner_id: str, now: int | None = None) -> None:
         """把伙伴从别的生产格上腾出来。

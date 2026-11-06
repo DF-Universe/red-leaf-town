@@ -1971,6 +1971,7 @@ export interface HarvestChapter {
 }
 
 export interface HarvestRite {
+  pending: boolean
   id: string
   name: string
   host: string

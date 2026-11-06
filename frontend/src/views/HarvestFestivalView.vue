@@ -20,11 +20,12 @@ const playing = ref('')
 const watchedStory = ref(false)
 
 const visible = computed(() => snap.value?.visible)
-const todayText = computed(() => (snap.value ? `${snap.value.today} · 每日能交 ${snap.value.daily_limit} 份` : ''))
+const todayText = computed(() => (snap.value ? `${snap.value.today} · 每桌每日能交 ${snap.value.daily_limit} 份 · 04:00 刷新` : ''))
 
 function date(value: number) {
   return new Intl.DateTimeFormat('zh-CN', {
     timeZone: 'Asia/Shanghai', month: 'numeric', day: 'numeric',
+    hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
   }).format(new Date(value * 1000))
 }
 
@@ -44,7 +45,7 @@ function key(table: HarvestTable, dish: HarvestDish) {
 }
 
 function canSend(table: HarvestTable, dish: HarvestDish) {
-  return table.unlocked && !table.filled && dish.remaining > 0 && table.today_left > 0 && dish.owned > 0
+  return snap.value?.active && table.unlocked && !table.filled && dish.remaining > 0 && table.today_left > 0 && dish.owned > 0
 }
 
 function sendable(table: HarvestTable, dish: HarvestDish) {
@@ -250,14 +251,14 @@ onMounted(load)
           <article v-for="rite in snap.rites" :key="rite.id" class="harvest-card chapter-card" :class="{ 'is-locked': !rite.unlocked }">
             <div class="chapter-icon"><Check v-if="rite.done" :size="18" /><Leaf v-else-if="rite.unlocked" :size="18" /><Lock v-else :size="18" /></div>
             <div class="chapter-copy">
-              <h3>{{ rite.name }}</h3>
+              <h3>{{ rite.name }}<span v-if="rite.pending" class="chapter-pending">未完待续</span></h3>
             </div>
             <button
               type="button"
               class="dish-button is-primary"
-              :disabled="!rite.unlocked || rite.done || !!playing || story.active"
+              :disabled="rite.pending || !rite.unlocked || !!playing || story.active"
               @click="play(rite.cue, rite.story_id)"
-            >{{ rite.done ? '已成礼' : playing === rite.story_id ? '加载中…' : '举行' }}</button>
+            >{{ rite.pending ? '待续' : rite.done ? '回看' : playing === rite.story_id ? '加载中…' : '举行' }}</button>
           </article>
         </div>
       </section>
@@ -294,8 +295,8 @@ onMounted(load)
       <details class="harvest-card harvest-rules">
         <summary>活动规则</summary>
         <p>① 采集点「落日晒谷场 / 桂香栗林」为活动限定，一轮约十件，不耗体力。蜜薯藤苗也在晒谷场掉落。</p>
-        <p>② 九道菜在「丰收灶台」上做，灶台是独立工位，与镇民工坊各排各的队。</p>
-        <p>③ 每张桌子每天最多交 {{ snap.daily_limit }} 份，不累积、不补交，跨天清零。</p>
+        <p>② 九道菜在 3 级开放的「丰收灶台」上做，与镇民工坊各排各的队。鸭蛋来自 13 级养鸭，秋刀鱼来自 16 级远航；食材全部自给需先开放这些产业。</p>
+        <p>③ 每张桌子每天最多交 {{ snap.daily_limit }} 份，不累积、不补交，北京时间 04:00 清零。</p>
         <p>④ 桌 2 要等桌 1 摆满，桌 3 要等桌 2 摆满。填满一桌当场发奖并解锁下一幕。</p>
         <p>⑤ 团圆席的丰收大拼盘要额外消耗四道成品菜，留好再交。</p>
       </details>

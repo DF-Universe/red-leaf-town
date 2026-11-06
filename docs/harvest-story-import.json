@@ -1,0 +1,78 @@
+{
+  "chapters": [
+    {
+      "story_id": "harvest_act_1",
+      "share_id": "e3101ae7a464d1d85d0b3516499c7f2a3912ab8fd2fb6a212f2b1e40df831412",
+      "steps": 57,
+      "steps_sha256": "e55aeb340f39993e81dd73af08d9005eef7138ce7b28c4668c52dd5ba7e216ca"
+    },
+    {
+      "story_id": "harvest_act_2",
+      "share_id": "741e52f9c203665773289e068232829425e0bf68ac7397e223ca5ac6bc8ec072",
+      "steps": 100,
+      "steps_sha256": "05cbd7213ff2daca4132f5f04bf6f7023baf1c5ddf5275b27c0fee705d24e12d"
+    },
+    {
+      "story_id": "harvest_act_3",
+      "share_id": "b00b81f70c71c80f3eb648a6ca629cb3a0a01cd14192b1b1b643f5f4ae2351b2",
+      "steps": 148,
+      "steps_sha256": "69fe95dae01b8dd6019f2faa597463376a88283f1d6e528230ba0631db5cb868"
+    },
+    {
+      "story_id": "harvest_rite_field",
+      "share_id": "ff33859fcd52d6166a5c37e400c7c1ec0376813be774a07b880cfb96c13f8593",
+      "steps": 60,
+      "steps_sha256": "dc8798bff4fdb680013e9f970752cff6d18738584b9d86d2f37721df01de7703"
+    }
+  ],
+  "asset_copies": {
+    "red-leaf-town/story/community/portrait/up_51a6e2c48fb2-350a680eba40a82d.webp": "red-leaf-town/story/portrait/harvest-up_51a6e2c48fb2-350a680eba40a82d.webp",
+    "red-leaf-town/story/community/background/up_9137ee94d894-bdafa05bef89d4d7.webp": "red-leaf-town/story/background/harvest-up_9137ee94d894-bdafa05bef89d4d7.webp",
+    "red-leaf-town/story/community/portrait/up_7d6a351394cb-0fec3016c86071af.webp": "red-leaf-town/story/portrait/harvest-up_7d6a351394cb-0fec3016c86071af.webp",
+    "red-leaf-town/story/community/background/up_2af57c8fd31d-8156287d7e5ba567.webp": "red-leaf-town/story/background/harvest-up_2af57c8fd31d-8156287d7e5ba567.webp",
+    "red-leaf-town/story/community/portrait/up_8e9ff488b10c-e8885ec8823c776b.webp": "red-leaf-town/story/portrait/harvest-up_8e9ff488b10c-e8885ec8823c776b.webp",
+    "red-leaf-town/story/community/background/up_7ae7b28d48a8-eb83b8a973d7ccea.webp": "red-leaf-town/story/background/harvest-up_7ae7b28d48a8-eb83b8a973d7ccea.webp",
+    "red-leaf-town/story/community/background/up_c4c3e296920a-7e9f8628cf627fc5.webp": "red-leaf-town/story/background/harvest-up_c4c3e296920a-7e9f8628cf627fc5.webp",
+    "red-leaf-town/story/community/portrait/up_6b1bc4b1ad76-85025373683fbd16.webp": "red-leaf-town/story/portrait/harvest-up_6b1bc4b1ad76-85025373683fbd16.webp",
+    "red-leaf-town/story/community/background/up_dc6d8350a963-bf88dc73e08657e4.webp": "red-leaf-town/story/background/harvest-up_dc6d8350a963-bf88dc73e08657e4.webp",
+    "red-leaf-town/story/community/portrait/up_62cae07d39ff-03a774b7d5bfbd76.webp": "red-leaf-town/story/portrait/harvest-up_62cae07d39ff-03a774b7d5bfbd76.webp",
+    "red-leaf-town/story/community/portrait/up_69aad63f1c6b-aecc2d6eabef612b.webp": "red-leaf-town/story/portrait/harvest-up_69aad63f1c6b-aecc2d6eabef612b.webp"
+  },
+  "artwork": [
+    {
+      "id": "leilei_qipao",
+      "key": "red-leaf-town/partners/leilei/autumn-e41ef88bb1531d38.webp",
+      "sha256": "e41ef88bb1531d385e690320a765f33950f52f8520ea7bc6c1cfe5d906d5d902"
+    },
+    {
+      "id": "luo_nali_qipao",
+      "key": "red-leaf-town/partners/luo_nali/autumn-4489eaa698f46a9f.webp",
+      "sha256": "4489eaa698f46a9f34df81f403952fe111cd3a13312acdb8641dbd8ca80967f4"
+    },
+    {
+      "id": "gacha_rot_leilei",
+      "key": "red-leaf-town/story/background/leilei-harvest-rotation-b3f362e7e811c32d.webp",
+      "sha256": "b3f362e7e811c32d5819c9791edc463bd55ce607d95dae240cc2a65396369409"
+    },
+    {
+      "id": "gacha_rot_luo_nali",
+      "key": "red-leaf-town/story/background/luo_nali-harvest-rotation-9adbbcb186163f1c.webp",
+      "sha256": "9adbbcb186163f1c9e9d1a299c8da8dccc4e27b2f0c98d46535a28e9fe57bffe"
+    },
+    {
+      "id": "gacha_rot_gujian_miao",
+      "key": "red-leaf-town/story/background/gujian_miao-harvest-rotation-ca4494b41146f98a.webp",
+      "sha256": "ca4494b41146f98a6ec1b6be7f752d9aab6cef96fceb046d06fdbabfaa798ab3"
+    },
+    {
+      "id": "gacha_rot_mami",
+      "key": "red-leaf-town/story/background/mami-harvest-rotation-95ddd0d73d525c7b.webp",
+      "sha256": "95ddd0d73d525c7b96977ed0feaf5012d2a0f14122a28af739f1e2a79b1572be"
+    },
+    {
+      "id": "gacha_rot_zhuoyan",
+      "key": "red-leaf-town/story/background/zhuoyan-harvest-rotation-ccbfe25f441ad795.webp",
+      "sha256": "ccbfe25f441ad795a54a54c3558be24bba91bcfeb755f8ddf6805a3f603ccfb2"
+    }
+  ]
+}
