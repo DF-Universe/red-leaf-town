@@ -17,6 +17,8 @@
 
 玩家首页 `/red-leaf-town/` 是经营 Dashboard，集中展示居民等级、经验、当日天气、快捷入口和七个产业方向共享的天赋树。农场位于 `/red-leaf-town/farm`；采集页只负责派驻与采集任务，不再重复展示天赋树。购买和出售合并在 `/red-leaf-town/market`，桌面端左右分栏、移动端用标签页切换，商品与库存物品共用 `MarketItem` 组件；出售侧按 `item_id` 折叠品质分桶（多品质的物品点开才列出各桶），两侧在条目超过 6 个或出现多种物品类型时自动显示搜索框与种类筛选；旧的 `/shop` 与 `/inventory` 会重定向过去。
 
+秋收祭五位出场伙伴新增突破 1 次解锁的第二特性；解锁判断由服务端统一执行，生产与探索使用开始时快照，畜牧仍固定 8 小时一周期。机制与兼容规则见 [`docs/harvest-ascension-traits.md`](docs/harvest-ascension-traits.md)。
+
 ## 本地测试
 
 ```bash

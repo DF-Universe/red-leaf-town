@@ -55,8 +55,9 @@ class FacilityParameters:
     affection_cap: int
     affection_quality_base: float
     affection_quality_per_point: float
-    # 以下四项来自伙伴特性快照，没有驻场伙伴时全是中性值。
+    # 以下参数来自伙伴特性快照，没有驻场伙伴时全是中性值。
     quality_bonus: float = 0.0
+    normal_yield_multiplier: float = 1.0
     feed_multiplier: float = 1.0
     special_chance_bonus: float = 0.0
     affection_quality_bonus: float = 0.0
@@ -114,7 +115,7 @@ def yield_per_cycle(animal: AnimalState, species: SpeciesParameters) -> float:
 def overflow_cap(animal: AnimalState, species: SpeciesParameters, parameters: FacilityParameters) -> int:
     """攒到大约这么多就停产。设施越好，回来看一眼的间隔越宽。"""
 
-    return max(1, ceil(yield_per_cycle(animal, species) * parameters.overflow_cycles))
+    return max(1, ceil(yield_per_cycle(animal, species) * parameters.normal_yield_multiplier * parameters.overflow_cycles))
 
 
 def is_saturated(animal: AnimalState, species: SpeciesParameters, parameters: FacilityParameters) -> bool:
@@ -155,7 +156,7 @@ def _advance_animal(
     if animal.breeding_cooldown > 0:
         animal.breeding_cooldown = max(0.0, animal.breeding_cooldown - 1)
 
-    animal.yield_progress += yield_per_cycle(animal, species)
+    animal.yield_progress += yield_per_cycle(animal, species) * parameters.normal_yield_multiplier
     produced = int(animal.yield_progress)
     animal.yield_progress -= produced
     if produced <= 0:

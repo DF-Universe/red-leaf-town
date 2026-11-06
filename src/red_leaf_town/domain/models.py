@@ -177,7 +177,7 @@ class ProductionTaskSnapshot(BaseModel):
     harvest_xp: int = Field(ge=0)
     consumed_inputs: list[TaskInputSnapshot] = Field(default_factory=list)
     output_pool: list[TaskOutputSnapshot] = Field(default_factory=list, max_length=5)
-    draw_count: int = Field(default=0, ge=0, le=60)
+    draw_count: int = Field(default=0, ge=0, le=78)
     quality_parameters: TaskQualitySnapshot = Field(default_factory=TaskQualitySnapshot)
 
     @model_validator(mode="after")
@@ -390,6 +390,7 @@ class LivestockFacilityState(BaseModel):
     last_settled_at: int = Field(default=0, ge=0)
     stalled: bool = False
     quality_bonus: float = 0
+    normal_yield_multiplier: float = Field(default=1, ge=1, le=2)
     feed_multiplier: float = Field(default=1, ge=0)
     overflow_bonus: int = Field(default=0, ge=0)
     special_chance_bonus: float = Field(default=0, ge=0)
@@ -766,11 +767,14 @@ class DelveBattleState(BaseModel):
     order: list[str] = Field(min_length=1, max_length=7)
     turn_index: int = Field(default=0, ge=0)
     advantage_ready: dict[str, bool] = Field(default_factory=dict)
+    first_hit_followup_used: list[str] = Field(default_factory=list)
     advantage_uses_left: dict[str, int] = Field(default_factory=dict)
     logs: list[DelveBattleLog] = Field(default_factory=list, max_length=60)
 
 
 class ExplorationRunState(BaseModel):
+    # None marks legacy runs: retain base traits, do not grant new unlocks mid-run.
+    partner_trait_codes: dict[str, list[str]] | None = None
     season_pending_units: int = Field(default=0, ge=0)
     season_bonus: SeasonBonusSnapshot | None = None
     boss_defeated: bool = False

@@ -70,6 +70,10 @@ async function ascend() {
           <span v-for="tendency in ascension.tendencies" :key="tendency.industry"><small>{{ tendency.name }}</small><strong>{{ tendency.current_ability }} <ArrowRight :size="12" /> {{ tendency.max_ability }}</strong></span>
         </div>
         <p class="ability-note">右侧为培养至 {{ ascension.level_cap }} 级时的伙伴能力，突破后随升级逐步获得。</p>
+        <div v-for="trait in (partner.traits || []).filter(t => t.min_breakthrough === ascension?.breakthrough)" :key="trait.code" class="trait-unlock-preview">
+          <strong>{{ trait.name }}</strong><small>突破 {{ trait.min_breakthrough }} 次解锁</small>
+          <p>{{ trait.description }}</p>
+        </div>
         <template v-if="!completed">
           <div class="requirements-heading"><h3>突破所需</h3><span>优先消耗最低合格品质</span></div>
           <div class="ascension-materials">
@@ -96,6 +100,10 @@ async function ascend() {
 </template>
 
 <style scoped>
+.trait-unlock-preview { margin: 12px 0; padding: 12px; border-left: 2px solid var(--gold); background: #ffffff04; }
+.trait-unlock-preview small { margin-left: 10px; color: var(--muted); }
+.trait-unlock-preview p { margin: 6px 0 0; font-size: 12px; color: var(--muted); }
+
 .ascension-card { margin-top: 24px; padding: 18px; border: 1px solid #c7af7045; border-radius: 18px 6px; background: radial-gradient(ellipse at top right, #bda05d18, transparent 75%), #ffffff03; }
 .ascension-card-heading { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .crystal-mark { display: grid; place-items: center; width: 43px; height: 43px; flex-shrink: 0; color: #d7c58e; border: 1px solid #d7c58e38; border-radius: 13px; background: #d7c58e0c; }

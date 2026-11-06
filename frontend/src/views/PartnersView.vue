@@ -159,7 +159,7 @@ function rosterSubtitle(partner: OwnedPartner) {
           <section class="profile-section">
             <h3>特性</h3>
             <div v-if="selected.traits?.length" class="owned-traits">
-              <div v-for="trait in selected.traits" :key="trait.code"><strong>{{ trait.name }}</strong><span>{{ trait.description }}</span></div>
+              <div v-for="trait in selected.traits" :key="trait.code" :class="{ 'trait-locked': trait.unlocked === false }"><strong>{{ trait.name }} <small v-if="trait.min_breakthrough">{{ trait.unlocked === false ? `突破 ${trait.min_breakthrough} 次解锁` : '已解锁' }}</small></strong><span>{{ trait.description }}</span></div>
             </div>
             <p v-else class="section-placeholder">当前没有已配置特性。</p>
           </section>
@@ -174,6 +174,9 @@ function rosterSubtitle(partner: OwnedPartner) {
 </template>
 
 <style scoped>
+.owned-traits .trait-locked { opacity: .65; border-left-color: var(--muted); }
+.owned-traits strong small { margin-left: 8px; font-size: 10px; font-weight: 400; color: var(--muted); }
+
 .partner-warehouse {
   /* 顶栏 72 + 等级条 34；未滚动时列表上方还有页面内边距与标题块，滚动条高度按最紧的那一刻算 */
   --roster-top: 106px;

@@ -130,7 +130,7 @@ class SailingServiceMixin:
             ability = round(max(abilities) + (sum(abilities) - max(abilities)) * 0.25)
             ability += self.content.industries[industry].character_base_ability + self._industry_ability_bonus(player, industry)
             trait_context = {"industry": industry, "event_check_bonus": 0, "star_guidance_partner_id": "", "applied_effects": []}
-            self._execute_partner_trait_phase(partner_ids, "sailing_prepare", trait_context)
+            self._execute_partner_trait_phase(partner_ids, "sailing_prepare", trait_context, player=player)
             rescue_available = bool(trait_context["star_guidance_partner_id"])
             base = 1 if trial else route.draws.base_draws
             quantity = draw_count(ability, base, route.draws.ability_bonus, route.draws.difficulty)

@@ -1486,7 +1486,7 @@ export interface PartnerSelectCandidate {
   artwork: PartnerArtwork | null
   avatar_crop: AvatarCrop | null
   tendencies: Array<{ industry: string; name: string; ability: number }>
-  traits: Array<{ code: string; name: string; description: string }>
+  traits: Array<{ code: string; name: string; description: string; min_breakthrough?: number; unlocked?: boolean }>
   companion_marks_granted: number
 }
 
@@ -1524,6 +1524,8 @@ export interface OwnedPartnerTendency extends PartnerTendency {
 }
 
 export interface OwnedPartnerTrait {
+  min_breakthrough?: number
+  unlocked?: boolean
   code: string
   name: string
   description: string

@@ -28,6 +28,7 @@ class PartnerTraitDefinition:
     description: str
     handler: TraitHandler | None = None
     phases: frozenset[str] = frozenset()
+    min_breakthrough: int = 0
 
     @property
     def implemented(self) -> bool:
@@ -44,6 +45,7 @@ def register_partner_trait(
     *,
     phases: Iterable[str] = ("task_prepare",),
     replace: bool = False,
+    min_breakthrough: int = 0,
 ):
     normalized = str(code).strip()
     if not normalized:
@@ -64,6 +66,7 @@ def register_partner_trait(
             description,
             handler,
             normalized_phases,
+            min_breakthrough,
         )
         return handler
 
@@ -85,6 +88,10 @@ def partner_trait_catalog() -> list[PartnerTraitDefinition]:
 
 def partner_trait_codes() -> set[str]:
     return set(_TRAITS)
+
+
+def active_partner_trait_codes(codes: list[str], breakthrough: int = 0) -> list[str]:
+    return [code for code in codes if _TRAITS[code].min_breakthrough <= breakthrough]
 
 
 def execute_partner_traits(codes: list[str], context: MutableMapping[str, Any]) -> list[str]:
@@ -972,3 +979,54 @@ def _summer_mood(context: MutableMapping[str, Any]) -> None:
         _add(context, "quality_bonus", 25, stacking_group="pond_quality")
     elif phase == "output_draw" and _industry_is(context, "gathering") and _weather_is(context, "sunny"):
         _add(context, "draw_bonus", 1, stacking_group="draw_count")
+
+
+@register_partner_trait(
+    "bountiful_stable", "丰厩之赐",
+    "驻场畜牧时，普通产物数量提高25%，不足一件的部分累计至后续周期。",
+    phases=("livestock_segment",), min_breakthrough=1,
+)
+def _bountiful_stable(context):
+    if _industry_is(context, "livestock"):
+        _multiply(context, "normal_yield_multiplier", 1.25, stacking_group="livestock_yield")
+
+
+@register_partner_trait(
+    "wildland_bounty", "丰野馈赠",
+    "采集物产抽取次数增加30%，额外次数向下取整，至少增加1次。",
+    phases=("output_draw",), min_breakthrough=1,
+)
+def _wildland_bounty(context):
+    if _industry_is(context, "gathering"):
+        context["bonus_draw_percent"] = int(context.get("bonus_draw_percent", 0)) + 30
+        record_partner_trait_effect(context, "bonus_draw_percent", value=30)
+
+
+@register_partner_trait(
+    "silent_snowstep", "踏雪无痕",
+    "本人执行非全体的敏捷检定时，调整值＋2。",
+    phases=("exploration_event",), min_breakthrough=1,
+)
+def _silent_snowstep(context):
+    if (_exploration_check(context) and _exploration_actor(context)
+            and context.get("check_mode") != "sum" and context.get("check_attribute") == "agility"):
+        _add(context, "check_bonus", 2, stacking_group="exploration_check_bonus")
+
+
+@register_partner_trait(
+    "seasoned_husbandry", "熟稔农时",
+    "农作最终耗时减少8%，可突破最低耗时限制。",
+    phases=("task_prepare",), min_breakthrough=1,
+)
+def _seasoned_husbandry(context):
+    if _industry_is(context, "farming"):
+        _multiply(context, "duration_multiplier", 0.92, stacking_group="duration")
+
+
+@register_partner_trait(
+    "flame_chain", "烈焰连袭",
+    "每场战斗首次命中后，立即追加一次攻击；若目标已倒下，则攻击下一名存活敌人。",
+    phases=("delve_attack",), min_breakthrough=1,
+)
+def _flame_chain(context):
+    context["first_hit_followup"] = True

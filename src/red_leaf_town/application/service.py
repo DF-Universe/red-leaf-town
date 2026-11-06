@@ -141,7 +141,7 @@ from red_leaf_town.partner_content import (
 )
 from red_leaf_town.season_content import load_seasons, SeasonDefinition
 from red_leaf_town.domain.season import scale_quantities
-from red_leaf_town.partner_traits import execute_partner_traits, partner_trait_catalog
+from red_leaf_town.partner_traits import execute_partner_traits, partner_trait_catalog, active_partner_trait_codes
 from red_leaf_town.rewards import serialize_reward, validate_reward_references
 from red_leaf_town.story_assets import StoryAssetCatalog, load_story_asset_catalog
 from red_leaf_town.story_content import StoryCatalog, load_story_catalog, serialize_script
@@ -273,18 +273,32 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
         partner_ids: list[str],
         phase: str,
         context: dict,
+        *,
+        player: PlayerState | None = None,
+        trait_snapshot: dict[str, list[str]] | None = None,
     ) -> list[str]:
         catalog = self.partner_catalog_loader()
         executed: list[str] = []
         context["phase"] = phase
+        owned = {entry.partner_id: entry for entry in player.owned_partners} if player else {}
         for partner_id in partner_ids:
             definition = catalog.partner_map.get(partner_id)
             if definition is None:
                 continue
             context["source_partner_id"] = partner_id
-            executed.extend(execute_partner_traits(definition.trait_codes, context))
+            codes = (trait_snapshot.get(partner_id, []) if trait_snapshot is not None
+                     else active_partner_trait_codes(definition.trait_codes,
+                         owned[partner_id].breakthrough if partner_id in owned else 0))
+            executed.extend(execute_partner_traits(codes, context))
         context.pop("source_partner_id", None)
         return executed
+
+    def _partner_trait_view(self, code: str, breakthrough: int = 0) -> dict:
+        trait = next(trait for trait in partner_trait_catalog() if trait.code == code)
+        return {"code": code, "name": trait.name, "description": trait.description,
+                "implemented": trait.implemented, "phases": sorted(trait.phases),
+                "min_breakthrough": trait.min_breakthrough,
+                "unlocked": breakthrough >= trait.min_breakthrough}
 
     def _gacha_pool(self, pool_id: str, now: int | None = None) -> GachaDefinition:
         pool = self.gacha_pool_loader().get(pool_id)
@@ -388,6 +402,10 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
             except EconomyError as exc:
                 raise GameError("resource_insufficient", str(exc)) from exc
             run = ExplorationRunState(
+                partner_trait_codes={partner_id: active_partner_trait_codes(
+                    self.partner_catalog_loader().partner_map[partner_id].trait_codes,
+                    self._owned_partner(player, partner_id).breakthrough,
+                ) for partner_id in party},
                 run_id=str(uuid4()),
                 expedition_id=expedition.id,
                 expedition_kind=expedition.kind,
@@ -466,7 +484,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
                 "world": self._world_snapshot(now),
             }
             self._prime_exploration_check_context(run, choice, context)
-            self._execute_partner_trait_phase(run.partner_ids, "exploration_event", context)
+            self._execute_partner_trait_phase(run.partner_ids, "exploration_event", context, trait_snapshot=run.partner_trait_codes)
             check_result = self._resolve_exploration_check(run, choice, context)
             success = check_result["success"]
             degree = check_result["degree"]
@@ -1542,7 +1560,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
                 "rare_weight_multiplier": 1.0,
                 "applied_effects": [],
             }
-            self._execute_partner_trait_phase(companion_ids, "instant_action", trait_context)
+            self._execute_partner_trait_phase(companion_ids, "instant_action", trait_context, player=player)
             ability = self._aquatic_ability(player, companion_ids) + int(trait_context["ability_bonus"])
             draws = max(1, min(
                 FISHING_MAX_DRAWS,
@@ -2615,6 +2633,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
             affection_quality_base=rules.affection_quality_base,
             affection_quality_per_point=rules.affection_quality_per_point,
             quality_bonus=facility.quality_bonus,
+            normal_yield_multiplier=facility.normal_yield_multiplier,
             feed_multiplier=facility.feed_multiplier * self._feed_cost_multiplier(player),
             special_chance_bonus=facility.special_chance_bonus,
             affection_quality_bonus=facility.affection_quality_bonus,
@@ -2640,6 +2659,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
         context = {
             "industry": "livestock",
             "action": "livestock_segment",
+            "normal_yield_multiplier": 1.0,
             "content_id": facility.facility_id,
             "production_slot_id": f"livestock:{facility.facility_id}",
             "world": self._world_snapshot(now),
@@ -2651,8 +2671,9 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
             "affection_quality_bonus": 0.0,
             "applied_effects": [],
         }
-        self._execute_partner_trait_phase(facility.assigned_partner_ids, "livestock_segment", context)
+        self._execute_partner_trait_phase(facility.assigned_partner_ids, "livestock_segment", context, player=player)
         facility.quality_bonus = float(context["quality_bonus"])
+        facility.normal_yield_multiplier = float(context["normal_yield_multiplier"])
         facility.feed_multiplier = max(0.0, float(context["feed_multiplier"]))
         facility.overflow_bonus = max(0, int(context["overflow_bonus"]))
         facility.special_chance_bonus = max(0.0, float(context["special_chance_bonus"]))
@@ -2680,7 +2701,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
             "applied_effects": [],
             **fields,
         }
-        self._execute_partner_trait_phase(facility.assigned_partner_ids, "instant_action", context)
+        self._execute_partner_trait_phase(facility.assigned_partner_ids, "instant_action", context, player=player)
         return context
 
     def _grant_livestock_partner_experience(self, player: PlayerState, settlement) -> None:
@@ -2757,7 +2778,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
             "pending_special": animal.pending_special,
             "overflow_cap": overflow_cap(animal, species_parameters, parameters) if species_parameters else 0,
             "saturated": is_saturated(animal, species_parameters, parameters) if species_parameters else False,
-            "yield_per_cycle": round(yield_per_cycle(animal, species_parameters), 3) if species_parameters else 0,
+            "yield_per_cycle": round(yield_per_cycle(animal, species_parameters) * parameters.normal_yield_multiplier, 3) if species_parameters else 0,
             "quality_ability": round(animal_quality_ability(animal, parameters), 2),
             "breeding_cooldown": animal.breeding_cooldown,
             "breeding_cooldown_seconds": int(animal.breeding_cooldown * cycle),
@@ -2986,7 +3007,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
             "generation_gain_bonus": 0.0,
             "applied_effects": [],
         }
-        self._execute_partner_trait_phase(pond.assigned_partner_ids, "asset_prepare", context)
+        self._execute_partner_trait_phase(pond.assigned_partner_ids, "asset_prepare", context, player=player)
         pond.cycle_multiplier = max(0.01, float(context["cycle_multiplier"]))
         pond.feed_multiplier = max(0.0, float(context["feed_multiplier"]))
         pond.quality_bonus = float(context["quality_bonus"])
@@ -4001,6 +4022,9 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
             except EconomyError as exc:
                 raise GameError("resource_insufficient", str(exc)) from exc
             owned.breakthrough = target
+            for facility in player.livestock_facilities:
+                if partner_id in facility.assigned_partner_ids:
+                    self._refresh_livestock_trait_snapshot(player, facility, self._now())
             progress = self._grant_partner_experience(owned, 0)
             return {
                 "partner_id": partner_id,
@@ -4256,7 +4280,6 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
         if not player:
             raise GameError("player_not_found", "角色不存在", 404)
         catalog = self.partner_catalog_loader()
-        trait_definitions = {trait.code: trait for trait in partner_trait_catalog()}
         owned_ids = {owned.partner_id for owned in player.owned_partners}
         candidates = []
         for partner_id in sorted(PARTNER_SELECT_IDS):
@@ -4281,14 +4304,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
                     }
                     for tendency in definition.tendencies
                 ],
-                "traits": [
-                    {
-                        "code": code,
-                        "name": trait_definitions[code].name if code in trait_definitions else code,
-                        "description": trait_definitions[code].description if code in trait_definitions else "",
-                    }
-                    for code in definition.trait_codes
-                ],
+                "traits": [self._partner_trait_view(code) for code in definition.trait_codes],
                 "companion_marks_granted": PARTNER_SELECT_MARK_COMPENSATION[definition.rarity],
             })
         candidates.sort(key=lambda entry: (-entry["rarity"], entry["id"]))
@@ -5828,7 +5844,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
             if refund_chance and stamina_cost:
                 applied_effects.append({"source_type": "talent", "effect": "crafting_stamina_refund_chance", "value": min(1, refund_chance)})
         for phase in ("task_prepare", "output_draw", "quality_roll", "result_finalize"):
-            self._execute_partner_trait_phase(assigned_partner_ids, phase, trait_context)
+            self._execute_partner_trait_phase(assigned_partner_ids, phase, trait_context, player=player)
         applied_effects.extend(trait_context["applied_effects"])
         time_efficiency = 1 if fixed_duration else 1 + 2 * total_ability / (total_ability + int(time_difficulty))
         duration_multiplier = (
@@ -5878,6 +5894,8 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
                 effective_yield_min += extra_yield
                 effective_yield_max += extra_yield
         effective_draw_count = max(0, min(60, effective_draw_count))
+        if draws and effective_draw_count and trait_context.get("bonus_draw_percent"):
+            effective_draw_count += max(1, effective_draw_count * int(trait_context["bonus_draw_percent"]) // 100)
         return ProductionTaskSnapshot(
             industry=industry,
             content_id=content_id,
@@ -6220,7 +6238,9 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
                 luck=stats.luck,
                 state=state,
                 loadout=run.loadout.get(partner_id) or DelveLoadoutSnapshot(),
-                trait_codes=list(definition.trait_codes),
+                trait_codes=(list(run.partner_trait_codes.get(partner_id, []))
+                             if run.partner_trait_codes is not None
+                             else active_partner_trait_codes(definition.trait_codes)),
             )
         return members
 
@@ -6544,7 +6564,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
                 "world": self._world_snapshot(now),
             }
             self._prime_exploration_check_context(run, choice, context)
-            self._execute_partner_trait_phase(run.partner_ids, "exploration_event", context)
+            self._execute_partner_trait_phase(run.partner_ids, "exploration_event", context, trait_snapshot=run.partner_trait_codes)
             preview = self._exploration_check_preview(run, choice, context)
             options.append({
                 "partner_id": partner_id,
@@ -6636,7 +6656,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
                     "world": self._world_snapshot(now),
                 }
                 self._prime_exploration_check_context(run, choice, context)
-                self._execute_partner_trait_phase(run.partner_ids, "exploration_event", context)
+                self._execute_partner_trait_phase(run.partner_ids, "exploration_event", context, trait_snapshot=run.partner_trait_codes)
                 check_preview = self._exploration_check_preview(run, choice, context)
                 possible_costs = []
                 outcomes = (
@@ -7052,7 +7072,6 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
         now = self._now() if now is None else now
         catalog = self.partner_catalog_loader()
         definitions = catalog.partner_map
-        trait_definitions = {trait.code: trait for trait in partner_trait_catalog()}
         assigned_slots = {
             partner_id: plot.slot
             for plot in player.plots
@@ -7129,16 +7148,7 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
                     self._partner_tendency_snapshot(definition, tendency, owned)
                     for tendency in definition.tendencies
                 ],
-                "traits": [
-                    {
-                        "code": code,
-                        "name": trait_definitions[code].name if code in trait_definitions else code,
-                        "description": trait_definitions[code].description if code in trait_definitions else "",
-                        "implemented": trait_definitions[code].implemented if code in trait_definitions else False,
-                        "phases": sorted(trait_definitions[code].phases) if code in trait_definitions else [],
-                    }
-                    for code in definition.trait_codes
-                ],
+                "traits": [self._partner_trait_view(code, owned.breakthrough) for code in definition.trait_codes],
                 "upgrade_available": owned.level < level_cap_for_breakthrough(owned.breakthrough),
                 "star_up_available": owned.stars < 5,
                 "star_up_cost": self.content.gacha_economy.star_up_costs.get(owned.stars),

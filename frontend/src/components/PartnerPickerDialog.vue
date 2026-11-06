@@ -106,7 +106,7 @@ function statusText(partner: OwnedPartner) {
 }
 
 function explorationTraits(partner: OwnedPartner) {
-  return (partner.traits || []).filter((trait) => trait.phases?.includes('exploration_event'))
+  return (partner.traits || []).filter((trait) => trait.unlocked !== false && trait.phases?.includes('exploration_event'))
 }
 </script>
 

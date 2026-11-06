@@ -176,6 +176,8 @@ def member_attack(
     battle: DelveBattleState,
     member: PartyMember,
     target_key: str,
+    *,
+    followup: bool = False,
 ) -> None:
     target = _enemy(battle, target_key)
     if target is None or target.hp <= 0:
@@ -246,8 +248,16 @@ def member_attack(
         hit=hit,
         critical=critical and hit,
         damage=damage,
-        text=reroll_note + text,
+        text=("烈焰连袭：" if followup else "") + reroll_note + text,
     )
+
+    if (hit and not followup and trait_context.get("first_hit_followup")
+            and member.partner_id not in battle.first_hit_followup_used):
+        battle.first_hit_followup_used.append(member.partner_id)
+        candidates = living_enemies(battle)
+        if candidates:
+            next_target = target if target.hp > 0 else candidates[0]
+            member_attack(rng, battle, member, next_target.key, followup=True)
 
 
 def member_heal(

@@ -1709,7 +1709,8 @@
         }
       ],
       "trait_codes": [
-        "snowtrace_trick"
+        "snowtrace_trick",
+        "silent_snowstep"
       ],
       "artworks": [
         {
@@ -2457,7 +2458,8 @@
         }
       ],
       "trait_codes": [
-        "royal_rider_command"
+        "royal_rider_command",
+        "bountiful_stable"
       ],
       "artworks": [
         {
@@ -2646,7 +2648,8 @@
         }
       ],
       "trait_codes": [
-        "herb_lore"
+        "herb_lore",
+        "wildland_bounty"
       ],
       "artworks": [
         {
@@ -2738,7 +2741,8 @@
         }
       ],
       "trait_codes": [
-        "meticulous_farming"
+        "meticulous_farming",
+        "seasoned_husbandry"
       ],
       "artworks": [
         {
@@ -4839,7 +4843,8 @@
         }
       ],
       "trait_codes": [
-        "wildfire_instinct"
+        "wildfire_instinct",
+        "flame_chain"
       ],
       "artworks": [
         {

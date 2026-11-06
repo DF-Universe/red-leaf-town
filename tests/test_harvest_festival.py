@@ -39,8 +39,9 @@ def season_window():
 def game(season_window):
     content = load_content()
     repository = InMemoryPlayerRepository(content)
-    started, _ = season_window
-    clock = Clock(started + 5 * 86400 + 12 * 3600)   # 第 2 期正中
+    from red_leaf_town.application.rotating_gacha import load_rotation_config
+    boundaries = load_rotation_config(load_seasons()).boundaries
+    clock = Clock((boundaries[1] + boundaries[2]) // 2)  # 第 2 期正中，与上线时刻无关
     seasons = load_seasons()
     seasons["autumn_harvest_festival"] = seasons["autumn_harvest_festival"].model_copy(update={"enabled": True})
     service = GameService(content, repository, clock=clock, rng=random.Random(11), season_loader=lambda: seasons)

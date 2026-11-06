@@ -221,3 +221,36 @@ def test_initiative_is_rolled_once_and_ties_go_to_the_party():
     order = delve_battle.build_initiative(FixedRandom([12, 12]), members, enemies, {"beast#1": 0})
 
     assert order == ["hero", "beast#1"]
+
+
+def test_flame_chain_waits_for_hit_and_is_once_per_battle_after_reload():
+    hero = member('hero')
+    hero.trait_codes = ['flame_chain']
+    state = battle(enemy_hp=100)
+    delve_battle.member_attack(FixedRandom([1]), state, hero, 'beast#1')
+    assert state.first_hit_followup_used == []
+    delve_battle.member_attack(FixedRandom([12, 3, 20, 4, 4]), state, hero, 'beast#1')
+    assert len(state.logs) == 3
+    assert state.logs[-1].critical is True
+    assert state.logs[-1].damage == 9
+    assert state.first_hit_followup_used == ['hero']
+    state = DelveBattleState.model_validate_json(state.model_dump_json())
+    delve_battle.member_attack(FixedRandom([12, 3]), state, hero, 'beast#1')
+    assert len(state.logs) == 4
+    fresh = battle()
+    delve_battle.member_attack(FixedRandom([12, 3, 12, 3]), fresh, hero, 'beast#1')
+    assert len(fresh.logs) == 2
+
+
+def test_flame_chain_changes_dead_target_and_does_not_reuse_accessory_advantage():
+    hero = member('hero')
+    hero.trait_codes = ['flame_chain']
+    state = battle(enemy_hp=2)
+    state.enemies.append(state.enemies[0].model_copy(update={'key': 'beast#2', 'hp': 30, 'max_hp': 30}))
+    state.advantage_ready['hero'] = True
+    delve_battle.member_attack(FixedRandom([2, 12, 3, 1]), state, hero, 'beast#1')
+    assert state.enemies[0].hp == 0
+    assert state.enemies[1].hp == 30
+    assert state.logs[-1].rolls == [1]
+    assert state.logs[-1].hit is False
+    assert len(state.logs) == 2

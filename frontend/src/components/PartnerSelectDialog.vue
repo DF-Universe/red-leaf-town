@@ -124,7 +124,7 @@ async function confirm() {
         <section v-if="selected.traits.length" class="invite-section">
           <h3>特性</h3>
           <div class="invite-traits">
-            <div v-for="trait in selected.traits" :key="trait.code"><strong>{{ trait.name }}</strong><span>{{ trait.description }}</span></div>
+            <div v-for="trait in selected.traits" :key="trait.code"><strong>{{ trait.name }} <small v-if="trait.min_breakthrough">突破 {{ trait.min_breakthrough }} 次解锁</small></strong><span>{{ trait.description }}</span></div>
           </div>
         </section>
       </div>
