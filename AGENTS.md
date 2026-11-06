@@ -112,4 +112,4 @@ https://game.diving-fish.com/api/oauth/red-leaf-town/callback
 
 社区 PR #2/#3 的夏日皮肤兑换与盛夏应援场已原生接入，来源和发布要求见 `patches/README.md`。无需安装运行时补丁。皮肤兑换路由为 `/api/red-leaf-town/summer/skins/<skin_id>/claim`，素材先上传 CDN；首通副本免费且只结算一次，额外引路枫叶与通关记录原子保存，首领阶段随战斗持久化。专武只在明确点名顾祇 SP 的非求和检定中替换为敏捷。
 
-丰收祭（社区 PR #4）正在准备发布，具体修复、数值与发布操作见 [`docs/harvest-festival-release.md`](docs/harvest-festival-release.md)。秋活默认 `enabled: false`，正式发布时运行 `python3 scripts/schedule_harvest.py --write`，记录实际发布时间，上线日期加 45 天的北京时间 04:00 结束。五人三轮共十五期，首期从发布时刻开始，此后每三天 04:00 换期。已发布档期禁止重新初始化，后续部署保留线上已启用的档期配置。公共重置接口已移除，剧情回看要求已读。素材与剧本接入尚待完成，不能把本分支视为已上线。
+丰收祭（社区 PR #4）已于北京时间 2026-11-06 17:30:02 正式上线，结束于 2026-12-21 04:00。五人三轮共十五期，首期从发布时刻开始，此后每三天 04:00 换期。线上 `seasons.json` 已启用，后续部署必须保留实际档期，禁止重新初始化或用待发布模板覆盖。两套皮肤、五张海报及公共剧情素材均为已验证 WebP；第一至第三幕和祭田共 365 步已接入，第四幕和谢秋大祭显示未完待续。公共重置接口已移除，剧情播放和已读上报验证解锁，回看要求已读。910 项后端测试及前端类型/构建检查通过；来源、数值与发布记录见 [`docs/harvest-festival-release.md`](docs/harvest-festival-release.md)。
