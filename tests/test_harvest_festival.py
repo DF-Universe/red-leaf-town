@@ -53,6 +53,11 @@ def stock(repository, player, item_id, quantity, quality=0):
     repository.update(player.player_id, lambda state: add_item(state, item_id, quantity, quality))
 
 
+def set_level(service, player, level):
+    total_xp = next(entry.total_xp for entry in service.content.levels if entry.level == level)
+    service.repository.update(player.player_id, lambda state: setattr(state, "experience", total_xp))
+
+
 def fill(service, team):
     for dish_id, quantity in team:
         service.harvest_submit(SUB, "table_1", dish_id, quantity)
@@ -391,3 +396,42 @@ def test_published_harvest_scripts_preserve_author_steps_and_gate_unfinished_con
     assert state['rites'][-1]['pending'] and not state['rites'][-1]['unlocked']
     service.mark_story_seen(SUB, 'harvest_rite_field')
     assert service.story_replay(SUB, 'harvest_rite_field')['seen']
+
+
+def test_saury_pond_feeds_the_maple_saury_dish(game):
+    """秋刀鱼原先没有获取途径，枫糖烤秋刀是死配方；秋风塘负责补上这一环。"""
+    service, repository, clock, player = game
+    set_level(service, player, 10)
+    repository.update(player.player_id, lambda state: setattr(state, "coins", 4000))
+    service.build_pond(SUB, "pond_saury")
+    stock(repository, player, "saury_fry", 20)
+    service.stock_pond(SUB, "pond_saury", "saury", 20)
+    # 鱼塘按周期吃饲料，槽里没料就不长
+    stock(repository, player, "meadow_hay", 20)
+    service.deposit_feed(SUB, "meadow_hay", 0, 20)
+
+    clock.advance(3 * 14400 + 60)
+    result = service.harvest_pond(SUB, "pond_saury", 1)["result"]
+    assert result["species_id"] == "saury"
+    assert [drop["item_id"] for drop in result["drops"]] == ["sail_saury"]
+
+    # 捞上来的秋刀鱼正好能进枫糖烤秋刀的料单
+    recipe = service.content.recipe_map["roast_maple_saury"]
+    assert "sail_saury" in {entry.item_id for entry in recipe.inputs}
+
+
+def test_saury_pond_rejects_other_species_and_low_level(game):
+    service, repository, _, player = game
+    set_level(service, player, 10)
+    repository.update(player.player_id, lambda state: setattr(state, "coins", 4000))
+    service.build_pond(SUB, "pond_saury")
+    stock(repository, player, "fish_fry", 10)
+    with pytest.raises(GameError) as error:
+        service.stock_pond(SUB, "pond_saury", "crucian", 5)
+    assert error.value.code == "pond_species_mismatch"
+
+    set_level(service, player, 9)
+    stock(repository, player, "saury_fry", 5)
+    with pytest.raises(GameError) as error:
+        service.stock_pond(SUB, "pond_saury", "saury", 5)
+    assert error.value.code == "content_locked"

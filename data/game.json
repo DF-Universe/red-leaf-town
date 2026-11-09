@@ -1412,8 +1412,11 @@
       "icon": "fish",
       "kind": "produce",
       "sell_price": 56,
-      "has_quality": false,
-      "tags": []
+      "has_quality": true,
+      "tags": [
+        "fish",
+        "food"
+      ]
     },
     {
       "id": "sail_bonito",
@@ -2540,6 +2543,15 @@
       "kind": "material",
       "sell_price": 300,
       "has_quality": true,
+      "tags": []
+    },
+    {
+      "id": "saury_fry",
+      "name": "秋刀鱼苗",
+      "icon": "fish",
+      "kind": "material",
+      "sell_price": 0,
+      "has_quality": false,
       "tags": []
     }
   ],
@@ -8749,7 +8761,8 @@
       "osmanthus_lotus",
       "moon_rice_cake",
       "harvest_platter",
-      "harvest_ear"
+      "harvest_ear",
+      "saury_fry"
     ],
     "tiers": [
       {
@@ -10179,6 +10192,13 @@
       "price": 80,
       "currency": "coins",
       "min_level": 22
+    },
+    {
+      "id": "saury_fry",
+      "item_id": "saury_fry",
+      "price": 70,
+      "currency": "coins",
+      "min_level": 10
     }
   ],
   "fishing_combo": {
@@ -10538,6 +10558,17 @@
           "quantity": 6
         }
       ]
+    },
+    {
+      "id": "pond_saury",
+      "name": "秋风塘",
+      "description": "晒谷场后渠引来的活水塘，秋天里养着一塘秋刀鱼。",
+      "accent": "#5c8b86",
+      "min_level": 10,
+      "tier": 1,
+      "build_cost": 4000,
+      "species_id": "saury",
+      "build_materials": []
     }
   ],
   "pond_species": [
@@ -10591,6 +10622,33 @@
           310
         ],
         "width": 20,
+        "miracle_probability_cap": 0.003,
+        "miracle_eligible": true
+      }
+    },
+    {
+      "id": "saury",
+      "name": "秋刀鱼",
+      "icon": "fish",
+      "fry_item_id": "saury_fry",
+      "produce_item_id": "sail_saury",
+      "base_cycle_seconds": 14400,
+      "time_difficulty": 150,
+      "growth_rate": 0.08,
+      "maturation_cycles": 3,
+      "steady_ratio": 0.6,
+      "generation_gain": 0.6,
+      "generation_decay": 0.6,
+      "generation_cap": 60,
+      "min_level": 10,
+      "quality": {
+        "thresholds": [
+          60.0,
+          110.0,
+          185.0,
+          290.0
+        ],
+        "width": 20.0,
         "miracle_probability_cap": 0.003,
         "miracle_eligible": true
       }

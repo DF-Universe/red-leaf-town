@@ -513,10 +513,12 @@ def test_buildable_ponds_show_up_in_the_snapshot(game):
     set_level(repository, player.player_id, 10)
     repository.update(player.player_id, lambda state: setattr(state, "coins", 3000))
     aquatic = service.snapshot_by_sub("aquatic-sub")["aquatic"]
-    assert [entry["id"] for entry in aquatic["buildable_ponds"] if entry["unlocked"]] == ["pond_1"]
+    # 秋风塘同样是 10 级开放，只是造价 4000，所以解锁但买不起。
+    assert [entry["id"] for entry in aquatic["buildable_ponds"] if entry["unlocked"]] == ["pond_1", "pond_saury"]
     assert aquatic["buildable_ponds"][0]["build_cost"] == 3000
     assert aquatic["buildable_ponds"][0]["unlocked"] is True
     assert aquatic["buildable_ponds"][0]["affordable"] is True
+    assert aquatic["buildable_ponds"][1]["affordable"] is False
     service.build_pond("aquatic-sub", "pond_1")
     assert not any(entry["id"] == "pond_1" for entry in service.snapshot_by_sub("aquatic-sub")["aquatic"]["buildable_ponds"])
 
