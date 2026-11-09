@@ -3,7 +3,7 @@
   "season_id": "autumn_harvest_festival",
   "name": "丰收祭",
   "min_level": 1,
-  "daily_limit_per_table": 4,
+  "daily_limit_per_table": 5,
   "tables": [
     {
       "id": "table_1",

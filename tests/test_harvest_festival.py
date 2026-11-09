@@ -76,19 +76,28 @@ def test_snapshot_lists_three_tables_and_two_rites(game):
 
 def test_submit_consumes_dishes_and_stops_at_daily_limit(game):
     service, repository, _, player = game
-    stock(repository, player, "pumpkin_soup", 12)
+    festival = load_harvest_festival()
+    limit = festival.daily_limit_per_table
+    first, second = festival.tables[0].dishes[0], festival.tables[0].dishes[1]
+    stock(repository, player, first.item_id, first.quantity)
+    stock(repository, player, second.item_id, second.quantity)
 
-    sent = service.harvest_submit(SUB, "table_1", "pumpkin_soup", 4)
-    assert sent["result"]["submitted"] == 4
-    assert sent["state"]["tables"][0]["today_sent"] == 4
+    # 额度摊在两道菜上，交满当天额度后两道菜都还有空位，
+    # 这样再交一份才会落到 daily_limit，而不是先撞上「这个菜位已经摆满了」。
+    half = limit // 2
+    first_sent = service.harvest_submit(SUB, "table_1", first.item_id, half)
+    assert first_sent["result"]["submitted"] == half
+    rest = service.harvest_submit(SUB, "table_1", second.item_id, limit - half)
+    assert rest["result"]["submitted"] == limit - half
+    assert rest["state"]["tables"][0]["today_sent"] == limit
 
     with pytest.raises(GameError) as error:
-        service.harvest_submit(SUB, "table_1", "pumpkin_soup", 1)
+        service.harvest_submit(SUB, "table_1", first.item_id, 1)
     assert error.value.code == "daily_limit"
 
     # 跨天额度清零（日界与每日委托同口径）
     service.clock.now += 86400
-    again = service.harvest_submit(SUB, "table_1", "pumpkin_soup", 1)
+    again = service.harvest_submit(SUB, "table_1", first.item_id, 1)
     assert again["state"]["tables"][0]["today_sent"] == 1
 
 
@@ -240,14 +249,18 @@ def test_story_replay_rejects_unseen_story_without_changing_save(game):
     assert repository.get_by_sub(SUB).model_dump() == before
 
 
-def test_all_tables_take_19_days_and_pay_exactly_once(game):
+def test_all_tables_take_15_days_and_pay_exactly_once(game):
+    """81 份、每桌每天 5 份、一桌满当天接下一桌 → 第 15 天摆满，奖励只发一次。"""
     service, repository, clock, player = game
     for table in load_harvest_festival().tables:
         for dish in table.dishes:
             stock(repository, player, dish.item_id, dish.quantity)
     before = repository.get_by_sub(SUB)
     rewards = []
-    for day in range(1, 20):
+    day = 0
+    while True:
+        day += 1
+        assert day <= 60, "60 天还没摆满，交付节奏算错了"
         for table in service.harvest_snapshot(SUB)["tables"]:
             # Refresh after completing the preceding table on the same day.
             table = next(t for t in service.harvest_snapshot(SUB)["tables"] if t["id"] == table["id"])
@@ -261,9 +274,10 @@ def test_all_tables_take_19_days_and_pay_exactly_once(game):
                     remaining -= result["result"]["submitted"]
                     if result["result"]["table_filled"]:
                         rewards.append(result["result"]["reward"])
-        state = service.harvest_snapshot(SUB)
-        assert state["all_filled"] == (day == 19)
+        if service.harvest_snapshot(SUB)["all_filled"]:
+            break
         clock.advance(86400)
+    assert day == 15
     after = repository.get_by_sub(SUB)
     assert after.coins - before.coins == 26000
     assert after.guide_leaves - before.guide_leaves == 8
