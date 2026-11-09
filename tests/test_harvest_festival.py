@@ -435,3 +435,85 @@ def test_saury_pond_rejects_other_species_and_low_level(game):
     with pytest.raises(GameError) as error:
         service.stock_pond(SUB, "pond_saury", "saury", 5)
     assert error.value.code == "content_locked"
+
+
+def test_sweet_potato_seed_plants_from_quality_grade(game):
+    """采集来的藤苗带品质（落在品质 4 的格子里），照样要能种下去。
+
+    采集点产出物必须带品质，所以蜜薯藤苗的库存永远不是品质 0；
+    plant 若按品质 0 扣就会报「物品数量不足」（前端看的是各品质求和，还显示有货）。
+    """
+    service, repository, _, player = game
+    stock(repository, player, "sweet_potato_seed", 3, quality=4)
+
+    service.plant(SUB, 0, "sweet_potato")
+
+    state = repository.get(player.player_id)
+    assert state.inventory["sweet_potato_seed"] == {4: 2}
+    assert state.plots[0].crop_id == "sweet_potato"
+
+
+def test_sweet_potato_seed_still_fails_when_truly_out_of_stock(game):
+    service, repository, _, player = game
+
+    with pytest.raises(GameError) as error:
+        service.plant(SUB, 0, "sweet_potato")
+    assert error.value.code == "resource_insufficient"
+
+    state = repository.get(player.player_id)
+    assert not state.inventory.get("sweet_potato_seed")
+    assert state.plots[0].crop_id == ""
+
+
+def test_sweet_potato_from_farm_bakes_onto_the_first_table(game):
+    """种出来的蜜薯做得了蜜薯烤饼，做出来的饼摆得上第一桌。
+
+    这条卡的是「产物带品质」的整条链路：收获的蜜薯落在品质 1~5（品质 0 会被
+    `_normalize_inventory_quality` 搬到品质 1），所以配方扣料和餐桌扣菜都必须跨品质。
+    """
+    service, repository, clock, player = game
+    set_level(service, player, 12)
+    stock(repository, player, "sweet_potato_seed", 1, quality=4)
+
+    service.plant(SUB, 0, "sweet_potato")
+    clock.advance(40000)
+    harvested = service.harvest(SUB, 0)["result"]
+    assert harvested["item_id"] == "sweet_potato"
+    grown = repository.get(player.player_id).inventory["sweet_potato"]
+    assert grown and all(quality >= 1 for quality in grown)
+
+    stock(repository, player, "flour", 5)
+    service.start_crafting(SUB, "harvest_hearth", "bake_sweet_potato_cake", quantity=1)
+    clock.advance(900)
+    service.collect_crafting(SUB, "harvest_hearth")
+    assert repository.get(player.player_id).inventory.get("sweet_potato_cake")
+
+    submitted = service.harvest_submit(SUB, "table_1", "sweet_potato_cake", 1)["result"]
+    assert submitted["dish_id"] == "sweet_potato_cake"
+    assert submitted["submitted"] == 1
+
+
+def test_saury_from_pond_roasts_onto_the_first_table(game):
+    """鱼塘养出来的秋刀鱼（带品质）烤得出枫糖烤秋刀，也摆得上第一桌。"""
+    service, repository, clock, player = game
+    set_level(service, player, 12)
+    stock(repository, player, "sail_saury", 4, quality=3)
+    stock(repository, player, "maple_resin", 2)
+
+    service.start_crafting(SUB, "harvest_hearth", "roast_maple_saury", quantity=1)
+    clock.advance(900)
+    service.collect_crafting(SUB, "harvest_hearth")
+    assert repository.get(player.player_id).inventory.get("maple_saury_roast")
+
+    submitted = service.harvest_submit(SUB, "table_1", "maple_saury_roast", 1)["result"]
+    assert submitted["submitted"] == 1
+
+
+def test_harvested_sweet_potato_is_feedable(game):
+    """蜜薯带品质照样能投进饲料槽（投料是按玩家选的那一档扣）。"""
+    service, repository, _, player = game
+    stock(repository, player, "sweet_potato", 2, quality=1)
+
+    result = service.deposit_feed(SUB, "sweet_potato", 1, 2)["result"]
+    assert result["added_units"] == 12
+    assert not repository.get(player.player_id).inventory.get("sweet_potato")

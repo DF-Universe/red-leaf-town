@@ -106,7 +106,14 @@ from red_leaf_town.domain import (
 )
 from red_leaf_town.domain import delve_battle
 from red_leaf_town.domain.delve_battle import BattleError, PartyMember
-from red_leaf_town.domain.economy import EconomyError, add_item, grant_coins, remove_item, spend_coins
+from red_leaf_town.domain.economy import (
+    EconomyError,
+    add_item,
+    grant_coins,
+    remove_item,
+    remove_item_any_quality,
+    spend_coins,
+)
 from red_leaf_town.domain.monthly_card import extend_expiry, remaining_days
 from red_leaf_town.domain.redemption import generate_code, normalize_code
 from red_leaf_town.domain.progression import (
@@ -910,7 +917,9 @@ class GameService(FacilitiesServiceMixin, HarvestServiceMixin, SummerSkinsMixin,
             if task_item_id and player.task_items.get(task_item_id, 0) < len(units):
                 raise GameError("task_item_insufficient", f"本田需要 {len(units)} 份生产道具")
             try:
-                remove_item(player, crop.seed_item_id, len(units))
+                # 种子可能带品质（采集点产出必须带品质，蜜薯藤苗就是这样），
+                # 按固定品质扣会误报「物品数量不足」，这里不挑品质。
+                remove_item_any_quality(player, crop.seed_item_id, len(units))
                 consume_stamina(player, crop.stamina_cost * len(units), self.content, now)
             except (EconomyError, ValueError) as exc:
                 raise GameError("resource_insufficient", str(exc)) from exc
