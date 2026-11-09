@@ -53,6 +53,11 @@ def stock(repository, player, item_id, quantity, quality=0):
     repository.update(player.player_id, lambda state: add_item(state, item_id, quantity, quality))
 
 
+def set_level(service, player, level):
+    total_xp = next(entry.total_xp for entry in service.content.levels if entry.level == level)
+    service.repository.update(player.player_id, lambda state: setattr(state, "experience", total_xp))
+
+
 def fill(service, team):
     for dish_id, quantity in team:
         service.harvest_submit(SUB, "table_1", dish_id, quantity)
@@ -71,19 +76,28 @@ def test_snapshot_lists_three_tables_and_two_rites(game):
 
 def test_submit_consumes_dishes_and_stops_at_daily_limit(game):
     service, repository, _, player = game
-    stock(repository, player, "pumpkin_soup", 12)
+    festival = load_harvest_festival()
+    limit = festival.daily_limit_per_table
+    first, second = festival.tables[0].dishes[0], festival.tables[0].dishes[1]
+    stock(repository, player, first.item_id, first.quantity)
+    stock(repository, player, second.item_id, second.quantity)
 
-    sent = service.harvest_submit(SUB, "table_1", "pumpkin_soup", 4)
-    assert sent["result"]["submitted"] == 4
-    assert sent["state"]["tables"][0]["today_sent"] == 4
+    # 额度摊在两道菜上，交满当天额度后两道菜都还有空位，
+    # 这样再交一份才会落到 daily_limit，而不是先撞上「这个菜位已经摆满了」。
+    half = limit // 2
+    first_sent = service.harvest_submit(SUB, "table_1", first.item_id, half)
+    assert first_sent["result"]["submitted"] == half
+    rest = service.harvest_submit(SUB, "table_1", second.item_id, limit - half)
+    assert rest["result"]["submitted"] == limit - half
+    assert rest["state"]["tables"][0]["today_sent"] == limit
 
     with pytest.raises(GameError) as error:
-        service.harvest_submit(SUB, "table_1", "pumpkin_soup", 1)
+        service.harvest_submit(SUB, "table_1", first.item_id, 1)
     assert error.value.code == "daily_limit"
 
     # 跨天额度清零（日界与每日委托同口径）
     service.clock.now += 86400
-    again = service.harvest_submit(SUB, "table_1", "pumpkin_soup", 1)
+    again = service.harvest_submit(SUB, "table_1", first.item_id, 1)
     assert again["state"]["tables"][0]["today_sent"] == 1
 
 
@@ -235,14 +249,18 @@ def test_story_replay_rejects_unseen_story_without_changing_save(game):
     assert repository.get_by_sub(SUB).model_dump() == before
 
 
-def test_all_tables_take_19_days_and_pay_exactly_once(game):
+def test_all_tables_take_15_days_and_pay_exactly_once(game):
+    """81 份、每桌每天 5 份、一桌满当天接下一桌 → 第 15 天摆满，奖励只发一次。"""
     service, repository, clock, player = game
     for table in load_harvest_festival().tables:
         for dish in table.dishes:
             stock(repository, player, dish.item_id, dish.quantity)
     before = repository.get_by_sub(SUB)
     rewards = []
-    for day in range(1, 20):
+    day = 0
+    while True:
+        day += 1
+        assert day <= 60, "60 天还没摆满，交付节奏算错了"
         for table in service.harvest_snapshot(SUB)["tables"]:
             # Refresh after completing the preceding table on the same day.
             table = next(t for t in service.harvest_snapshot(SUB)["tables"] if t["id"] == table["id"])
@@ -256,9 +274,10 @@ def test_all_tables_take_19_days_and_pay_exactly_once(game):
                     remaining -= result["result"]["submitted"]
                     if result["result"]["table_filled"]:
                         rewards.append(result["result"]["reward"])
-        state = service.harvest_snapshot(SUB)
-        assert state["all_filled"] == (day == 19)
+        if service.harvest_snapshot(SUB)["all_filled"]:
+            break
         clock.advance(86400)
+    assert day == 15
     after = repository.get_by_sub(SUB)
     assert after.coins - before.coins == 26000
     assert after.guide_leaves - before.guide_leaves == 8
@@ -391,3 +410,124 @@ def test_published_harvest_scripts_preserve_author_steps_and_gate_unfinished_con
     assert state['rites'][-1]['pending'] and not state['rites'][-1]['unlocked']
     service.mark_story_seen(SUB, 'harvest_rite_field')
     assert service.story_replay(SUB, 'harvest_rite_field')['seen']
+
+
+def test_saury_pond_feeds_the_maple_saury_dish(game):
+    """秋刀鱼原先没有获取途径，枫糖烤秋刀是死配方；秋风塘负责补上这一环。"""
+    service, repository, clock, player = game
+    set_level(service, player, 10)
+    repository.update(player.player_id, lambda state: setattr(state, "coins", 4000))
+    service.build_pond(SUB, "pond_saury")
+    stock(repository, player, "saury_fry", 20)
+    service.stock_pond(SUB, "pond_saury", "saury", 20)
+    # 鱼塘按周期吃饲料，槽里没料就不长
+    stock(repository, player, "meadow_hay", 20)
+    service.deposit_feed(SUB, "meadow_hay", 0, 20)
+
+    clock.advance(3 * 14400 + 60)
+    result = service.harvest_pond(SUB, "pond_saury", 1)["result"]
+    assert result["species_id"] == "saury"
+    assert [drop["item_id"] for drop in result["drops"]] == ["sail_saury"]
+
+    # 捞上来的秋刀鱼正好能进枫糖烤秋刀的料单
+    recipe = service.content.recipe_map["roast_maple_saury"]
+    assert "sail_saury" in {entry.item_id for entry in recipe.inputs}
+
+
+def test_saury_pond_rejects_other_species_and_low_level(game):
+    service, repository, _, player = game
+    set_level(service, player, 10)
+    repository.update(player.player_id, lambda state: setattr(state, "coins", 4000))
+    service.build_pond(SUB, "pond_saury")
+    stock(repository, player, "fish_fry", 10)
+    with pytest.raises(GameError) as error:
+        service.stock_pond(SUB, "pond_saury", "crucian", 5)
+    assert error.value.code == "pond_species_mismatch"
+
+    set_level(service, player, 9)
+    stock(repository, player, "saury_fry", 5)
+    with pytest.raises(GameError) as error:
+        service.stock_pond(SUB, "pond_saury", "saury", 5)
+    assert error.value.code == "content_locked"
+
+
+def test_sweet_potato_seed_plants_from_quality_grade(game):
+    """采集来的藤苗带品质（落在品质 4 的格子里），照样要能种下去。
+
+    采集点产出物必须带品质，所以蜜薯藤苗的库存永远不是品质 0；
+    plant 若按品质 0 扣就会报「物品数量不足」（前端看的是各品质求和，还显示有货）。
+    """
+    service, repository, _, player = game
+    stock(repository, player, "sweet_potato_seed", 3, quality=4)
+
+    service.plant(SUB, 0, "sweet_potato")
+
+    state = repository.get(player.player_id)
+    assert state.inventory["sweet_potato_seed"] == {4: 2}
+    assert state.plots[0].crop_id == "sweet_potato"
+
+
+def test_sweet_potato_seed_still_fails_when_truly_out_of_stock(game):
+    service, repository, _, player = game
+
+    with pytest.raises(GameError) as error:
+        service.plant(SUB, 0, "sweet_potato")
+    assert error.value.code == "resource_insufficient"
+
+    state = repository.get(player.player_id)
+    assert not state.inventory.get("sweet_potato_seed")
+    assert state.plots[0].crop_id == ""
+
+
+def test_sweet_potato_from_farm_bakes_onto_the_first_table(game):
+    """种出来的蜜薯做得了蜜薯烤饼，做出来的饼摆得上第一桌。
+
+    这条卡的是「产物带品质」的整条链路：收获的蜜薯落在品质 1~5（品质 0 会被
+    `_normalize_inventory_quality` 搬到品质 1），所以配方扣料和餐桌扣菜都必须跨品质。
+    """
+    service, repository, clock, player = game
+    set_level(service, player, 12)
+    stock(repository, player, "sweet_potato_seed", 1, quality=4)
+
+    service.plant(SUB, 0, "sweet_potato")
+    clock.advance(40000)
+    harvested = service.harvest(SUB, 0)["result"]
+    assert harvested["item_id"] == "sweet_potato"
+    grown = repository.get(player.player_id).inventory["sweet_potato"]
+    assert grown and all(quality >= 1 for quality in grown)
+
+    stock(repository, player, "flour", 5)
+    service.start_crafting(SUB, "harvest_hearth", "bake_sweet_potato_cake", quantity=1)
+    clock.advance(900)
+    service.collect_crafting(SUB, "harvest_hearth")
+    assert repository.get(player.player_id).inventory.get("sweet_potato_cake")
+
+    submitted = service.harvest_submit(SUB, "table_1", "sweet_potato_cake", 1)["result"]
+    assert submitted["dish_id"] == "sweet_potato_cake"
+    assert submitted["submitted"] == 1
+
+
+def test_saury_from_pond_roasts_onto_the_first_table(game):
+    """鱼塘养出来的秋刀鱼（带品质）烤得出枫糖烤秋刀，也摆得上第一桌。"""
+    service, repository, clock, player = game
+    set_level(service, player, 12)
+    stock(repository, player, "sail_saury", 4, quality=3)
+    stock(repository, player, "maple_resin", 2)
+
+    service.start_crafting(SUB, "harvest_hearth", "roast_maple_saury", quantity=1)
+    clock.advance(900)
+    service.collect_crafting(SUB, "harvest_hearth")
+    assert repository.get(player.player_id).inventory.get("maple_saury_roast")
+
+    submitted = service.harvest_submit(SUB, "table_1", "maple_saury_roast", 1)["result"]
+    assert submitted["submitted"] == 1
+
+
+def test_harvested_sweet_potato_is_feedable(game):
+    """蜜薯带品质照样能投进饲料槽（投料是按玩家选的那一档扣）。"""
+    service, repository, _, player = game
+    stock(repository, player, "sweet_potato", 2, quality=1)
+
+    result = service.deposit_feed(SUB, "sweet_potato", 1, 2)["result"]
+    assert result["added_units"] == 12
+    assert not repository.get(player.player_id).inventory.get("sweet_potato")
